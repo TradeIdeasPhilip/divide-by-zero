@@ -26,6 +26,8 @@ I've tried a few things and nothing has worked well in Desmos.
 
 I'm not sure how I want to format this document.
 If I can use markdown that will make it easier to write the text.
-If I can add an `<iframe>` then I can embed animations and interactive content.
+If I can add an `<object>` tag then I can embed animations and interactive content.
 
-<iframe src="https://tradeideasphilip.github.io/bounce-3d/#shadows=1"><iframe>
+<object data="https://tradeideasphilip.github.io/bounce-3d/#shadows=1"></object>
+
+GitHub explicitly disables `<iframe>` in markdown.
