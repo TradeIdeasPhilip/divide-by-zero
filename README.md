@@ -28,6 +28,81 @@ I'm not sure how I want to format this document.
 If I can use markdown that will make it easier to write the text.
 If I can add an `<object>` tag then I can embed animations and interactive content.
 
-<object data="https://tradeideasphilip.github.io/bounce-3d/#shadows=1"></object>
 
 GitHub explicitly disables `<iframe>` in markdown.
+Apparently `<object>` is also forbidden.
+
+## Parabolas in SVG
+
+I wasn't having much luck with other approaches, so I decided to draw some things in SVG.
+SVG gives high quality results.
+And it knows how to draw parabolas.
+
+The problem is that SVG uses a different format for specifying parabolas than we use in algebra and calculus.
+I couldn't find a good reference on the subject, so here's what I discovered by trial and error.
+
+<svg
+  style="height: 400px; width: 400px; background-color: antiquewhite"
+  viewBox="-5 -5 10 10"
+  xmlns="http://www.w3.org/2000/svg"
+  stroke-width="0.1"
+  transform="scale(1 -1)">
+  <g id="grid" stroke-width="0.05" fill="none" stroke="lightgray">
+    <path d="M -5,-4 H 5"></path>
+    <path d="M -5,-3 H 5"></path>
+    <path d="M -5,-2 H 5"></path>
+    <path d="M -5,-1 H 5"></path>
+    <path d="M -5,1 H 5"></path>
+    <path d="M -5,2 H 5"></path>
+    <path d="M -5,3 H 5"></path>
+    <path d="M -5,4 H 5"></path>
+    <path d="M -4,-5 V 5"></path>
+    <path d="M -3,-5 V 5"></path>
+    <path d="M -2,-5 V 5"></path>
+    <path d="M -1,-5 V 5"></path>
+    <path d="M 1,-5 V 5"></path>
+    <path d="M 2,-5 V 5"></path>
+    <path d="M 3,-5 V 5"></path>
+    <path d="M 4,-5 V 5"></path>
+    <path stroke="black" d="M -5,0 L 5,0 M 0,-5 0,5"></path>
+  </g>
+  <g fill="orange">
+    <circle id="startingPoint" cx="-2" cy="4" r="0.2"></circle>
+    <circle id="endingPoint" cx="2" cy="4" r="0.2"></circle>
+    <circle id="controlPoint" cx="0" cy="-4" r="0.2" fill="violet"></circle>
+  </g>
+  <g id="tangentLines" fill="none" stroke="blue">
+    <path d="M -3,8 L 1,-8"><!--  y = -4x - 4  --></path>
+    <path d="M 3,8 L -1,-8"><!--  y = 4x - 4  --></path>
+  </g>
+  <path
+    id="parabola"
+    fill="none"
+    stroke="lime"
+    d="M -2,4 Q 0,-4 2,4">
+  </path>
+</svg>
+
+I have to specify a starting and ending point.
+These are shown here as orange circles.
+In the real presentation I will put these at the edge of the image, or slightly past the edge.
+In this example I put all the points well inside the image, to help me find any problems.
+
+Finally I need a _control point_, shown here as a violet circle.
+I had to do a little math to compute that, but not much.
+I need to draw a line that goes through the starting point and is tangent to the parabola.
+(That requires very simple calculus, just the derivative of the parabola.)
+And a second tangent line through the ending point.
+Where those two lines cross, that's the control point.
+
+`<path id="parabola" fill="none" stroke="lime" d="M -2,4 Q 0,-4 2,4"></path>` draws the actual parabola.
+Notice the three sets of coordinates describing the start, control, and end points.
+The `Q` means "quadratic." 
+See the source code for more details.
+
+Of course I'm not going to draw the circles or tangent lines in my final presentation.
+Those only exist as math behind the scenes.
+
+It's nice that I can copy an SVG directly into this markdown file.
+However, I think I will still need to make my own HTML file for my presentation.
+That will allow me to add some simple animations, and possibly some user interaction.

@@ -343,7 +343,7 @@ In our boat example, you might ask how far did the boat move between 10am and 10
 In our `2x` example you might ask what's the integral of `2x` between `x = 3` and `x = 7`.
 Those problems are both _definite_ integrals.
 
-!!! Show examples of the symbol for a _definate_ integral.
+!!! Show examples of the symbol for a _definite_ integral.
 
 If you know the _indefinite_ integral of a function, then it is trivial to compute a _definite_ integral of the same function.
 You compute the _indefinite_ integral at the start and end values, and you subtract the second from the first.
