@@ -1,0 +1,166 @@
+I did these experiments in a different project.
+I'm moving them here so they don't get lost.
+They are not working, as is.
+You would need to add these lines to the html and ts files for a working project.
+
+
+
+From Index.html:
+
+    <svg
+      style="height: 400px; width: 400px; background-color: antiquewhite"
+      viewBox="-5 -5 10 10"
+      xmlns="http://www.w3.org/2000/svg"
+      stroke-width="0.1"
+      transform="scale(1 -1)"
+    >
+      <g id="grid" stroke-width="0.05" fill="none" stroke="lightgray">
+        <path d="M -5,-4 H 5"></path>
+        <path d="M -5,-3 H 5"></path>
+        <path d="M -5,-2 H 5"></path>
+        <path d="M -5,-1 H 5"></path>
+        <path d="M -5,1 H 5"></path>
+        <path d="M -5,2 H 5"></path>
+        <path d="M -5,3 H 5"></path>
+        <path d="M -5,4 H 5"></path>
+        <path d="M -4,-5 V 5"></path>
+        <path d="M -3,-5 V 5"></path>
+        <path d="M -2,-5 V 5"></path>
+        <path d="M -1,-5 V 5"></path>
+        <path d="M 1,-5 V 5"></path>
+        <path d="M 2,-5 V 5"></path>
+        <path d="M 3,-5 V 5"></path>
+        <path d="M 4,-5 V 5"></path>
+        <path stroke="black" d="M -5,0 L 5,0 M 0,-5 0,5"></path>
+      </g>
+      <g fill="orange">
+        <circle id="startingPoint" cx="-2" cy="4" r="0.2"></circle>
+        <circle id="endingPoint" cx="2" cy="4" r="0.2"></circle>
+        <circle id="controlPoint" cx="0" cy="-4" r="0.2" fill="violet"></circle>
+      </g>
+      <g id="tangentLines" fill="none" stroke="blue">
+        <path d="M -3,8 L 1,-8"><!--  y = -4x - 4  --></path>
+        <path d="M 3,8 L -1,-8"><!--  y = 4x - 4  --></path>
+      </g>
+      <path
+        id="parabola"
+        fill="none"
+        stroke="lime"
+        d="M -2,4 Q 0,-4 2,4"
+      ></path>
+    </svg>
+    <svg
+      style="height: 400px; width: 400px; background-color: antiquewhite"
+      viewBox="-3 -3 6 6"
+      xmlns="http://www.w3.org/2000/svg"
+      stroke-width="0.1"
+      transform="scale(1 -1)">
+    <g stroke-width="0.05" fill="none" stroke="lightgray">
+      <path d="M -5,-4 H 5"></path>
+      <path d="M -5,-3 H 5"></path>
+      <path d="M -5,-2 H 5"></path>
+      <path d="M -5,-1 H 5"></path>
+      <path d="M -5,1 H 5"></path>
+      <path d="M -5,2 H 5"></path>
+      <path d="M -5,3 H 5"></path>
+      <path d="M -5,4 H 5"></path>
+      <path d="M -4,-5 V 5"></path>
+      <path d="M -3,-5 V 5"></path>
+      <path d="M -2,-5 V 5"></path>
+      <path d="M -1,-5 V 5"></path>
+      <path d="M 1,-5 V 5"></path>
+      <path d="M 2,-5 V 5"></path>
+      <path d="M 3,-5 V 5"></path>
+      <path d="M 4,-5 V 5"></path>
+      <path stroke="black" d="M -5,0 L 5,0 M 0,-5 0,5"></path>
+    </g>
+    <path
+    fill="none"
+    stroke="orange"
+    d="M -2,-2 Q 0,6 2,-2"
+  ></path>
+  </svg>
+
+
+
+From main.ts:
+
+const canvas = document.createElement("canvas");
+const canvasWidth = 400;
+const canvasHeight = 400;
+canvas.width = canvasWidth;
+canvas.height = canvasHeight;
+document.body.appendChild(canvas);
+const algebraTop = 2;
+const algebraBottom = -2;
+const algebraLeft = -2;
+const algebraRight = 2;
+const xToCanvas = makeLinear(algebraLeft, 0, algebraRight, canvasWidth);
+const yToCanvas = makeLinear(algebraTop, 0, algebraBottom, canvasHeight);
+const xToAlgebra = makeLinear(0, algebraLeft, canvasWidth, algebraRight);
+//const yToAlgebra = makeLinear(0, algebraTop, canvasHeight, algebraBottom);
+const context = canvas.getContext("2d")!;
+context.beginPath();
+context.fillStyle = "lightblue";
+context.lineWidth = 1;
+for (let x = (xToCanvas(-Math.SQRT2)|0) -1; x < xToCanvas(Math.SQRT2) + 2; x++) {
+  const y = Math.pow( xToAlgebra(x), 2);
+  context.lineTo(x, yToCanvas(y));
+  //console.log(x, yToCanvas(y));
+}
+//context.closePath();
+context.fill();
+context.beginPath();
+context.moveTo(xToCanvas(algebraLeft), yToCanvas(0));
+context.lineTo(xToCanvas(algebraRight), yToCanvas(0));
+context.moveTo(xToCanvas(0), yToCanvas(algebraTop));
+context.lineTo(xToCanvas(0), yToCanvas(algebraBottom));
+context.moveTo(xToCanvas(1), yToCanvas(0) - 5);
+context.lineTo(xToCanvas(1), yToCanvas(0) + 5);
+context.moveTo(xToCanvas(-1), yToCanvas(0) - 5);
+context.lineTo(xToCanvas(-1), yToCanvas(0) + 5);
+context.moveTo(xToCanvas(0) - 5, yToCanvas(1));
+context.lineTo(xToCanvas(0) + 5, yToCanvas(1));
+context.moveTo(xToCanvas(0) - 5, yToCanvas(-1));
+context.lineTo(xToCanvas(0) + 5, yToCanvas(-1));
+context.strokeStyle = "black";
+context.lineWidth = 2;
+context.stroke();
+context.beginPath();
+context.moveTo(xToCanvas(-1), yToCanvas(1));
+context.quadraticCurveTo(xToCanvas(0), yToCanvas(-1), xToCanvas(1), yToCanvas(1));
+context.strokeStyle = "red";
+context.lineWidth = 5;
+context.stroke();
+context.beginPath();
+context.moveTo(xToCanvas(-2), yToCanvas(4));
+context.quadraticCurveTo(xToCanvas(-1), yToCanvas(0), xToCanvas(0), yToCanvas(0));
+context.strokeStyle = "orange";
+context.lineWidth = 4;
+context.stroke();
+context.beginPath();
+context.moveTo(xToCanvas(-2), yToCanvas(4));
+context.quadraticCurveTo(xToCanvas(0), yToCanvas(-4), xToCanvas(2), yToCanvas(4));
+context.strokeStyle = "violet";
+context.lineWidth = 2;
+context.stroke();
+
+// (-2, 4), slope = -4, (-1, 0) 
+// Consider the tangent line at the starting point and the tangent line at the ending point.
+// The point where those two cross will be the control point.
+
+// at (1,1) the slope is 2
+//   y = 2x - 1
+// at (2, 4) the slope is 4
+//   y = 4x - 4
+// 2x - 1 = 4x - 4
+// 3 = 2x
+// x = 1.5
+// y = 2
+
+context.beginPath();
+context.moveTo(xToCanvas(1), yToCanvas(1));
+context.quadraticCurveTo(xToCanvas(1.5), yToCanvas(2), xToCanvas(2), yToCanvas(4));
+context.strokeStyle = "orange";
+context.lineWidth = 4;
+context.stroke();
