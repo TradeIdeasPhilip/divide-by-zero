@@ -1,0 +1,41 @@
+<svg
+  style="height: 400px; width: 400px; background-color: antiquewhite"
+  viewBox="-5 -5 10 10"
+  xmlns="http://www.w3.org/2000/svg"
+  stroke-width="0.1"
+  transform="scale(1 -1)">
+  <g id="grid" stroke-width="0.05" fill="none" stroke="lightgray">
+    <path d="M -5,-4 H 5"></path>
+    <path d="M -5,-3 H 5"></path>
+    <path d="M -5,-2 H 5"></path>
+    <path d="M -5,-1 H 5"></path>
+    <path d="M -5,1 H 5"></path>
+    <path d="M -5,2 H 5"></path>
+    <path d="M -5,3 H 5"></path>
+    <path d="M -5,4 H 5"></path>
+    <path d="M -4,-5 V 5"></path>
+    <path d="M -3,-5 V 5"></path>
+    <path d="M -2,-5 V 5"></path>
+    <path d="M -1,-5 V 5"></path>
+    <path d="M 1,-5 V 5"></path>
+    <path d="M 2,-5 V 5"></path>
+    <path d="M 3,-5 V 5"></path>
+    <path d="M 4,-5 V 5"></path>
+    <path stroke="black" d="M -5,0 L 5,0 M 0,-5 0,5"></path>
+  </g>
+  <g fill="orange">
+    <circle id="startingPoint" cx="-2" cy="4" r="0.2"></circle>
+    <circle id="endingPoint" cx="2" cy="4" r="0.2"></circle>
+    <circle id="controlPoint" cx="0" cy="-4" r="0.2" fill="violet"></circle>
+  </g>
+  <g id="tangentLines" fill="none" stroke="blue">
+    <path d="M -3,8 L 1,-8"><!--  y = -4x - 4  --></path>
+    <path d="M 3,8 L -1,-8"><!--  y = 4x - 4  --></path>
+  </g>
+  <path
+    id="parabola"
+    fill="none"
+    stroke="lime"
+    d="M -2,4 Q 0,-4 2,4">
+  </path>
+</svg>

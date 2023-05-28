@@ -83,6 +83,8 @@ I couldn't find a good reference on the subject, so here's what I discovered by 
   </path>
 </svg>
 
+[Sample SVG Graphic](./parabola.svg)
+
 I have to specify a starting and ending point.
 These are shown here as orange circles.
 In the real presentation I will put these at the edge of the image, or slightly past the edge.
@@ -103,6 +105,6 @@ See the source code for more details.
 Of course I'm not going to draw the circles or tangent lines in my final presentation.
 Those only exist as math behind the scenes.
 
-It's nice that I can copy an SVG directly into this markdown file.
-However, I think I will still need to make my own HTML file for my presentation.
-That will allow me to add some simple animations, and possibly some user interaction.
+GitHub stripped the `<svg>` tags from my markdown.
+So I will still need to make my own HTML file for my presentation.
+That will also allow me to add some simple animations, and possibly some user interaction.
