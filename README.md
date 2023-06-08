@@ -7,6 +7,8 @@ I have some ideas I'd like to put into a document.
 See [rough-draft.md](https://github.com/TradeIdeasPhilip/divide-by-zero/blob/master/rough-draft.md) for the words.
 `!!!` means that I plan to add a picture.
 
+[This document](https://tradeideasphilip.github.io/divide-by-zero/) will become my final presentation.
+
 Some pictures might require programming.
 Some will come from Desmos.
 
@@ -28,7 +30,6 @@ I'm not sure how I want to format this document.
 If I can use markdown that will make it easier to write the text.
 If I can add an `<object>` tag then I can embed animations and interactive content.
 
-
 GitHub explicitly disables `<iframe>` in markdown.
 Apparently `<object>` is also forbidden.
 
@@ -47,40 +48,40 @@ I couldn't find a good reference on the subject, so here's what I discovered by 
   xmlns="http://www.w3.org/2000/svg"
   stroke-width="0.1"
   transform="scale(1 -1)">
-  <g id="grid" stroke-width="0.05" fill="none" stroke="lightgray">
-    <path d="M -5,-4 H 5"></path>
-    <path d="M -5,-3 H 5"></path>
-    <path d="M -5,-2 H 5"></path>
-    <path d="M -5,-1 H 5"></path>
-    <path d="M -5,1 H 5"></path>
-    <path d="M -5,2 H 5"></path>
-    <path d="M -5,3 H 5"></path>
-    <path d="M -5,4 H 5"></path>
-    <path d="M -4,-5 V 5"></path>
-    <path d="M -3,-5 V 5"></path>
-    <path d="M -2,-5 V 5"></path>
-    <path d="M -1,-5 V 5"></path>
-    <path d="M 1,-5 V 5"></path>
-    <path d="M 2,-5 V 5"></path>
-    <path d="M 3,-5 V 5"></path>
-    <path d="M 4,-5 V 5"></path>
-    <path stroke="black" d="M -5,0 L 5,0 M 0,-5 0,5"></path>
-  </g>
-  <g fill="orange">
-    <circle id="startingPoint" cx="-2" cy="4" r="0.2"></circle>
-    <circle id="endingPoint" cx="2" cy="4" r="0.2"></circle>
-    <circle id="controlPoint" cx="0" cy="-4" r="0.2" fill="violet"></circle>
-  </g>
-  <g id="tangentLines" fill="none" stroke="blue">
-    <path d="M -3,8 L 1,-8"><!--  y = -4x - 4  --></path>
-    <path d="M 3,8 L -1,-8"><!--  y = 4x - 4  --></path>
-  </g>
-  <path
+<g id="grid" stroke-width="0.05" fill="none" stroke="lightgray">
+<path d="M -5,-4 H 5"></path>
+<path d="M -5,-3 H 5"></path>
+<path d="M -5,-2 H 5"></path>
+<path d="M -5,-1 H 5"></path>
+<path d="M -5,1 H 5"></path>
+<path d="M -5,2 H 5"></path>
+<path d="M -5,3 H 5"></path>
+<path d="M -5,4 H 5"></path>
+<path d="M -4,-5 V 5"></path>
+<path d="M -3,-5 V 5"></path>
+<path d="M -2,-5 V 5"></path>
+<path d="M -1,-5 V 5"></path>
+<path d="M 1,-5 V 5"></path>
+<path d="M 2,-5 V 5"></path>
+<path d="M 3,-5 V 5"></path>
+<path d="M 4,-5 V 5"></path>
+<path stroke="black" d="M -5,0 L 5,0 M 0,-5 0,5"></path>
+</g>
+<g fill="orange">
+<circle id="startingPoint" cx="-2" cy="4" r="0.2"></circle>
+<circle id="endingPoint" cx="2" cy="4" r="0.2"></circle>
+<circle id="controlPoint" cx="0" cy="-4" r="0.2" fill="violet"></circle>
+</g>
+<g id="tangentLines" fill="none" stroke="blue">
+<path d="M -3,8 L 1,-8"><!--  y = -4x - 4  --></path>
+<path d="M 3,8 L -1,-8"><!--  y = 4x - 4  --></path>
+</g>
+<path
     id="parabola"
     fill="none"
     stroke="lime"
     d="M -2,4 Q 0,-4 2,4">
-  </path>
+</path>
 </svg>
 
 [Sample SVG Graphic](./parabola.svg)
@@ -99,7 +100,7 @@ Where those two lines cross, that's the control point.
 
 `<path id="parabola" fill="none" stroke="lime" d="M -2,4 Q 0,-4 2,4"></path>` draws the actual parabola.
 Notice the three sets of coordinates describing the start, control, and end points.
-The `Q` means "quadratic." 
+The `Q` means "quadratic."
 See the source code for more details.
 
 Of course I'm not going to draw the circles or tangent lines in my final presentation.
