@@ -31,9 +31,10 @@ h3 {
   font-family: "Carter One", cursive;
 }
 h2 {
-  margin-left:0.75rem;
+  margin-left: 0.75rem;
 }
-h3,p {
+h3,
+p {
   margin-left: 1.5rem;
 }
 
