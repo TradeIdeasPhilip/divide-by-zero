@@ -1,3 +1,5 @@
+See https://tradeideasphilip.github.io/divide-by-zero/ for a newer version of this document.
+
 # How to Divide By Zero
 
 How to Divide By Zero, and other things you will learn in highschool calculus.
