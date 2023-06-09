@@ -96,7 +96,7 @@ pre {
   flex-direction: column;
   align-items: center;
 }
-.figure img {
+.figure > :first-child {
   flex-shrink: 1;
   max-width: calc(min(100%, 80vmin));
   max-height: calc(min(100%, 80vmin));
