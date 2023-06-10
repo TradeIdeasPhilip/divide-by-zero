@@ -59,6 +59,11 @@ code {
   text-decoration-color: aqua;*/
 }
 
+code.with-border {
+  border-style: solid;
+  border-width: medium;
+}
+
 pre {
   font-family: "Space Mono", monospace;
   font-style: italic;
