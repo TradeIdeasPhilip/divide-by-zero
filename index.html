@@ -42,7 +42,8 @@
       target="_blank"
       ><img src="./rough-draft-images/0100.png" />
       <div>
-        <code>2 - x²</code> Click on any graph for an interactive version.
+        <code>2 - x<span class="superscript">2</span></code> Click on any graph
+        for an interactive version.
       </div></a
     >
     <div class="phil-notes">
@@ -438,13 +439,18 @@
       Calculus focuses on smooth functions. There is a formal definition of
       smoothness, but your intuition is right. Let's look at some examples.
     </p>
-    <p><code>2 - x²</code> (2 minus x squared) is smooth everywhere.</p>
+    <p>
+      <code>2 - x<span class="superscript">2</span></code> (2 minus x squared)
+      is smooth everywhere.
+    </p>
     <a
       class="figure"
       href="https://www.desmos.com/calculator/jyszc0slze"
       target="_blank"
       ><img src="./rough-draft-images/0100.png" />
-      <div><code>2 - x²</code></div></a
+      <div>
+        <code>2 - x<span class="superscript">2</span></code>
+      </div></a
     >
     <p>
       <code>|x|</code> (the absolute value of x) is smooth everywhere except at
@@ -498,26 +504,37 @@
 
     <h2>Filling in Missing Values</h2>
     <p>
-      Let's look at the function <code>f(x) = x³ ÷ x</code>. Naively you might
-      simplify that to <code>x²</code>. That's almost right, but remember that
-      you are not allowed to divide by zero. So you should really say
-      <code>x³ ÷ x = x²</code>, but only when <code>x ≠ 0</code>.
-      <code>x³ ÷ x</code> is <i>undefined</i> when x = 0.
+      Let's look at the function
+      <code>f(x) = x<span class="superscript">3</span> ÷ x</code>. Naively you
+      might simplify that to <code>x<span class="superscript">2</span></code
+      >. That's almost right, but remember that you are not allowed to divide by
+      zero. So you should really say
+      <code
+        >x<span class="superscript">3</span> ÷ x = x<span class="superscript"
+          >2</span
+        ></code
+      >, but only when <code>x ≠ 0</code>.
+      <code>x<span class="superscript">3</span> ÷ x</code> is
+      <i>undefined</i> when x = 0.
     </p>
     <div class="phil-notes">
-      ‼️ Graph <code>x²</code>, but only when <code>x ≠ 0</code>. Presumably
-      there's a hollow circle at x=0. Presumably I'm getting most of these
-      charts from another tool, so I'll let it do it's thing. What's the name of
-      that free on line graphing calculator? Desmos I think.
+      ‼️ Graph <code>x<span class="superscript">2</span></code
+      >, but only when <code>x ≠ 0</code>. Presumably there's a hollow circle at
+      x=0. Presumably I'm getting most of these charts from another tool, so
+      I'll let it do it's thing. What's the name of that free on line graphing
+      calculator? Desmos I think.
     </div>
     <p>
-      In simpler terms, <code>x³ ÷ x</code> looks a lot like <code>x²</code>,
-      but it has a hole it it!
+      In simpler terms,
+      <code>x<span class="superscript">3</span> ÷ x</code> looks a lot like
+      <code>x<span class="superscript">2</span></code
+      >, but it has a hole it it!
     </p>
     <div class="phil-notes">
-      ‼️ Show graphs of Graph <code>x²</code>, but only when <code>x ≠ 0</code>,
-      and normal <code>x²</code>. “normal” one is first / on the left (to match
-      the text below.)
+      ‼️ Show graphs of Graph <code>x<span class="superscript">2</span></code
+      >, but only when <code>x ≠ 0</code>, and normal
+      <code>x<span class="superscript">2</span></code
+      >. “normal” one is first / on the left (to match the text below.)
     </div>
     <p>
       If you only had the second graph, you could probably guess what the first
@@ -599,24 +616,28 @@
       and (c) smooth.
     </p>
     <h2>Really Small Pieces</h2>
-    <p>So, what's the derivative of x²?</p>
+    <p>So, what's the derivative of x<span class="superscript">2</span>?</p>
     <div class="phil-notes">
-      ‼️ Draw a graph of x². x goes from -1 to 4. To save space y goes from -1
-      to 10. So the line will go off the top of the graph somewhere between x=3
-      and x=4. Label the x axis with an “x”. Label the y axis with “y = x²”.
+      ‼️ Draw a graph of x<span class="superscript">2</span>. x goes from -1 to
+      4. To save space y goes from -1 to 10. So the line will go off the top of
+      the graph somewhere between x=3 and x=4. Label the x axis with an “x”.
+      Label the y axis with “y = x<span class="superscript">2</span>”.
     </div>
     <p>
       You could say that the <i>average</i> rate of change between 0 and 1 is 1.
       And the average rate of change between 1 and 2 is 3. If you keep going
-      you'll get a graph like this for the derivative x².
+      you'll get a graph like this for the derivative x<span class="superscript"
+        >2</span
+      >.
     </p>
     <div class="phil-notes">
       ‼️ Keep the previous graph and add new lines in a different color. Draw
       straight lines connecting this series of points (-1, 1), (0,0), (1,1),
       (2,4), (3,9), (4,16). Add a second graph below the first. The x axis
       scales should line up perfectly. The y axis on the bottom should be
-      labeled “y' = the derivative of x²”. Fill in the values. These should each
-      be horizontal segments with open circles on both sides.
+      labeled “y' = the derivative of x<span class="superscript">2</span>”. Fill
+      in the values. These should each be horizontal segments with open circles
+      on both sides.
     </div>
     <p>
       But there's no reason to break things up that way. What if you asked for
@@ -640,20 +661,23 @@
     <p>
       As we get closer and closer to 0, the answer gets better and better. What
       if we asked about a change of 0? Every time x moves 0 units to the right,
-      x² moves 0 units up. And <code>0 ÷ 0</code> = <i>what?</i>
+      x<span class="superscript">2</span> moves 0 units up. And
+      <code>0 ÷ 0</code> = <i>what?</i>
     </p>
     <div class="phil-notes">
-      ‼️ Draw 2 graphs. On top, just x² without anything else. On the bottom
-      draw the graph of 2x.
+      ‼️ Draw 2 graphs. On top, just x<span class="superscript">2</span> without
+      anything else. On the bottom draw the graph of 2x.
     </div>
     <p>
       And that's why we learn limits before we learn derivatives. When you work
       out the problem in class you'll eventually learn that the derivative of
-      <code>x²</code> is <code>2x</code>, matching what we see on the graph. But
-      along the way to <code>2x</code> you'd see something (roughly) similar to
-      <code>2x² ÷ x</code>. Because you know limits you can simplify
-      <code>2x² ÷ x</code> to <code>2x</code> without being afraid to divide by
-      0.
+      <code>x<span class="superscript">2</span></code> is <code>2x</code>,
+      matching what we see on the graph. But along the way to
+      <code>2x</code> you'd see something (roughly) similar to
+      <code>2x<span class="superscript">2</span> ÷ x</code>. Because you know
+      limits you can simplify
+      <code>2x<span class="superscript">2</span> ÷ x</code> to
+      <code>2x</code> without being afraid to divide by 0.
     </p>
     <h2>Physics Examples</h2>
     <p>
@@ -730,9 +754,12 @@
     <p>
       How do you calculate an integral? One option is to look at all of the
       rules for computing derivatives, and to invert each of them. For example,
-      we saw above that the derivative of <code>x²</code> is <code>2x</code>. So
+      we saw above that the derivative of
+      <code>x<span class="superscript">2</span></code> is <code>2x</code>. So
       any time you have to integrate <code>2x</code>, you can look that up in
-      your list and say <i>an</i> answer is <code>x²</code>.
+      your list and say <i>an</i> answer is
+      <code>x<span class="superscript">2</span></code
+      >.
     </p>
     <p>
       <i>An</i> answer. Remember, a derivative is just a fancy version of a
@@ -740,16 +767,18 @@
       function can have the same derivative. So each function will have multiple
       anti-derivatives. The short version is that you need to write
       <code>+ C</code> at the end of your answer. So the integral of
-      <code>2x</code> is <code>x² + C</code>. Your teacher will take off a lot
-      of points of you forget the <code>+ C</code>!
+      <code>2x</code> is <code>x<span class="superscript">2</span> + C</code>.
+      Your teacher will take off a lot of points of you forget the
+      <code>+ C</code>!
     </p>
     <p>
-      <code>C</code> is any number. That means that <code>x²</code>,
-      <code>x² <b>+ 2</b></code
-      >, <code>x² <b>+ 3</b></code
-      >, <code>x² <b>+ 3.1</b></code
-      >, <code>x² <b>+ π</b></code
-      >, <code>x² <b>- 27</b></code
+      <code>C</code> is any number. That means that
+      <code>x<span class="superscript">2</span></code
+      >, <code>x<span class="superscript">2</span> <b>+ 2</b></code
+      >, <code>x<span class="superscript">2</span> <b>+ 3</b></code
+      >, <code>x<span class="superscript">2</span> <b>+ 3.1</b></code
+      >, <code>x<span class="superscript">2</span> <b>+ π</b></code
+      >, <code>x<span class="superscript">2</span> <b>- 27</b></code
       >, etc., are all valid integrals of <code>2x</code>. This method is nice
       because it gives you an exact answer. However, this method can be
       difficult in some cases and impossible in others.
@@ -759,24 +788,25 @@
       The previous section begs an important question. Are you expecting a
       number or a formula for an answer? If you see a problem like
       <code>∫ 2x dx</code>, that's called an <i>indefinite</i> integral. The
-      answer should look like <code>x² + C</code>, as described above. What if
-      you wanted an exact value? You can't just plug in a number for
+      answer should look like
+      <code>x<span class="superscript">2</span> + C</code>, as described above.
+      What if you wanted an exact value? You can't just plug in a number for
       <code>x</code>. Remember, <code>C</code> can be any number, so
-      <code>x² + C</code> can be any number. That's not very helpful! Back to
-      our boat example: What if we add up all of our measurements and got a
-      total of 10 miles? That means the boat <i>moved</i> 10 miles. But that
-      doesn't tell us the <i>position</i> of the boat. There could be two or
-      more boats all going the same speed, but if they start at different
-      positions they will end in different positions. Crudely speaking,
-      <code>C</code> corresponds to the initial position of the boat. In
-      practice, if you want an actual number from an integral, you will use
-      what's called a <i>definite</i> integral. A <i>definite</i> integral looks
-      just like an <i>indefinite</i> integral, except that the problem will
-      specify a start value <i>and</i> an end value. In our boat example, you
-      might ask how far did the boat move between 10am and 10:05. In our
-      <code>2x</code> example you might ask what's the integral of
-      <code>2x</code> between <code>x = 3</code> and <code>x = 7</code>. Those
-      problems are both <i>definite</i> integrals.
+      <code>x<span class="superscript">2</span> + C</code> can be any number.
+      That's not very helpful! Back to our boat example: What if we add up all
+      of our measurements and got a total of 10 miles? That means the boat
+      <i>moved</i> 10 miles. But that doesn't tell us the <i>position</i> of the
+      boat. There could be two or more boats all going the same speed, but if
+      they start at different positions they will end in different positions.
+      Crudely speaking, <code>C</code> corresponds to the initial position of
+      the boat. In practice, if you want an actual number from an integral, you
+      will use what's called a <i>definite</i> integral. A
+      <i>definite</i> integral looks just like an <i>indefinite</i> integral,
+      except that the problem will specify a start value <i>and</i> an end
+      value. In our boat example, you might ask how far did the boat move
+      between 10am and 10:05. In our <code>2x</code> example you might ask
+      what's the integral of <code>2x</code> between <code>x = 3</code> and
+      <code>x = 7</code>. Those problems are both <i>definite</i> integrals.
     </p>
     <div class="phil-notes">
       ‼️ Show examples of the symbol for a <i>definite</i> integral.
@@ -787,10 +817,23 @@
       compute the <i>indefinite</i> integral at the start and end values, and
       you subtract the second from the first. What's the integral of
       <code>2x</code> between <code>x = 3</code> and <code>x = 7</code>? Start
-      with <code>x² + C</code>. For the end value we get <code>7² + C</code> and
-      for the start value we get <code>3² + C</code>. So the answer will have to
-      be <code>(7² + C) - (3² + C)</code>. The <code>C</code>'s cancel out to
-      give us <code>7² - 3²</code> or <code>49 - 9</code> or <code>40</code>.
+      with <code>x<span class="superscript">2</span> + C</code>. For the end
+      value we get <code>7<span class="superscript">2</span> + C</code> and for
+      the start value we get
+      <code>3<span class="superscript">2</span> + C</code>. So the answer will
+      have to be
+      <code
+        >(7<span class="superscript">2</span> + C) - (3<span class="superscript"
+          >2</span
+        >
+        + C)</code
+      >. The <code>C</code>'s cancel out to give us
+      <code
+        >7<span class="superscript">2</span> - 3<span class="superscript"
+          >2</span
+        ></code
+      >
+      or <code>49 - 9</code> or <code>40</code>.
     </p>
     <h2>The Area Under the Curve</h2>
     <p>
@@ -821,38 +864,14 @@
       <a href="https://github.com/TradeIdeasPhilip">Philip Smolen</a> writing
       <a href="https://github.com/TradeIdeasPhilip/divide-by-zero">this</a> for
       the
-      <a href="Summer of Math Exposition 3"
-        >https://3blue1brown.substack.com/p/some3-begins</a
+      <a href="https://3blue1brown.substack.com/p/some3-begins"
+        >Summer of Math Exposition 3</a
       >
       contest. #SoME3 Click on the images for attribution and other details.
     </p>
     <br /><br />
     <hr />
 
-    <h1>Haitch I</h1>
-    <p>Maybe a graph of <code>2 - x²</code></p>
-    <div class="phil-notes">
-      That superscript 2 is <b>unreadable</b>. I'm impressed that that unicode
-      character works, but I can't use that. It looks too much like an
-      apostrophe. I should be able to do a nice job with some fancy html where I
-      make the 2 any size and offset I want.
-    </div>
-    <h2>Haitch II</h2>
-    <p><code>The quick brown fox jumps over the lazy dog.</code></p>
-    <p>
-      <code style="text-transform: uppercase"
-        >The quick brown fox jumps over the lazy dog.</code
-      >
-    </p>
-    <pre>
-       12
-      <u>+34</u>
-       46
-</pre
-    >
-    <h3>Haitch III</h3>
-    <p><code>12*3^4÷x⨉²√|n|!≠</code></p>
-    <br />
     <h1>&lt;h1&gt; Main Heading $123,456,789.00½𝛿÷★•∞☆</h1>
     <p>Words $1.00</p>
     <h2>&lt;h2&gt; ༺ Level 2 Heading ༻</h2>

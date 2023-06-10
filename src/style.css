@@ -109,3 +109,15 @@ pre {
 .figure div {
   text-align: center;
 }
+
+.superscript {
+  position: relative;
+  font-size:0.667em;
+  position: relative;
+  bottom:0.5em;
+}
+.superscript::before {
+  /* 2pt is a hack!  I tried 0.1em, but it seems like em's aren't completely linear.  They didn't work well with small values. */
+  font-size:2pt;
+  content: ' ';
+}
