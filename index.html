@@ -23,7 +23,8 @@
       <li>Someone who enjoys math and wants a different perspective.</li>
       <li>Me, back when I first started studying this subject.</li>
     </ul>
-
+    <h2>Topics</h2>
+    <div class="phil-notes">Insert a table of contents here.</div>
     <h1>Prerequisites</h1>
     <p>
       You need to remember some algebra to understand this document. Here is a
@@ -40,7 +41,9 @@
       href="https://www.desmos.com/calculator/jyszc0slze"
       target="_blank"
       ><img src="./rough-draft-images/0100.png" />
-      <div><code>2 - x²</code> Click for an interactive graph.</div></a
+      <div>
+        <code>2 - x²</code> Click on any graph for an interactive version.
+      </div></a
     >
     <div class="phil-notes">
       The words currently say “left” and “bottom.” Change that as needed. (Most
@@ -338,9 +341,13 @@
         >
       </div></a
     >
-    <p>The next graph shows a line going down, so it has a negative slope.
-      You can see that the function moves
-      <span style="color: pink">2 units <i><b>down</b></i></span> every time it moves
+    <p>
+      The next graph shows a line going down, so it has a negative slope. You
+      can see that the function moves
+      <span style="color: pink"
+        >2 units <i><b>down</b></i></span
+      >
+      every time it moves
       <span style="color: red">3 units <i>to the right</i></span
       >. So the slope is <code>(-2) ÷ 3</code>, or -⅔.
     </p>
@@ -395,27 +402,34 @@
     >
     <p>A horizontal line has a slope of 0.</p>
     <a
-    class="figure"
-    href="https://www.desmos.com/calculator/z7f91bbmex"
-    target="_blank"
-    ><img src="./rough-draft-images/0500.png" />
-    <div><code>f(x) = 1.5</code></div></a
-  >
-
+      class="figure"
+      href="https://www.desmos.com/calculator/z7f91bbmex"
+      target="_blank"
+      ><img src="./rough-draft-images/0500.png" />
+      <div><code>f(x) = 1.5</code></div></a
+    >
+    <p>
+      In this case the “rise” will always be 0. The “run” can be any number I
+      choose, let's say 42. <code>0 ÷ 42 = 0</code> So the slope is 0.
+    </p>
     <p>If the line is vertical, its slope is <i>undefined</i>.</p>
     <a
-    class="figure"
-    href="https://www.desmos.com/calculator/w1trgwsvwj"
-    target="_blank"
-    ><img src="./rough-draft-images/0600.png" />
-    <div><code>x = -1.6</code></div></a
-  >
+      class="figure"
+      href="https://www.desmos.com/calculator/w1trgwsvwj"
+      target="_blank"
+      ><img src="./rough-draft-images/0600.png" />
+      <div><code>x = -1.6</code></div></a
+    >
+    <p>
+      In this case the “run” is always 0. And anything ÷ 0 is <i>undefined</i>.
+      (Or is it? Keep reading!)
+    </p>
 
     <h1>Limits</h1>
     <p>
       Limits are a way to divide by zero and otherwise make infinity work for
-      you. In class you will learn a more precise definition of limits, and a
-      lot of rules to help you compute them. You might have to use limits
+      you. In calculus class you will learn a more precise definition of limits,
+      and a lot of rules to help you compute them. You might have to use limits
       directly to solve some problems. Mostly you learn about limits so you can
       understand the definitions of derivatives and integrals, described below.
     </p>
@@ -424,17 +438,35 @@
       Calculus focuses on smooth functions. There is a formal definition of
       smoothness, but your intuition is right. Let's look at some examples.
     </p>
-    <p><code>x²</code> (x squared) is smooth everywhere.</p>
-    <div class="phil-notes">‼️ Plot <code>x²</code></div>
+    <p><code>2 - x²</code> (2 minus x squared) is smooth everywhere.</p>
+    <a
+      class="figure"
+      href="https://www.desmos.com/calculator/jyszc0slze"
+      target="_blank"
+      ><img src="./rough-draft-images/0100.png" />
+      <div><code>2 - x²</code></div></a
+    >
     <p>
       <code>|x|</code> (the absolute value of x) is smooth everywhere except at
       x = 0.
     </p>
-    <div class="phil-notes">‼️ Plot <code>|x|</code></div>
+    <a
+      class="figure"
+      href="https://www.desmos.com/calculator/qggbuo5o0t"
+      target="_blank"
+      ><img src="./rough-draft-images/0700.png" />
+      <div><code>|x|</code></div></a
+    >
     <p>
       <code>n!</code> (n factorial) is not continuous, so it can't be smooth.
     </p>
-    <div class="phil-notes">‼️ Plot <code>n!</code></div>
+    <a
+      class="figure"
+      href="https://www.desmos.com/calculator/06k0kf256d"
+      target="_blank"
+      ><img src="./rough-draft-images/0800.png" />
+      <div><code>n!</code></div></a
+    >
     <p>
       Smoothness is the opposite of a fractal. No matter how much you zoom into
       a fractal you'll always find places where the function is not smooth.

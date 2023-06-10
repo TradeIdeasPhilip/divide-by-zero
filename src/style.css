@@ -104,7 +104,7 @@ pre {
 .figure > :first-child {
   flex-shrink: 1;
   max-width: calc(min(100%, 80vmin));
-  max-height: calc(min(100%, 80vmin));
+  max-height: 80vmin;
 }
 .figure div {
   text-align: center;
