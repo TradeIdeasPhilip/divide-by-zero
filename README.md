@@ -4,16 +4,29 @@ For #SoME3
 https://3blue1brown.substack.com/p/some3-begins
 
 I have some ideas I'd like to put into a document.
-See [rough-draft.md](https://github.com/TradeIdeasPhilip/divide-by-zero/blob/master/rough-draft.md) for the words.
-`!!!` means that I plan to add a picture.
 
 [This document](https://tradeideasphilip.github.io/divide-by-zero/) will become my final presentation.
+It's a work in progress.
+The parts near the top are pretty close to complete.
+My notes to myself have a yellow background.
+‼️ means that I plan to add a picture.
 
-Some pictures might require programming.
-Some will come from Desmos.
+Some pictures require programming.
+Mostly it's just screenshots and static SVG.
+But there's currently one animation that includes user interaction.
+
+The backgrounds for my pictures come from Desmos.
+This was the quickest, easiest way to graph a function.
+And most of the pictures include a hyperlink back to the original Desmos graph, so the user can explore further without me.
+
+I added my own annotations using SVG.
+It was easy to scale the SVG so my annotations would match the original graph.
+And I have the option to animate any SVGs.
 
 The words seem pretty close to what I want.
+I've been cleaning them up as I add pictures.
 The pictures will take some time.
+The animation took a lot longer than I expected.
 
 # Problem
 
@@ -23,15 +36,6 @@ If I drag my mouse, Desmos will show the correct value at each place, including 
 But that's easy to miss.
 Normally you'd draw a big open circle at that point.
 I've tried a few things and nothing has worked well in Desmos.
-
-# Test
-
-I'm not sure how I want to format this document.
-If I can use markdown that will make it easier to write the text.
-If I can add an `<object>` tag then I can embed animations and interactive content.
-
-GitHub explicitly disables `<iframe>` in markdown.
-Apparently `<object>` is also forbidden.
 
 ## Parabolas in SVG
 

@@ -5,18 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>÷ 0</title>
     
-    <script type="module" crossorigin src="./assets/main-023f709b.js"></script>
-    <link rel="stylesheet" href="./assets/index-771f977b.css">
+    <script type="module" crossorigin src="./assets/main-d76f9f83.js"></script>
+    <link rel="stylesheet" href="./assets/index-e1c3adba.css">
   </head>
   <body>
     <h1>How to Divide By Zero</h1>
     <p>
       How to divide by zero, and other things you will learn in highschool
-      calculus. This will give you an <b>overview</b> of calculus. This will
-      <i>not</i> replace your calculus textbook. This will help you understand
-      what you are learning in class, and why. When I first learned calculus we
-      focused on the mechanics of solving problems. I wish we'd spent more time
-      discussing <b>why</b> we were learning these things and what they meant.
+      calculus. This will give you a <b>brief overview</b> of calculus. This
+      will <i>not</i> replace your calculus textbook. This will help you
+      understand what you are learning in class, and why. When I first learned
+      calculus we focused on the mechanics of solving problems. I wish we'd
+      spent more time discussing <b>why</b> we were learning these things and
+      what they meant.
     </p>
     <h2>Intended Audience</h2>
     <ul>
@@ -42,23 +43,22 @@
       class="figure"
       href="https://www.desmos.com/calculator/jyszc0slze"
       target="_blank"
-      ><img src="./assets/0100-34ee1468.png" />
+      ><img src="./assets/0100-6ec0f952.png" />
       <div>
         <code>2 - x<span class="superscript">2</span></code> Click on any graph
         for an interactive version.
       </div></a
     >
-    <div class="phil-notes">
-      The words currently say “left” and “bottom.” Change that as needed. (Most
-      of the graphs described below include negative numbers.)
-    </div>
     <p>
-      The numbers along the bottom of the graph are the inputs to the function.
-      These are often things that you can change. We often call this “the x
-      axis.” The numbers along the left side of the graph are the outputs from
-      the function. If you give your computer or calculator an input to a
-      function, it can compute the output of that function. This is “the y
-      axis.” Or sometimes we say <code>f(x)</code> instead of y.
+      The dark <i>horizontal</i> line is called “the x axis.” The numbers along
+      this line are the inputs to the function. These are often things that you
+      can change.
+    </p>
+    <p>
+      The dark <i>vertical</i> line is called “the y axis.” the numbers along
+      this line are the outputs from the function. If you give your computer or
+      calculator an input to a function, it can compute the output of that
+      function. Sometimes we say <code>f(x)</code> instead of “y.”
     </p>
     <h2>Slope of a Line</h2>
     <p>
@@ -266,7 +266,7 @@
       >
       has different values than
       <code class="with-border" style="border-color: red">f(x) = 2x ÷ 3</code>,
-      but they both have lines with the same slope.
+      but they both have the same slope.
     </p>
     <a
       class="figure"
@@ -439,7 +439,8 @@
     <h2>Smoothness</h2>
     <p>
       Calculus focuses on smooth functions. There is a formal definition of
-      smoothness, but your intuition is right. Let's look at some examples.
+      smoothness, but <i>your intuition is right</i>. Let's look at some
+      examples.
     </p>
     <p>
       <code>2 - x<span class="superscript">2</span></code> (2 minus x squared)
@@ -449,7 +450,7 @@
       class="figure"
       href="https://www.desmos.com/calculator/jyszc0slze"
       target="_blank"
-      ><img src="./assets/0100-34ee1468.png" />
+      ><img src="./assets/0100-6ec0f952.png" />
       <div>
         <code>2 - x<span class="superscript">2</span></code>
       </div></a
@@ -493,15 +494,104 @@
       google. 😀
     </div>
     <p>
-      If you zoom into a smooth function enough, it will eventually look like a
-      straight line. That makes the function very easy to predict.
+      If you zoom into a smooth function enough, it will <i>eventually</i> look
+      like a straight line. That makes the function very easy to predict.
     </p>
+
+    <div class="figure">
+      <svg
+        id="zoomIn"
+        style="background-color: blanchedalmond"
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 1272 1270"
+      >
+        <image
+          x="0"
+          y="0"
+          width="1272"
+          height="1270"
+          href="./assets/0100-6ec0f952.png"
+          preserveAspectRatio="none"
+        ></image>
+        <g transform="scale(198.59375, -198.59375) translate(3.2, -3.2)">
+          <g>
+            <rect
+              x="-1.2"
+              y="-2.8"
+              height="2.4"
+              width="2.4"
+              stroke="none"
+              fill="black"
+            ></rect>
+            <clipPath id="clippingPath">
+              <rect
+                x="-1.2"
+                y="-2.8"
+                height="2.4"
+                width="2.4"
+                fill="none"
+              ></rect>
+            </clipPath>
+            <path
+              fill="none"
+              stroke="rgb(0,255,0, 50%)"
+              d="M -2,-2 Q 0,6 2,-2"
+              style="display: none"
+            ></path>
+            <g clip-path="url(#clippingPath)">
+              <g transform="translate(0,-1.6)">
+                <path
+                  id="zoomedInParabola"
+                  fill="none"
+                  stroke="red"
+                  stroke-width="0.15"
+                  d="M -3,-7 Q 0,11 3,-7"
+                  transform="translate(0, 42)"
+                ></path>
+              </g>
+            </g>
+            <circle
+              style="display: none"
+              id="mousePointer"
+              cx="-2"
+              cy="2"
+              r="0.3"
+              fill="rgb(0,0,255,33.33%)"
+              stroke="none"
+            ></circle>
+            <circle
+              id="currentlyCentered"
+              cx="-2"
+              cy="2"
+              r="0.3"
+              fill="none"
+              stroke="rgb(0,0,255)"
+              stroke-width="0.08"
+            ></circle>
+          </g>
+          <rect
+            id="mouseListener"
+            x="-2.5"
+            y="-3.2"
+            width="5"
+            height="6.4"
+            fill="brown"
+            opacity="0"
+          ></rect>
+        </g>
+      </svg>
+      <div>Click to zoom in on a point.</div>
+    </div>
+
     <div class="phil-notes">
       ‼️ I'd like a simple animation here. On the left side is a function, maybe
       sin(x). One the right is a zoomed in area. Similar to the last two ‼️'s.
       But, over time the highlighted area in the left panel gets smaller and
       smaller. And the contents of the right panel keep growing. On a loop. Can
-      I insert an iframe here? An animated gif?
+      I insert an iframe here? An animated gif? &mdash; <b>Update:</b> The
+      animation above should do the trick. It needs some more work, but it's
+      pretty close. <b>Also</b> I want to move this demo before the discussion
+      of fractals.
     </div>
 
     <h2>Filling in Missing Values</h2>
@@ -920,11 +1010,12 @@
         <path d="M -3,8 L 1,-8"><!--  y = -4x - 4  --></path>
         <path d="M 3,8 L -1,-8"><!--  y = 4x - 4  --></path>
       </g>
+      <path fill="none" stroke="lime" d="M -2,4 Q 0,-4 2,4"></path>
       <path
-        id="parabola"
         fill="none"
-        stroke="lime"
-        d="M -2,4 Q 0,-4 2,4"
+        stroke="black"
+        stroke-width="0.05"
+        d="M -3,9 Q 0,-9 3,9"
       ></path>
     </svg>
   </body>
