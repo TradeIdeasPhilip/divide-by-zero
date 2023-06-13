@@ -6,7 +6,8 @@ import { getById } from "phil-lib/client-misc";
 const zoomInSvg = getById("zoomIn", SVGSVGElement);
 const mouseListenerElement = getById("mouseListener", SVGRectElement);
 const mousePointerCircle = getById("mousePointer", SVGCircleElement);
-const currentlyCenteredCircle = getById("currentlyCentered", SVGCircleElement);
+const currentlyCenteredTranslateGroup = getById("currentlyCenteredTranslate", SVGGElement);
+const currentlyCenteredZoomGroup = getById("currentlyCenteredZoom", SVGGElement);
 const zoomedInParabolaPath = getById("zoomedInParabola", SVGPathElement);
 
 mouseListenerElement.addEventListener("mouseenter", () => {
@@ -69,11 +70,13 @@ class Zoom {
       Zoom.setNewZoom(Zoom.#autoZoomAmount(time));
     }
   }
-  private static setTransform() {
+  private static updateGUI() {
     zoomedInParabolaPath.setAttribute(
       "transform",
       `scale(${this.ratio}) translate(${-this.centerX}, ${-this.centerY})`
     );
+    currentlyCenteredTranslateGroup.setAttribute("transform", `translate(${this.centerX}, ${this.centerY})`);
+    currentlyCenteredZoomGroup.setAttribute("transform", `scale(${1/this.ratio})`);
     // This is crazy.  I can't set the stroke width to be less than 0.0003.
     // (That corresponds to a zoom ratio of greater than 500.)
     // If I try to make the stroke-width smaller it suddenly becomes huge.
@@ -87,9 +90,7 @@ class Zoom {
     this.centerX = x;
     this.centerY = y;
     this.ratio = 1;
-    this.setTransform();
-    currentlyCenteredCircle.cx.baseVal.value = x;
-    currentlyCenteredCircle.cy.baseVal.value = y;
+    this.updateGUI();
   }
 
   /**
@@ -98,7 +99,7 @@ class Zoom {
    */
   static setNewZoom(ratio: number) {
     this.ratio = ratio;
-    this.setTransform();
+    this.updateGUI();
   }
 }
 (window as any).setNewZoom = Zoom.setNewZoom.bind(Zoom);

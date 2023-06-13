@@ -606,15 +606,16 @@
               fill="rgb(0,0,255,33.33%)"
               stroke="none"
             ></circle>
-            <circle
-              id="currentlyCentered"
-              cx="-2"
-              cy="2"
-              r="0.3"
-              fill="none"
-              stroke="rgb(0,0,255)"
-              stroke-width="0.08"
-            ></circle>
+            <g id="currentlyCenteredTranslate">
+              <g id="currentlyCenteredZoom">
+                <polygon
+                  id="currentlyCentered"
+                  points="1.2,1.2 -1.2,1.2, -1.2,-1.2, 1.2,-1.2"
+                  fill="rgb(0,0,255,25%)"
+                  stroke="none"
+                ></polygon>
+              </g>
+            </g>
           </g>
           <rect
             id="mouseListener"
