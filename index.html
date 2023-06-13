@@ -7,7 +7,7 @@
     <script type="module" src="/src/main.ts"></script>
   </head>
   <body>
-    <h1>How to Divide By Zero</h1>
+    <h1><a id="How_to_Divide_By_Zero"></a>How to Divide By Zero</h1>
     <p>
       How to divide by zero, and other things you will learn in highschool
       calculus. This will give you a <b>brief overview</b> of calculus. This
@@ -17,22 +17,81 @@
       spent more time discussing <b>why</b> we were learning these things and
       what they meant.
     </p>
-    <h2>Intended Audience</h2>
+    <h2><a id="Intended_Audience"></a>Intended Audience</h2>
     <ul>
       <li>Someone who is about to start highschool calculus.</li>
       <li>Someone who studied calculus in highschool but doesn't know why.</li>
       <li>Someone who enjoys math and wants a different perspective.</li>
       <li>Me, back when I first started studying this subject.</li>
     </ul>
-    <h2>Topics</h2>
-    <div class="phil-notes">Insert a table of contents here.</div>
-    <h1>Prerequisites</h1>
+    <h2><a id="Topics"></a>Topics</h2>
+
+    <ul class="toc-top">
+      <li>
+        <a class="toc-1" href="#How_to_Divide_By_Zero">How to Divide By Zero</a>
+      </li>
+      <ul>
+        <li>
+          <a class="toc-2" href="#Intended_Audience">Intended Audience</a>
+        </li>
+        <li><a class="toc-2" href="#Topics">Topics</a></li>
+      </ul>
+      <li><a class="toc-1" href="#Prerequisites">Prerequisites</a></li>
+      <ul>
+        <li>
+          <a class="toc-2" href="#Graphs_of_Functions">Graphs of Functions</a>
+        </li>
+        <li><a class="toc-2" href="#Slope_of_a_Line">Slope of a Line</a></li>
+      </ul>
+      <li><a class="toc-1" href="#Limits">Limits</a></li>
+      <ul>
+        <li><a class="toc-2" href="#Smoothness">Smoothness</a></li>
+        <li>
+          <a class="toc-2" href="#Filling_in_Missing_Values"
+            >Filling in Missing Values</a
+          >
+        </li>
+        <li><a class="toc-2" href="#Terminology">Terminology</a></li>
+      </ul>
+      <li><a class="toc-1" href="#Derivatives">Derivatives</a></li>
+      <ul>
+        <li><a class="toc-2" href="#Definition">Definition</a></li>
+        <li>
+          <a class="toc-2" href="#Derivate_of_a_Line">Derivate of a Line</a>
+        </li>
+        <li><a class="toc-2" href="#Smaller_Pieces">Smaller Pieces</a></li>
+        <li>
+          <a class="toc-2" href="#Really_Small_Pieces">Really Small Pieces</a>
+        </li>
+        <li><a class="toc-2" href="#Physics_Examples">Physics Examples</a></li>
+        <li><a class="toc-2" href="#Interest_Rates">Interest Rates</a></li>
+        <li><a class="toc-2" href="#Terminology">Terminology</a></li>
+      </ul>
+      <li><a class="toc-1" href="#Integrals">Integrals</a></li>
+      <ul>
+        <li><a class="toc-2">The Anti-Derivative</a></li>
+        <li><a class="toc-2">Calculating the Anti-Derivative</a></li>
+        <li>
+          <a class="toc-2" href="#Definite_vs_Indefinite_Integrals"
+            >Definite vs Indefinite Integrals</a
+          >
+        </li>
+        <li>
+          <a class="toc-2" href="#The_Area_Under_the_Curve"
+            >The Area Under the Curve</a
+          >
+        </li>
+      </ul>
+      <li><a class="toc-1" href="#Final_Thoughts">Final Thoughts</a></li>
+    </ul>
+
+    <h1><a id="Prerequisites"></a>Prerequisites</h1>
     <p>
       You need to remember some algebra to understand this document. Here is a
       quick refresher of the relevant facts. You will need a lot more algebra
       when you are ready to actually solve calculus problems.
     </p>
-    <h2>Graphs of Functions</h2>
+    <h2><a id="Graphs_of_Functions"></a>Graphs of Functions</h2>
     <p>
       You should be familiar with graphs of functions. Graphs are the easiest
       way to explain and understand calculus.
@@ -58,7 +117,7 @@
       calculator an input to a function, it can compute the output of that
       function. Sometimes we say <code>f(x)</code> instead of “y.”
     </p>
-    <h2>Slope of a Line</h2>
+    <h2><a id="Slope_of_a_Line"></a>Slope of a Line</h2>
     <p>
       Slope is defined as “<span style="color: pink">rise</span> over
       <span style="color: red">run</span>.”
@@ -426,7 +485,7 @@
       (Or is it? Keep reading!)
     </p>
 
-    <h1>Limits</h1>
+    <h1><a id="Limits"></a>Limits</h1>
     <p>
       Limits are a way to divide by zero and otherwise make infinity work for
       you. In calculus class you will learn a more precise definition of limits,
@@ -434,10 +493,10 @@
       directly to solve some problems. Mostly you learn about limits so you can
       understand the definitions of derivatives and integrals, described below.
     </p>
-    <h2>Smoothness</h2>
+    <h2><a id="Smoothness"></a>Smoothness</h2>
     <p>
       Calculus focuses on smooth functions. There is a formal definition of
-      smoothness, but <i>your intuition is right</i>. Let's look at some
+      smoothness, but <b>your intuition is right</b>. Let's look at some
       examples.
     </p>
     <p>
@@ -582,6 +641,11 @@
     </div>
 
     <div class="phil-notes">
+      <b>TODO</b>: Clicking works with a mouse, but it does not yet work on a
+      touch device.
+    </div>
+
+    <div class="phil-notes">
       ‼️ I'd like a simple animation here. On the left side is a function, maybe
       sin(x). One the right is a zoomed in area. Similar to the last two ‼️'s.
       But, over time the highlighted area in the left panel gets smaller and
@@ -592,7 +656,7 @@
       of fractals.
     </div>
 
-    <h2>Filling in Missing Values</h2>
+    <h2><a id="Filling_in_Missing_Values"></a>Filling in Missing Values</h2>
     <p>
       Let's look at the function
       <code>f(x) = x<span class="superscript">3</span> ÷ x</code>. Naively you
@@ -634,7 +698,7 @@
       to use the complete version of the function, rather than the original
       version with the hole.
     </p>
-    <h2>Terminology</h2>
+    <h2><a id="Terminology"></a>Terminology</h2>
     <p>
       If you see delta and epsilon in a problem, it is probably talking about
       limits. These are written with lowercase Greek letters: 𝛿 and 𝜺.
@@ -644,9 +708,9 @@
       link back to the page I stole it from!
     </div>
 
-    <h1>Derivatives</h1>
+    <h1><a id="Derivatives"></a>Derivatives</h1>
 
-    <h2>Definition</h2>
+    <h2><a id="Definition"></a>Definition</h2>
     <p>
       A derivate is a rate of change. For example, lets say
       <code>f(x)</code> tells us the total number of cookies in your house at a
@@ -679,13 +743,13 @@
       derivative where it is smooth. Where it is not smooth, we say the derivate
       is not defined.
     </p>
-    <h2>Derivate of a Line</h2>
+    <h2><a id="Derivate_of_a_Line"></a>Derivate of a Line</h2>
     <p>
       Our cookie example is a straight line. The derivative of a line is the
       slope of the line. In this case someone is eating one cookie per minute.
       The rate of change is -1 cookies per minute.
     </p>
-    <h2>Smaller Pieces</h2>
+    <h2><a id="Smaller_Pieces"></a>Smaller Pieces</h2>
     <p>
       This example is a little more complicated. You could say that the
       <i>average</i> rate of change for the first 5 minutes is -1, just like the
@@ -705,7 +769,7 @@
       only defined where the original function is (a) defined, (b) continuous,
       and (c) smooth.
     </p>
-    <h2>Really Small Pieces</h2>
+    <h2><a id="Really_Small_Pieces"></a>Really Small Pieces</h2>
     <p>So, what's the derivative of x<span class="superscript">2</span>?</p>
     <div class="phil-notes">
       ‼️ Draw a graph of x<span class="superscript">2</span>. x goes from -1 to
@@ -769,7 +833,7 @@
       <code>2x<span class="superscript">2</span> ÷ x</code> to
       <code>2x</code> without being afraid to divide by 0.
     </p>
-    <h2>Physics Examples</h2>
+    <h2><a id="Physics_Examples"></a>Physics Examples</h2>
     <p>
       Derivatives are used a lot in physics. For example, if f(x) is the
       <i>position</i> of your car at time x, then the derivative of f(x) will
@@ -797,7 +861,7 @@
       derivative. Acceleration is the derivative of speed. Electric current is
       the derivative of charge. Etc.
     </p>
-    <h2>Interest Rates</h2>
+    <h2><a id="Interest_Rates"></a>Interest Rates</h2>
     <p>
       Interest is money the bank puts into your your account. Your account
       balance will change over time because the bank is adding money. If
@@ -812,17 +876,17 @@
       continuous value. There are more details, of course. I'll leave those to
       your teacher.
     </p>
-    <h2>Terminology</h2>
+    <h2><a id="Terminology"></a>Terminology</h2>
     <p>
       The derivative of f(x) is often written as f'(x), pronounced “F prime of
       X.” The derivate of y is often written as dy / dx, pronounced “the
       derivate of y with respect to x.”
     </p>
-    <h1>Integrals</h1>
+    <h1><a id="Integrals"></a>Integrals</h1>
     <p>
       When you see the ∫ symbol, that means to take the integral of a function.
     </p>
-    <h2>The Anti-Derivative</h2>
+    <h2><a id="The_Anti-Derivative">The Anti-Derivative</a></h2>
     <p>
       Integration and differentiation are inverses of each other. If g(x) is an
       integral of f(x) then f(x) is the derivative of g(x). That applies to all
@@ -840,7 +904,11 @@
       <code>∞ ⨉ 0</code>. But by this time you'll be an expert at limits, so you
       will know how to get a real answer.
     </p>
-    <h2>Calculating the Anti-Derivative</h2>
+    <h2>
+      <a id="Calculating_the_Anti-Derivative"
+        >Calculating the Anti-Derivative</a
+      >
+    </h2>
     <p>
       How do you calculate an integral? One option is to look at all of the
       rules for computing derivatives, and to invert each of them. For example,
@@ -873,7 +941,10 @@
       because it gives you an exact answer. However, this method can be
       difficult in some cases and impossible in others.
     </p>
-    <h2>Definite vs Indefinite Integrals</h2>
+    <h2>
+      <a id="Definite_vs_Indefinite_Integrals"></a>Definite vs Indefinite
+      Integrals
+    </h2>
     <p>
       The previous section begs an important question. Are you expecting a
       number or a formula for an answer? If you see a problem like
@@ -925,7 +996,7 @@
       >
       or <code>49 - 9</code> or <code>40</code>.
     </p>
-    <h2>The Area Under the Curve</h2>
+    <h2><a id="The_Area_Under_the_Curve"></a>The Area Under the Curve</h2>
     <p>
       A different way to think about an integral is
       <i>the area under the curve</i>. Same problem: What's the integral of
@@ -947,74 +1018,21 @@
       an integral involves an infinite sum. And that's exactly what we did with
       the dead reckoning example, and with the area under the curve.
     </p>
-    <h1>Final Thoughts</h1>
+    <div class="phil-notes">‼️ Need some images here.</div>
+    <h1><a id="Final_Thoughts"></a>Final Thoughts</h1>
     <p>
       Enjoy your studies. I'm just scratching the surface of what you will learn
       in class. I am
-      <a href="https://github.com/TradeIdeasPhilip">Philip Smolen</a> writing
-      <a href="https://github.com/TradeIdeasPhilip/divide-by-zero">this</a> for
-      the
+      <a href="https://github.com/TradeIdeasPhilip">Philip Smolen</a>
+      writing
+      <a href="https://github.com/TradeIdeasPhilip/divide-by-zero">this</a>
+      for the
       <a href="https://3blue1brown.substack.com/p/some3-begins"
         >Summer of Math Exposition 3</a
       >
-      contest. #SoME3 Click on the images for attribution and other details.
+      contest.
+      <a href="https://www.youtube.com/results?search_query=%23some3">#SoME3</a>
+      Click on the images for attribution and other details.
     </p>
-    <br /><br />
-    <hr />
-
-    <h1>&lt;h1&gt; Main Heading $123,456,789.00½𝛿÷★•∞☆</h1>
-    <p>Words $1.00</p>
-    <h2>&lt;h2&gt; ༺ Level 2 Heading ༻</h2>
-    <h2>&lt;h2&gt; ⚈ Level 2 Heading</h2>
-    <h3>&lt;h3&gt; Level 3 Heading “Quote”</h3>
-    <p>1 2 3 <code>&lt;code&gt;</code> 4 5 6 “Quote”</p>
-    <pre>&lt;pre&gt;</pre>
-    <div class="phil-notes">
-      Stage directions / temporary / .phil-notes / “Quote”
-    </div>
-
-    <svg
-      style="height: 400px; width: 400px; background-color: antiquewhite"
-      viewBox="-5 -5 10 10"
-      xmlns="http://www.w3.org/2000/svg"
-      stroke-width="0.1"
-      transform="scale(1 -1)"
-    >
-      <g id="grid" stroke-width="0.05" fill="none" stroke="lightgray">
-        <path d="M -5,-4 H 5"></path>
-        <path d="M -5,-3 H 5"></path>
-        <path d="M -5,-2 H 5"></path>
-        <path d="M -5,-1 H 5"></path>
-        <path d="M -5,1 H 5"></path>
-        <path d="M -5,2 H 5"></path>
-        <path d="M -5,3 H 5"></path>
-        <path d="M -5,4 H 5"></path>
-        <path d="M -4,-5 V 5"></path>
-        <path d="M -3,-5 V 5"></path>
-        <path d="M -2,-5 V 5"></path>
-        <path d="M -1,-5 V 5"></path>
-        <path d="M 1,-5 V 5"></path>
-        <path d="M 2,-5 V 5"></path>
-        <path d="M 3,-5 V 5"></path>
-        <path d="M 4,-5 V 5"></path>
-        <path stroke="black" d="M -5,0 L 5,0 M 0,-5 0,5"></path>
-      </g>
-      <g fill="orange">
-        <circle id="startingPoint" cx="-2" cy="4" r="0.2"></circle>
-        <circle id="endingPoint" cx="2" cy="4" r="0.2"></circle>
-        <circle id="controlPoint" cx="0" cy="-4" r="0.2" fill="violet"></circle>
-      </g>
-      <g id="tangentLines" fill="none" stroke="blue">
-        <path d="M -3,8 L 1,-8"><!--  y = -4x - 4  --></path>
-        <path d="M 3,8 L -1,-8"><!--  y = 4x - 4  --></path>
-      </g>
-      <path fill="none" stroke="lime" d="M -2,4 Q 0,-4 2,4"></path>
-      <path
-        fill="none"
-        stroke="black"
-        stroke-width="0.05"
-        d="M -3,9 Q 0,-9 3,9"
-      ></path>
-    </svg>
   </body>
 </html>

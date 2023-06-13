@@ -11,14 +11,23 @@
   background-color: white;
 }
 
+/* A compromise.  The blue letters are sometimes hard to read and 
+ * I don't want to find one more color that matches my style.
+ * So the text in an <a> is black or whatever we're using for
+ * the rest of the text.  But the underline is always visible,
+ * and it's thicker than usual so you don't miss it.  And the
+ * colors of the underline match the blue and the purple that
+ * are used by default for the entire <a>.  I.e. colors that people
+ * will recognize and understand.  */
 a {
-  color: blue;
+  color: black;
+  text-decoration-color: #1b73e8;
   text-decoration-line: underline;
   text-decoration-style: solid;
+  text-decoration-thickness: 15%;
 }
 a:visited {
-  /* it won't let me change the text-decoration-style or font-weight here for some reason. */
-  text-decoration-color: lightblue;
+  text-decoration-color: #881180;
 }
 
 body {
@@ -111,12 +120,28 @@ pre {
 
 .superscript {
   position: relative;
-  font-size:0.667em;
+  font-size: 0.667em;
   position: relative;
-  bottom:0.5em;
+  bottom: 0.5em;
 }
 .superscript::before {
   /* 2pt is a hack!  I tried 0.1em, but it seems like em's aren't completely linear.  They didn't work well with small values. */
-  font-size:2pt;
-  content: ' ';
+  font-size: 2pt;
+  content: " ";
+}
+
+ul.toc-top > li {
+  margin-top: 0.5em;
+  font-size: 1.25em;
+}
+
+ul.toc-top > ul {
+  padding-left: 1.35em;
+}
+
+/* Yuck.  A <ul> should not be placed directly inside another <ul>.
+ * (put the <ul> inside the previous <li>.)
+ * But I don't want to try to fix it right now, because I know it will break other things. */
+ul.toc-top > ul > li {
+  margin-bottom: 0.1em;
 }
