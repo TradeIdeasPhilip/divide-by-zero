@@ -5,17 +5,23 @@ import { getById } from "phil-lib/client-misc";
 
 const zoomInSvg = getById("zoomIn", SVGSVGElement);
 const mouseListenerElement = getById("mouseListener", SVGRectElement);
-const mousePointerCircle = getById("mousePointer", SVGCircleElement);
-const currentlyCenteredTranslateGroup = getById("currentlyCenteredTranslate", SVGGElement);
-const currentlyCenteredZoomGroup = getById("currentlyCenteredZoom", SVGGElement);
+const mousePointerElement = getById("mousePointer", SVGGeometryElement);
+const currentlyCenteredTranslateGroup = getById(
+  "currentlyCenteredTranslate",
+  SVGGElement
+);
+const currentlyCenteredZoomGroup = getById(
+  "currentlyCenteredZoom",
+  SVGGElement
+);
 const zoomedInParabolaPath = getById("zoomedInParabola", SVGPathElement);
 
 mouseListenerElement.addEventListener("mouseenter", () => {
-  mousePointerCircle.style.display = "";
+  mousePointerElement.style.display = "";
 });
 
 mouseListenerElement.addEventListener("mouseleave", () => {
-  mousePointerCircle.style.display = "none";
+  mousePointerElement.style.display = "none";
 });
 
 function mouseToCircle({ screenX, screenY }: MouseEvent) {
@@ -23,7 +29,7 @@ function mouseToCircle({ screenX, screenY }: MouseEvent) {
   mousePoint.x = screenX;
   mousePoint.y = screenY;
   const svgPoint = mousePoint.matrixTransform(
-    mousePointerCircle.getScreenCTM()!.inverse()
+    mouseListenerElement.getScreenCTM()!.inverse()
   );
   const y = 2 - svgPoint.x * svgPoint.x;
   return { x: svgPoint.x, y };
@@ -31,8 +37,12 @@ function mouseToCircle({ screenX, screenY }: MouseEvent) {
 
 mouseListenerElement.addEventListener("mousemove", (mouseEvent) => {
   const { x, y } = mouseToCircle(mouseEvent);
-  mousePointerCircle.cx.baseVal.value = x;
-  mousePointerCircle.cy.baseVal.value = y;
+  const slope = -2 * x;
+  const angleInDegrees = (Math.atan(slope) / Math.PI) * 180;
+  mousePointerElement.setAttribute(
+    "transform",
+    `translate(${x}, ${y}) rotate(${angleInDegrees})`
+  );
 });
 
 // TODO reorganize.  #autoZoomAmount should be an action to be called on animation, not a function to be called by another function.
@@ -75,8 +85,14 @@ class Zoom {
       "transform",
       `scale(${this.ratio}) translate(${-this.centerX}, ${-this.centerY})`
     );
-    currentlyCenteredTranslateGroup.setAttribute("transform", `translate(${this.centerX}, ${this.centerY})`);
-    currentlyCenteredZoomGroup.setAttribute("transform", `scale(${1/this.ratio})`);
+    currentlyCenteredTranslateGroup.setAttribute(
+      "transform",
+      `translate(${this.centerX}, ${this.centerY})`
+    );
+    currentlyCenteredZoomGroup.setAttribute(
+      "transform",
+      `scale(${1 / this.ratio})`
+    );
     // This is crazy.  I can't set the stroke width to be less than 0.0003.
     // (That corresponds to a zoom ratio of greater than 500.)
     // If I try to make the stroke-width smaller it suddenly becomes huge.
