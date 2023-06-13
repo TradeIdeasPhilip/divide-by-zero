@@ -143,7 +143,7 @@ Zoom.allowAutoZoom = true;
 
 /**
  * A tangent line is just a line that touches a function at a point, and has the same slope as the function at that point.
- * The derivative of a function is the slope of the tangent line at each point.
+ * This is another way to visualize a derivative.
  *
  * This would make a great graphic.  A simple animation.  Start with the 2-x*x picture.  Draw the line moving from one point to the next, back and forth,
  * at a comfortable speed to stare at.  Keep the default ease in and out on both sides.
