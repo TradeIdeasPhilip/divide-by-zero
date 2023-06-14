@@ -67,83 +67,109 @@ mouseListenerElement.addEventListener("mousemove", (mouseEvent) => {
 
 // TODO reorganize:
 // • setNewZoom should be private (if not completely removed)
-// • allowAutoZoom should not be a property.  Does anyone even read it?  And setting it ALWAYS has a side effect.  Just make it a function.
 class Zoom {
   private static centerX = 0;
   private static centerY = 0;
   private static ratio = 1;
+  /**
+   * While the mouse is down we pause the animation.  So the user can drag the mouse anywhere.
+   * On mouseup we restart the animation.  #animate is a closure including a lot of the animation settings.
+   */
   static #animate: ((time: number) => void) | undefined;
-  static get allowAutoZoom() {
+  static animationIsRunning() {
     return this.#animate !== undefined;
   }
   static #animationHasBeenInitialized = false;
-  //static readonly #numberHeight = 0.2;
   static readonly #zoomTextGroup = getById("zoomText", SVGGElement);
   static readonly #zoomTextElement = assertClass(
     this.#zoomTextGroup.firstElementChild,
     SVGTextElement
   );
-  static set allowAutoZoom(newValue: boolean) {
-    if (newValue) {
-      const now = performance.now();
-      /**
-       * Top end is limited to 300 because of a bug described in a different comment.
-       * It takes 10 seconds to go from start to all the way zoomed in.
-       */
-      const logOfZoom = makeBoundedLinear(now, 0, now + 10000, Math.log(300));
-      /**
-       * Don't display the arrow at all until 1 second has passed.
-       * And even then, make it fade in from nothing.
-       * Initially the square is all the user needs.
-       * But as the square shrinks from view, the arrow appears to take over.
-       */
-      const opacity = makeBoundedLinear(now + 1000, 0, now + 10000, 0.75);
-      /**
-       * The animation runs for 10 seconds then is idle for 5 more.
-       * Then we restart in a random position.
-       */
-      const restartTime = now + 15000;
-      this.#animate = (time: number) => {
-        if (time > restartTime) {
-          /**
-           * A bell-curve-ish value in the range -2.5 to 2.5.
-           * This is the exact same range allowed by a mouse click.
-           * Focus on the middle part because it looks more interesting
-           * than the edges.
-           */
-          const x = ((Math.random() + Math.random()) / 2) * 5 - 2.5;
-          const y = 2 - x * x;
-          this.selectNewTarget({ x, y });
-          // The next line will overwrite this.#animate with a new object.
-          // I.e. it will restart the animation.
-          this.allowAutoZoom = true;
-        } else {
-          const newZoom = Math.exp(logOfZoom(time));
-          this.setNewZoom(newZoom);
-          const newOpacity = opacity(time);
-          currentlyCenteredPointerElement.style.opacity = newOpacity.toString();
-        }
-      };
-      hideMousePointer();
-    } else {
-      this.#animate = undefined;
+  /**
+   * Start the zooming-in animation.
+   * If the animation is already running, do nothing.
+   */
+  static startAnimation() {
+    if (!this.animationIsRunning()) {
+      this.restartAnimation();
     }
+  }
+  /**
+   * Start the animation.  If it's already running, clear the old animation
+   * and replace it with a new one.
+   */
+  static restartAnimation(initialPause = 0) {
+    const startTime = performance.now() + initialPause;
+    /**
+     * Top end is limited to 300 because of a bug described in a different comment.
+     * It takes 10 seconds to go from start to all the way zoomed in.
+     */
+    const logOfZoom = makeBoundedLinear(
+      startTime,
+      0,
+      startTime + 10000,
+      Math.log(300)
+    );
+    /**
+     * Don't display the arrow at all until 1 second has passed.
+     * And even then, make it fade in from nothing.
+     * Initially the square is all the user needs.
+     * But as the square shrinks from view, the arrow appears to take over.
+     */
+    const opacity = makeBoundedLinear(
+      startTime + 1000,
+      0,
+      startTime + 10000,
+      0.75
+    );
+    /**
+     * The animation runs for 10 seconds then is idle for 5 more.
+     * Then we restart in a random position.
+     *
+     * If we restart this way there is an extra pause.  We reset to show the initial zoom of 1x.
+     * Then we pause for 1/2 second.  Then we continue the animation as always.  If the user clicks, then we skip this pause.
+     * Also, when this program first initializes we skip this pause.
+     */
+    const restartTime = startTime + 15000;
+    this.#animate = (time: number) => {
+      if (time > restartTime) {
+        /**
+         * A bell-curve-ish value in the range -2.5 to 2.5.
+         * This is the exact same range allowed by a mouse click.
+         * Focus on the middle part because it looks more interesting
+         * than the edges.
+         */
+        const x = ((Math.random() + Math.random()) / 2) * 5 - 2.5;
+        const y = 2 - x * x;
+        this.selectNewTarget({ x, y });
+        // The next line will overwrite this.#animate with a new object.
+        // That's how it will restart the animation.
+        this.restartAnimation(500);
+      } else {
+        const newZoom = Math.exp(logOfZoom(time));
+        this.setNewZoom(newZoom);
+        const newOpacity = opacity(time);
+        currentlyCenteredPointerElement.style.opacity = newOpacity.toString();
+      }
+    };
+    hideMousePointer();
     this.setNewZoom(1);
     if (!this.#animationHasBeenInitialized) {
       this.#animationHasBeenInitialized = true;
       requestAnimationFrame(this.onAnimationFrame);
-
-      /*
-      archetype.remove();
-      for (let index = 1; index <= 500; index++) {
-        const text = assertClass(archetype.cloneNode(true), SVGTextElement);
-        text.setAttribute("y", (index * this.#numberHeight).toString());
-        text.textContent = `${index}⨉`;
-        this.#zoomTextGroup.appendChild(text);
-      }
-      */
     }
   }
+
+  /**
+   * Stop responding to the animation timer.
+   *
+   * And reset the zoom to 1.
+   */
+  static stopAnimation() {
+    this.#animate = undefined;
+    this.setNewZoom(1);
+  }
+
   private static onAnimationFrame(this: unknown, time: number) {
     requestAnimationFrame(Zoom.onAnimationFrame);
     Zoom.#animate?.(time);
@@ -220,23 +246,23 @@ function updateMouseCursor(mouseEvent: MouseEvent) {
 });
 
 mouseListenerElement.addEventListener("mouseleave", () => {
-  if (!Zoom.allowAutoZoom) {
-    Zoom.allowAutoZoom = true;
-  }
+  Zoom.startAnimation();
 });
 
 (["mouseenter", "mouseup", "mousedown"] as const).forEach((eventName) => {
   mouseListenerElement.addEventListener(eventName, (mouseEvent) => {
-    // I'm trying to avoid the side effects except when this really needs to change.
-    const shouldAllowAutoZoom = mouseEvent.buttons == 0;
-    if (shouldAllowAutoZoom != Zoom.allowAutoZoom) {
-      Zoom.allowAutoZoom = shouldAllowAutoZoom;
+    const shouldAutoZoom = mouseEvent.buttons == 0;
+    if (shouldAutoZoom) {
+      Zoom.startAnimation();
+    } else {
+      Zoom.stopAnimation();
     }
   });
 });
 
+// Put it into a valid state.
 Zoom.selectNewTarget({ x: 0, y: 2 });
-Zoom.allowAutoZoom = true;
+Zoom.startAnimation();
 
 /**
  * A tangent line is just a line that touches a function at a point, and has the same slope as the function at that point.
