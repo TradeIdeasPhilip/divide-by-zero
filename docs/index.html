@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>÷ 0</title>
     
-    <script type="module" crossorigin src="./assets/main-baedb19a.js"></script>
-    <link rel="stylesheet" href="./assets/index-9f5af051.css">
+    <script type="module" crossorigin src="./assets/main-fb249771.js"></script>
+    <link rel="stylesheet" href="./assets/index-789bc70f.css">
   </head>
   <body>
     <h1><a id="How_to_Divide_By_Zero"></a>How to Divide By Zero</h1>
@@ -15,14 +15,14 @@
       calculus. This will give you a <b>brief overview</b> of calculus. This
       will <i>not</i> replace your calculus textbook. This will help you
       understand what you are learning in class, and why. When I first learned
-      calculus we focused on the mechanics of solving problems. I wish we'd
+      calculus we focused on the mechanics of solving problems. I wish we’d
       spent more time discussing <b>why</b> we were learning these things and
       what they meant.
     </p>
     <h2><a id="Intended_Audience"></a>Intended Audience</h2>
     <ul>
       <li>Someone who is about to start highschool calculus.</li>
-      <li>Someone who studied calculus in highschool but doesn't know why.</li>
+      <li>Someone who studied calculus in highschool but doesn’t know why.</li>
       <li>Someone who enjoys math and wants a different perspective.</li>
       <li>Me, back when I first started studying this subject.</li>
     </ul>
@@ -478,7 +478,7 @@
     >
     <p>
       In this case the “rise” will always be 0. The “run” can be any number I
-      choose, let's say 42. <code>0 ÷ 42 = 0</code> So the slope is 0.
+      choose, let’s say 42. <code>0 ÷ 42 = 0</code> So the slope is 0.
     </p>
     <p>If the line is vertical, its slope is <i>undefined</i>.</p>
     <a
@@ -504,7 +504,7 @@
     <h2><a id="Smoothness"></a>Smoothness</h2>
     <p>
       Calculus focuses on smooth functions. There is a formal definition of
-      smoothness, but <b>your intuition is right</b>. Let's look at some
+      smoothness, but <b>your intuition is right</b>. Let’s look at some
       examples.
     </p>
     <p>
@@ -532,7 +532,7 @@
       <div><code>|x|</code></div></a
     >
     <p>
-      <code>n!</code> (n factorial) is not continuous, so it can't be smooth.
+      <code>n!</code> (n factorial) is not continuous, so it can’t be smooth.
     </p>
     <a
       class="figure"
@@ -564,6 +564,24 @@
         ></image>
         <g transform="scale(198.59375, -198.59375) translate(3.2, -3.2)">
           <g>
+            <polygon
+              style="opacity: 90%"
+              transform="scale(0,0)"
+              id="currentlyCenteredPointer"
+              points="0,0 0.24,0.6 0.06,0.44 0.06,1 -0.06,1 -0.06,0.44 -0.24,0.6 0,0"
+              fill="rgb(0,0,255)"
+              stroke="none"
+            ></polygon>
+            <g id="currentlyCenteredTranslate">
+              <g id="currentlyCenteredZoom">
+                <polygon
+                  id="currentlyCentered"
+                  points="1.2,1.2 -1.2,1.2, -1.2,-1.2, 1.2,-1.2"
+                  fill="rgb(0,0,255,25%)"
+                  stroke="none"
+                ></polygon>
+              </g>
+            </g>
             <rect
               x="-1.2"
               y="-2.8"
@@ -606,23 +624,6 @@
               fill="rgb(0,0,255,50%)"
               stroke="none"
             ></polygon>
-            <polygon
-              style="opacity: 90%"
-              id="currentlyCenteredPointer"
-              points="0,0 0.24,0.6 0.06,0.44 0.06,1 -0.06,1 -0.06,0.44 -0.24,0.6 0,0"
-              fill="rgb(0,0,255)"
-              stroke="none"
-            ></polygon>
-            <g id="currentlyCenteredTranslate">
-              <g id="currentlyCenteredZoom">
-                <polygon
-                  id="currentlyCentered"
-                  points="1.2,1.2 -1.2,1.2, -1.2,-1.2, 1.2,-1.2"
-                  fill="rgb(0,0,255,25%)"
-                  stroke="none"
-                ></polygon>
-              </g>
-            </g>
           </g>
           <g transform="translate(2.4, 2.3)">
             <g transform="scale(1, -1)">
@@ -675,8 +676,8 @@
 
     <p>
       Smoothness is the <i>opposite</i> of a fractal. If a function looks like
-      the Mandelbrot set, you probably can't apply calculus to that function. No
-      matter how much you zoom into the Mandelbrot set you'll always find places
+      the Mandelbrot set, you probably can’t apply calculus to that function. No
+      matter how much you zoom into the Mandelbrot set you’ll always find places
       where it is not smooth.
     </p>
 
@@ -709,45 +710,78 @@
 
     <h2><a id="Filling_in_Missing_Values"></a>Filling in Missing Values</h2>
     <p>
-      Let's look at the function
+      Let’s look at the function
       <code>f(x) = x<span class="superscript">3</span> ÷ x</code>. Naively you
       might simplify that to <code>x<span class="superscript">2</span></code
-      >. That's almost right, but remember that you are not allowed to divide by
+      >. That’s almost right, but remember that you are not allowed to divide by
       zero. So you should really say
       <code
         >x<span class="superscript">3</span> ÷ x = x<span class="superscript"
           >2</span
         ></code
-      >, but only when <code>x ≠ 0</code>.
+      >, <i>but only when</i> <code>x ≠ 0</code>.
       <code>x<span class="superscript">3</span> ÷ x</code> is
       <i>undefined</i> when x = 0.
     </p>
-    <div class="phil-notes">
-      ‼️ Graph <code>x<span class="superscript">2</span></code
-      >, but only when <code>x ≠ 0</code>. Presumably there's a hollow circle at
-      x=0. Presumably I'm getting most of these charts from another tool, so
-      I'll let it do it's thing. What's the name of that free on line graphing
-      calculator? Desmos I think.
-    </div>
+    <a
+      class="figure"
+      href="https://www.desmos.com/calculator/b6ftrkt9fb"
+      target="_blank"
+    >
+      <svg
+        style="background-color: blanchedalmond"
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 1272 558"
+      >
+        <image
+          x="0"
+          y="0"
+          width="1272"
+          height="558"
+          href="./assets/0900-874a1217.png"
+          preserveAspectRatio="none"
+        ></image>
+        <g transform="scale(198.57, -199.13) translate(3.2, -2.4)">
+          <circle
+            cx="0"
+            cy="0"
+            r="0.05"
+            stroke="#ce5855"
+            fill="white"
+            stroke-width="0.028"
+          ></circle>
+        </g>
+      </svg>
+      <div>
+        <code>x<span class="superscript">3</span> ÷ x</code> Notice the open
+        circle at x=0.
+      </div></a
+    >
     <p>
       In simpler terms,
       <code>x<span class="superscript">3</span> ÷ x</code> looks a lot like
       <code>x<span class="superscript">2</span></code
-      >, but it has a hole it it!
+      >, but <code>x<span class="superscript">3</span> ÷ x</code> has a hole it
+      it!
     </p>
-    <div class="phil-notes">
-      ‼️ Show graphs of Graph <code>x<span class="superscript">2</span></code
-      >, but only when <code>x ≠ 0</code>, and normal
-      <code>x<span class="superscript">2</span></code
-      >. “normal” one is first / on the left (to match the text below.)
-    </div>
+
+    <a
+      class="figure"
+      href="https://www.desmos.com/calculator/hltudgp9bc"
+      target="_blank"
+      ><img src="./assets/0900-874a1217.png" />
+      <div>
+        <code>x<span class="superscript">2</span></code>
+      </div></a
+    >
+
     <p>
-      If you only had the second graph, you could probably guess what the first
-      graph looks like! You could fill in that missing value with anything you
-      want, but only one value would make the function smooth. Congratulations,
-      you just computed a limit! Calculus class will teach you when it is okay
-      to use the complete version of the function, rather than the original
-      version with the hole.
+      If you only had the first graph, you could probably <i>guess</i> what the
+      second graph looked like! You could fill in that hole with anything you
+      want, but only one value would make the function <i>smooth</i>.
+      Congratulations, you just computed a limit! Calculus class will teach you
+      when it is okay to use the complete version of the function, rather than
+      the original version with the hole.
     </p>
     <h2><a id="Terminology"></a>Terminology</h2>
     <p>
@@ -809,9 +843,9 @@
     </p>
     <h2><a id="Smaller_Pieces"></a>Smaller Pieces</h2>
     <p>
-      This example is a little more complicated. You could say that the
+      The following example is a little more complicated. You could say that the
       <i>average</i> rate of change for the first 5 minutes is -1, just like the
-      previous graph. That's correct, but it's leaving out a lot of details.
+      previous graph. That’s correct, but it’s leaving out a lot of details.
     </p>
     <div class="phil-notes">
       ‼️ Draw a graph where the main line follows the four sections below. Also
@@ -819,16 +853,16 @@
       ends at the same place. That should have a slope of -1.
     </div>
     <p>
-      Let's break the graph into pieces. - For the first minute the graph has a
+      Let’s break the graph into pieces. - For the first minute the graph has a
       slope of 2, so the derivative in that section is 2. - For the next two
       minutes the slope is -1, and so is the derivative. - Then the graph jumps
       down by 5. - For the last two minutes the slope is 0, and so is the
-      derivate. Here's a graph of the derivative. Notice that the derivative is
+      derivate. Here’s a graph of the derivative. Notice that the derivative is
       only defined where the original function is (a) defined, (b) continuous,
       and (c) smooth.
     </p>
     <h2><a id="Really_Small_Pieces"></a>Really Small Pieces</h2>
-    <p>So, what's the derivative of x<span class="superscript">2</span>?</p>
+    <p>So, what’s the derivative of x<span class="superscript">2</span>?</p>
     <div class="phil-notes">
       ‼️ Draw a graph of x<span class="superscript">2</span>. x goes from -1 to
       4. To save space y goes from -1 to 10. So the line will go off the top of
@@ -838,7 +872,7 @@
     <p>
       You could say that the <i>average</i> rate of change between 0 and 1 is 1.
       And the average rate of change between 1 and 2 is 3. If you keep going
-      you'll get a graph like this for the derivative x<span class="superscript"
+      you’ll get a graph like this for the derivative x<span class="superscript"
         >2</span
       >.
     </p>
@@ -847,12 +881,12 @@
       straight lines connecting this series of points (-1, 1), (0,0), (1,1),
       (2,4), (3,9), (4,16). Add a second graph below the first. The x axis
       scales should line up perfectly. The y axis on the bottom should be
-      labeled “y' = the derivative of x<span class="superscript">2</span>”. Fill
+      labeled “y’ = the derivative of x<span class="superscript">2</span>”. Fill
       in the values. These should each be horizontal segments with open circles
       on both sides.
     </div>
     <p>
-      But there's no reason to break things up that way. What if you asked for
+      But there’s no reason to break things up that way. What if you asked for
       the average every time x changes by ½? Then the answers would look like
       this graph.
     </p>
@@ -881,11 +915,11 @@
       anything else. On the bottom draw the graph of 2x.
     </div>
     <p>
-      And that's why we learn limits before we learn derivatives. When you work
-      out the problem in class you'll eventually learn that the derivative of
+      And that’s why we learn limits before we learn derivatives. When you work
+      out the problem in class you’ll eventually learn that the derivative of
       <code>x<span class="superscript">2</span></code> is <code>2x</code>,
       matching what we see on the graph. But along the way to
-      <code>2x</code> you'd see something (roughly) similar to
+      <code>2x</code> you’d see something (roughly) similar to
       <code>2x<span class="superscript">2</span> ÷ x</code>. Because you know
       limits you can simplify
       <code>2x<span class="superscript">2</span> ÷ x</code> to
@@ -915,7 +949,7 @@
       your entire trip. Or you can talk about the average speed for various
       parts of your trip. You can get more precise answers if you look at
       smaller and smaller time intervals. And, if you ask for the
-      <i>exact</i> speed at an <i>exact</i> instant in time, that's the
+      <i>exact</i> speed at an <i>exact</i> instant in time, that’s the
       derivative. Acceleration is the derivative of speed. Electric current is
       the derivative of charge. Etc.
     </p>
@@ -929,16 +963,17 @@
       year. But they add money more than once a year, and the rate constantly
       changes. Sometimes they talk about interest “compounding” yearly,
       quarterly, monthly, daily or continuously. (“APR” is banker-speak for
-      “continuously.”) That's the same approximation that we did above. The
+      “continuously.”) That’s the same approximation that we did above. The
       smaller the time span you look at, the closer you get to the ideal or
-      continuous value. There are more details, of course. I'll leave those to
+      continuous value. There are more details, of course. I’ll leave those to
       your teacher.
     </p>
     <h2><a id="Terminology"></a>Terminology</h2>
     <p>
-      The derivative of f(x) is often written as f'(x), pronounced “F prime of
-      X.” The derivate of y is often written as dy / dx, pronounced “the
-      derivate of y with respect to x.”
+      The derivative of <code>f(x)</code> is often written as
+      <code>f′(x)</code>, pronounced “F prime of X.” The derivate of y is often
+      written as <code>dy / dx</code>, pronounced “the derivate of y with
+      respect to x.”
     </p>
     <h1><a id="Integrals"></a>Integrals</h1>
     <p>
@@ -952,14 +987,14 @@
       ships know their position before GPS was invented? One way is called dead
       reckoning. From time to time they would measure their speed. They would
       multiply each speed measurement by the amount of time they were going that
-      speed, then add all the values together. That's the inverse of what we did
+      speed, then add all the values together. That’s the inverse of what we did
       in the derivative examples, above. The more often they measured their
       speed, the more accurate their estimate would be. If they could measure
       their speed constantly, they would know exactly where they were. But
-      that's tricky. If they measure the speed constantly, they will have an
+      that’s tricky. If they measure the speed constantly, they will have an
       infinite number of distances to add up. And each distance is a speed times
-      a time, and the times are all 0. If you're not careful you'll get
-      <code>∞ ⨉ 0</code>. But by this time you'll be an expert at limits, so you
+      a time, and the times are all 0. If you’re not careful you’ll get
+      <code>∞ ⨉ 0</code>. But by this time you’ll be an expert at limits, so you
       will know how to get a real answer.
     </p>
     <h2>
@@ -1005,25 +1040,25 @@
     <p>
       The previous section begs an important question. Are you expecting a
       number or a formula for an answer? If you see a problem like
-      <code>∫ 2x dx</code>, that's called an <i>indefinite</i> integral. The
+      <code>∫ 2x dx</code>, that’s called an <i>indefinite</i> integral. The
       answer should look like
       <code>x<span class="superscript">2</span> + C</code>, as described above.
-      What if you wanted an exact value? You can't just plug in a number for
+      What if you wanted an exact value? You can’t just plug in a number for
       <code>x</code>. Remember, <code>C</code> can be any number, so
       <code>x<span class="superscript">2</span> + C</code> can be any number.
-      That's not very helpful! Back to our boat example: What if we add up all
+      That’s not very helpful! Back to our boat example: What if we add up all
       of our measurements and got a total of 10 miles? That means the boat
-      <i>moved</i> 10 miles. But that doesn't tell us the <i>position</i> of the
+      <i>moved</i> 10 miles. But that doesn’t tell us the <i>position</i> of the
       boat. There could be two or more boats all going the same speed, but if
       they start at different positions they will end in different positions.
       Crudely speaking, <code>C</code> corresponds to the initial position of
       the boat. In practice, if you want an actual number from an integral, you
-      will use what's called a <i>definite</i> integral. A
+      will use what’s called a <i>definite</i> integral. A
       <i>definite</i> integral looks just like an <i>indefinite</i> integral,
       except that the problem will specify a start value <i>and</i> an end
       value. In our boat example, you might ask how far did the boat move
       between 10am and 10:05. In our <code>2x</code> example you might ask
-      what's the integral of <code>2x</code> between <code>x = 3</code> and
+      what’s the integral of <code>2x</code> between <code>x = 3</code> and
       <code>x = 7</code>. Those problems are both <i>definite</i> integrals.
     </p>
     <div class="phil-notes">
@@ -1033,7 +1068,7 @@
       If you know the <i>indefinite</i> integral of a function, then it is
       trivial to compute a <i>definite</i> integral of the same function. You
       compute the <i>indefinite</i> integral at the start and end values, and
-      you subtract the second from the first. What's the integral of
+      you subtract the second from the first. What’s the integral of
       <code>2x</code> between <code>x = 3</code> and <code>x = 7</code>? Start
       with <code>x<span class="superscript">2</span> + C</code>. For the end
       value we get <code>7<span class="superscript">2</span> + C</code> and for
@@ -1045,7 +1080,7 @@
           >2</span
         >
         + C)</code
-      >. The <code>C</code>'s cancel out to give us
+      >. The <code>C</code>’s cancel out to give us
       <code
         >7<span class="superscript">2</span> - 3<span class="superscript"
           >2</span
@@ -1056,29 +1091,34 @@
     <h2><a id="The_Area_Under_the_Curve"></a>The Area Under the Curve</h2>
     <p>
       A different way to think about an integral is
-      <i>the area under the curve</i>. Same problem: What's the integral of
-      <code>2x</code> between <code>x = 3</code> and <code>x = 7</code>? Let's
+      <i>the area under the curve</i>. Same problem: What’s the integral of
+      <code>2x</code> between <code>x = 3</code> and <code>x = 7</code>? Let’s
       start by graphing <code>2x</code> and marking <code>x = 3</code> and
-      <code>x = 7</code> on the same graph. The area I've highlighted in green
+      <code>x = 7</code> on the same graph. The area I’ve highlighted in green
       is the answer we want. You could measure that with a ruler! Or you could
-      notice that it's a trapezoid, and Google “area of a trapezoid” if you
-      don't remember that formula. Or break it into a triangle and a rectangle
-      if that's easier. Notice that when the original function is below the x
+      notice that it’s a trapezoid, and Google “area of a trapezoid” if you
+      don’t remember that formula. Or break it into a triangle and a rectangle
+      if that’s easier. Notice that when the original function is below the x
       axis, we subtract that from the total area. What if the function we are
       integrating is more complicated than a line? Break it into smaller pieces.
-      Compute each piece separately then add them up. Like we've been doing!
+      Compute each piece separately then add them up. Like we’ve been doing!
       What if the function we are trying to integrate is a curve, not a set of
       line segments? Break it into small pieces then add them up. How small? It
       depends how accurate you want your estimate to be. But this method is not
       just for estimates. If you take the <i>limit</i> as the pieces get
       infinitely small, that will be the exact answer. The formal definition of
-      an integral involves an infinite sum. And that's exactly what we did with
+      an integral involves an infinite sum. And that’s exactly what we did with
       the dead reckoning example, and with the area under the curve.
     </p>
     <div class="phil-notes">‼️ Need some images here.</div>
     <h1><a id="Final_Thoughts"></a>Final Thoughts</h1>
     <p>
-      Enjoy your studies. I'm just scratching the surface of what you will learn
+      That was a quick tour though <i>a full year’s worth</i> of calculus!
+      There’s no need to memorize anything. But keep this handy while you study
+      calculus.
+    </p>
+    <p>
+      Enjoy your studies. I’m just scratching the surface of what you will learn
       in class. I am
       <a href="https://github.com/TradeIdeasPhilip">Philip Smolen</a>
       writing

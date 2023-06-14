@@ -562,6 +562,24 @@
         ></image>
         <g transform="scale(198.59375, -198.59375) translate(3.2, -3.2)">
           <g>
+            <polygon
+              style="opacity: 90%"
+              transform="scale(0,0)"
+              id="currentlyCenteredPointer"
+              points="0,0 0.24,0.6 0.06,0.44 0.06,1 -0.06,1 -0.06,0.44 -0.24,0.6 0,0"
+              fill="rgb(0,0,255)"
+              stroke="none"
+            ></polygon>
+            <g id="currentlyCenteredTranslate">
+              <g id="currentlyCenteredZoom">
+                <polygon
+                  id="currentlyCentered"
+                  points="1.2,1.2 -1.2,1.2, -1.2,-1.2, 1.2,-1.2"
+                  fill="rgb(0,0,255,25%)"
+                  stroke="none"
+                ></polygon>
+              </g>
+            </g>
             <rect
               x="-1.2"
               y="-2.8"
@@ -604,23 +622,6 @@
               fill="rgb(0,0,255,50%)"
               stroke="none"
             ></polygon>
-            <polygon
-              style="opacity: 90%"
-              id="currentlyCenteredPointer"
-              points="0,0 0.24,0.6 0.06,0.44 0.06,1 -0.06,1 -0.06,0.44 -0.24,0.6 0,0"
-              fill="rgb(0,0,255)"
-              stroke="none"
-            ></polygon>
-            <g id="currentlyCenteredTranslate">
-              <g id="currentlyCenteredZoom">
-                <polygon
-                  id="currentlyCentered"
-                  points="1.2,1.2 -1.2,1.2, -1.2,-1.2, 1.2,-1.2"
-                  fill="rgb(0,0,255,25%)"
-                  stroke="none"
-                ></polygon>
-              </g>
-            </g>
           </g>
           <g transform="translate(2.4, 2.3)">
             <g transform="scale(1, -1)">
@@ -716,36 +717,69 @@
         >x<span class="superscript">3</span> ÷ x = x<span class="superscript"
           >2</span
         ></code
-      >, but only when <code>x ≠ 0</code>.
+      >, <i>but only when</i> <code>x ≠ 0</code>.
       <code>x<span class="superscript">3</span> ÷ x</code> is
       <i>undefined</i> when x = 0.
     </p>
-    <div class="phil-notes">
-      ‼️ Graph <code>x<span class="superscript">2</span></code
-      >, but only when <code>x ≠ 0</code>. Presumably there’s a hollow circle at
-      x=0. Presumably I’m getting most of these charts from another tool, so
-      I’ll let it do it’s thing. What’s the name of that free on line graphing
-      calculator? Desmos I think.
-    </div>
+    <a
+      class="figure"
+      href="https://www.desmos.com/calculator/b6ftrkt9fb"
+      target="_blank"
+    >
+      <svg
+        style="background-color: blanchedalmond"
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 1272 558"
+      >
+        <image
+          x="0"
+          y="0"
+          width="1272"
+          height="558"
+          href="./rough-draft-images/0900.png"
+          preserveAspectRatio="none"
+        ></image>
+        <g transform="scale(198.57, -199.13) translate(3.2, -2.4)">
+          <circle
+            cx="0"
+            cy="0"
+            r="0.05"
+            stroke="#ce5855"
+            fill="white"
+            stroke-width="0.028"
+          ></circle>
+        </g>
+      </svg>
+      <div>
+        <code>x<span class="superscript">3</span> ÷ x</code> Notice the open
+        circle at x=0.
+      </div></a
+    >
     <p>
       In simpler terms,
       <code>x<span class="superscript">3</span> ÷ x</code> looks a lot like
       <code>x<span class="superscript">2</span></code
-      >, but it has a hole it it!
+      >, but <code>x<span class="superscript">3</span> ÷ x</code> has a hole it
+      it!
     </p>
-    <div class="phil-notes">
-      ‼️ Show graphs of Graph <code>x<span class="superscript">2</span></code
-      >, but only when <code>x ≠ 0</code>, and normal
-      <code>x<span class="superscript">2</span></code
-      >. “normal” one is first / on the left (to match the text below.)
-    </div>
+
+    <a
+      class="figure"
+      href="https://www.desmos.com/calculator/hltudgp9bc"
+      target="_blank"
+      ><img src="./rough-draft-images/0900.png" />
+      <div>
+        <code>x<span class="superscript">2</span></code>
+      </div></a
+    >
+
     <p>
-      If you only had the second graph, you could probably guess what the first
-      graph looks like! You could fill in that missing value with anything you
-      want, but only one value would make the function smooth. Congratulations,
-      you just computed a limit! Calculus class will teach you when it is okay
-      to use the complete version of the function, rather than the original
-      version with the hole.
+      If you only had the first graph, you could probably <i>guess</i> what the
+      second graph looked like! You could fill in that hole with anything you
+      want, but only one value would make the function <i>smooth</i>.
+      Congratulations, you just computed a limit! Calculus class will teach you
+      when it is okay to use the complete version of the function, rather than
+      the original version with the hole.
     </p>
     <h2><a id="Terminology"></a>Terminology</h2>
     <p>
@@ -934,9 +968,10 @@
     </p>
     <h2><a id="Terminology"></a>Terminology</h2>
     <p>
-      The derivative of <code>f(x)</code> is often written as <code>f′(x)</code>, pronounced “F prime of
-      X.” The derivate of y is often written as <code>dy / dx</code>, pronounced “the
-      derivate of y with respect to x.”
+      The derivative of <code>f(x)</code> is often written as
+      <code>f′(x)</code>, pronounced “F prime of X.” The derivate of y is often
+      written as <code>dy / dx</code>, pronounced “the derivate of y with
+      respect to x.”
     </p>
     <h1><a id="Integrals"></a>Integrals</h1>
     <p>
@@ -1075,6 +1110,11 @@
     </p>
     <div class="phil-notes">‼️ Need some images here.</div>
     <h1><a id="Final_Thoughts"></a>Final Thoughts</h1>
+    <p>
+      That was a quick tour though <i>a full year’s worth</i> of calculus!
+      There’s no need to memorize anything. But keep this handy while you study
+      calculus.
+    </p>
     <p>
       Enjoy your studies. I’m just scratching the surface of what you will learn
       in class. I am
