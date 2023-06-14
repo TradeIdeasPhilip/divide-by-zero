@@ -1,4 +1,4 @@
-import { makeBoundedLinear } from "phil-lib/misc";
+import { assertClass, makeBoundedLinear } from "phil-lib/misc";
 import "./style.css";
 
 import { getById } from "phil-lib/client-misc";
@@ -6,6 +6,10 @@ import { getById } from "phil-lib/client-misc";
 const zoomInSvg = getById("zoomIn", SVGSVGElement);
 const mouseListenerElement = getById("mouseListener", SVGRectElement);
 const mousePointerElement = getById("mousePointer", SVGGeometryElement);
+const currentlyCenteredPointerElement = getById(
+  "currentlyCenteredPointer",
+  SVGGeometryElement
+);
 const currentlyCenteredTranslateGroup = getById(
   "currentlyCenteredTranslate",
   SVGGElement
@@ -16,12 +20,22 @@ const currentlyCenteredZoomGroup = getById(
 );
 const zoomedInParabolaPath = getById("zoomedInParabola", SVGPathElement);
 
-mouseListenerElement.addEventListener("mouseenter", () => {
+function showMousePointer() {
   mousePointerElement.style.display = "";
-});
+}
+
+function hideMousePointer() {
+  mousePointerElement.style.display = "none";
+}
+
+(["mouseenter", "mousemove"] as const).forEach((eventName) =>
+  mouseListenerElement.addEventListener(eventName, () => {
+    showMousePointer();
+  })
+);
 
 mouseListenerElement.addEventListener("mouseleave", () => {
-  mousePointerElement.style.display = "none";
+  hideMousePointer();
 });
 
 function mouseToCircle({ screenX, screenY }: MouseEvent) {
@@ -35,50 +49,74 @@ function mouseToCircle({ screenX, screenY }: MouseEvent) {
   return { x: svgPoint.x, y };
 }
 
-mouseListenerElement.addEventListener("mousemove", (mouseEvent) => {
-  const { x, y } = mouseToCircle(mouseEvent);
+function setArrowPosition(
+  arrow: SVGGeometryElement,
+  { x, y }: { x: number; y: number }
+) {
   const slope = -2 * x;
   const angleInDegrees = (Math.atan(slope) / Math.PI) * 180;
-  mousePointerElement.setAttribute(
+  arrow.setAttribute(
     "transform",
     `translate(${x}, ${y}) rotate(${angleInDegrees})`
   );
+}
+
+mouseListenerElement.addEventListener("mousemove", (mouseEvent) => {
+  setArrowPosition(mousePointerElement, mouseToCircle(mouseEvent));
 });
 
-// TODO reorganize.  #autoZoomAmount should be an action to be called on animation, not a function to be called by another function.
-// setNewZoom should be private (if not completely removed)
-// allowAutoZoom should not be a property.  Does anyone even read it?  And setting it ALWAYS has a side effect.
+// TODO reorganize:
+// • setNewZoom should be private (if not completely removed)
+// • allowAutoZoom should not be a property.  Does anyone even read it?  And setting it ALWAYS has a side effect.  Just make it a function.
 class Zoom {
   private static centerX = 0;
   private static centerY = 0;
   private static ratio = 1;
-  static #autoZoomAmount: ((time: number) => number) | undefined;
+  static #animate: ((time: number) => void) | undefined;
   static get allowAutoZoom() {
-    return this.#autoZoomAmount !== undefined;
+    return this.#animate !== undefined;
   }
   static #animationHasBeenInitialized = false;
+  //static readonly #numberHeight = 0.2;
+  static readonly #zoomTextGroup = getById("zoomText", SVGGElement);
+  static readonly #zoomTextElement = assertClass(
+    this.#zoomTextGroup.firstElementChild,
+    SVGTextElement
+  );
   static set allowAutoZoom(newValue: boolean) {
     if (newValue) {
       const now = performance.now();
-      const linear = makeBoundedLinear(now, 0, now + 5000, Math.log(400));
-      this.#autoZoomAmount = (time: number) => {
-        return Math.exp(linear(time));
+      const logOfZoom = makeBoundedLinear(now, 0, now + 10000, Math.log(300));
+      const opacity = makeBoundedLinear(now + 1000, 0, now + 10000, 0.75);
+      this.#animate = (time: number) => {
+        const newZoom = Math.exp(logOfZoom(time));
+        this.setNewZoom(newZoom);
+        const newOpacity = opacity(time);
+        currentlyCenteredPointerElement.style.opacity = newOpacity.toString();
       };
-      // performance.now();
+      hideMousePointer();
     } else {
-      this.#autoZoomAmount = undefined;
+      this.#animate = undefined;
     }
     this.setNewZoom(1);
     if (!this.#animationHasBeenInitialized) {
       this.#animationHasBeenInitialized = true;
       requestAnimationFrame(this.onAnimationFrame);
+
+      /*
+      archetype.remove();
+      for (let index = 1; index <= 500; index++) {
+        const text = assertClass(archetype.cloneNode(true), SVGTextElement);
+        text.setAttribute("y", (index * this.#numberHeight).toString());
+        text.textContent = `${index}⨉`;
+        this.#zoomTextGroup.appendChild(text);
+      }
+      */
     }
   }
   private static onAnimationFrame(this: unknown, time: number) {
     requestAnimationFrame(Zoom.onAnimationFrame);
-    if (Zoom.#autoZoomAmount) {
-      Zoom.setNewZoom(Zoom.#autoZoomAmount(time));
-    }
+    Zoom.#animate?.(time);
   }
   private static updateGUI() {
     zoomedInParabolaPath.setAttribute(
@@ -93,6 +131,10 @@ class Zoom {
       "transform",
       `scale(${1 / this.ratio})`
     );
+    setArrowPosition(currentlyCenteredPointerElement, {
+      x: this.centerX,
+      y: this.centerY,
+    });
     // This is crazy.  I can't set the stroke width to be less than 0.0003.
     // (That corresponds to a zoom ratio of greater than 500.)
     // If I try to make the stroke-width smaller it suddenly becomes huge.
@@ -100,6 +142,12 @@ class Zoom {
     const strokeWidth = (0.15 / this.ratio).toString();
     //console.log(strokeWidth);
     zoomedInParabolaPath.setAttribute("stroke-width", strokeWidth);
+    //this.#zoomTextGroup.setAttribute("transform", `translate(0, ${-this.ratio * this.#numberHeight})`);
+    this.#zoomTextElement.textContent = `${
+      this.ratio < 10
+        ? Math.round(this.ratio * 10) / 10
+        : Math.round(this.ratio)
+    }⨉`;
   }
 
   static selectNewTarget({ x, y }: { x: number; y: number }) {
@@ -124,8 +172,8 @@ function updateMouseCursor(mouseEvent: MouseEvent) {
   mouseListenerElement.style.cursor = mouseEvent.buttons
     ? /* Something was pressed.  Releasing the button will zoom in to the current point. */
       "zoom-in"
-    : /* Nothing is pressed.  Move the mouse to select a new point. */
-      "cell";
+    : /* Nothing is pressed.  Move the mouse to select a new point.  Only the X matters. */
+      "ew-resize";
 }
 (["mouseup", "mousedown", "mouseenter"] as const).forEach((eventName) => {
   mouseListenerElement.addEventListener(eventName, updateMouseCursor);
