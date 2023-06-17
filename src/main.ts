@@ -2,7 +2,6 @@ import {
   assertClass,
   initializedArray,
   makeBoundedLinear,
-  makeLinear,
   zip,
 } from "phil-lib/misc";
 import "./style.css";
@@ -471,8 +470,9 @@ new DerivativeApproximation(
 new DerivativeApproximation(24, "animatedParabola2", "animatedDerivative2"); // TODO animate this!!!
 
 {
-  const loopPeriodMS = 5000;
-  const size = makeLinear(0, 1, loopPeriodMS, 6 / 48);
+  const loopPeriodMS = 7000;
+  const activePeriodMS = 5000;
+  const size = makeBoundedLinear(0, 1, activePeriodMS, 6 / 48);
   const graphics = new DerivativeApproximation(
     48,
     undefined,
