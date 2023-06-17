@@ -1,4 +1,9 @@
-import { assertClass, makeBoundedLinear } from "phil-lib/misc";
+import {
+  assertClass,
+  initializedArray,
+  makeBoundedLinear,
+  zip,
+} from "phil-lib/misc";
 import "./style.css";
 
 import { getById } from "phil-lib/client-misc";
@@ -264,7 +269,7 @@ mouseListenerElement.addEventListener("mouseleave", () => {
 Zoom.selectNewTarget({ x: 0, y: 2 });
 Zoom.startAnimation();
 
-/**
+/*
  * A tangent line is just a line that touches a function at a point, and has the same slope as the function at that point.
  * This is another way to visualize a derivative.
  *
@@ -277,3 +282,141 @@ Zoom.startAnimation();
  * to add a definition.  Now it seems less important.  It would make a nice animation.  I could probably adapt
  * my code for the mouse cursor arrow to make a tangent line demo with very little effort.
  */
+
+class CopyElement<T extends Element> {
+  readonly #archetype: T;
+  constructor(readonly parent: SVGGElement, readonly type: { new (): T }) {
+    let archetype: T | undefined;
+    for (const child of parent.children) {
+      if (child instanceof type) {
+        archetype = child;
+        break;
+      }
+    }
+    if (!archetype) {
+      throw new Error("wtf");
+    }
+    archetype.remove();
+    this.#archetype = archetype;
+  }
+  create(): T {
+    return assertClass(this.#archetype.cloneNode(true), this.type);
+  }
+  createParented(): T {
+    return this.parent.appendChild(this.create());
+  }
+}
+
+type Point = { readonly x: number; readonly y: number };
+
+/**
+ * Draw the lines in different ways.
+ *
+ * We start with a few segments.  Then we add more and more.
+ */
+class DerivativeApproximation {
+  readonly #parabolaPoints: readonly SVGCircleElement[];
+  readonly #parabolaLines: readonly SVGLineElement[];
+  readonly #derivativeSegments: readonly {
+    readonly start: SVGCircleElement;
+    readonly middle: SVGLineElement;
+    readonly end: SVGCircleElement;
+  }[];
+  /**
+   *
+   * @param numberOfSegments How many line segments to draw.
+   * @param parabolaGroup Where to put the new SVG Elements that we create.  And where to find the sample elements to duplicate.
+   * @param derivativeGroup  Where to put the new SVG Elements that we create.  And where to find the sample elements to duplicate.
+   * @param initialSize The distance between two adjacent points.  Should be ≥ 0.  Will be overwritten by the next call to resize().
+   */
+  constructor(
+    readonly numberOfSegments: number,
+    parabolaGroup: SVGGElement | string,
+    derivativeGroup: SVGGElement | string,
+    initialSize: number
+  ) {
+    const parabolaGElement =
+      parabolaGroup instanceof SVGGElement
+        ? parabolaGroup
+        : getById(parabolaGroup, SVGGElement);
+    const derivativeGElement =
+      derivativeGroup instanceof SVGGElement
+        ? derivativeGroup
+        : getById(derivativeGroup, SVGGElement);
+    {
+      const factory = new CopyElement(parabolaGElement, SVGCircleElement);
+      this.#parabolaPoints = initializedArray(numberOfSegments + 1, () =>
+        factory.createParented()
+      );
+    }
+    {
+      const factory = new CopyElement(parabolaGElement, SVGLineElement);
+      this.#parabolaLines = initializedArray(numberOfSegments, () =>
+        factory.createParented()
+      );
+    }
+    {
+      const circleFactory = new CopyElement(
+        derivativeGElement,
+        SVGCircleElement
+      );
+      const lineFactory = new CopyElement(derivativeGElement, SVGLineElement);
+      this.#derivativeSegments = initializedArray(numberOfSegments, () => {
+        const middle = lineFactory.createParented();
+        const start = circleFactory.createParented();
+        const end = circleFactory.createParented();
+        return { start, middle, end };
+      });
+    }
+    this.resize(initialSize);
+  }
+  /**
+   * Rescale all of the elements.
+   * @param size The distance between two adjacent points.  Should be ≥ 0.
+   */
+  resize(size: number) {
+    /** Number of fence posts. */
+    const numberOfPoints = this.numberOfSegments + 1;
+    const midway = this.numberOfSegments / 2;
+    const points: readonly Point[] = initializedArray(numberOfPoints, (n) => {
+      const x = (n - midway) * size;
+      const y = (x * x) / 2; // y = f(x)  I.e. The function we are going to take the derivative of.
+      return { x, y };
+    });
+    for (const [point, circle] of zip(points, this.#parabolaPoints)) {
+      circle.cx.baseVal.value = point.x;
+      circle.cy.baseVal.value = point.y;
+    }
+    const pairs = initializedArray(points.length - 1, (n) => {
+      return { first: points[n], second: points[n + 1] };
+    });
+    for (const [{ first, second }, line] of zip(pairs, this.#parabolaLines)) {
+      line.x1.baseVal.value = first.x;
+      line.y1.baseVal.value = first.y;
+      line.x2.baseVal.value = second.x;
+      line.y2.baseVal.value = second.y;
+    }
+    for (const [{ first, second }, { start, middle, end }] of zip(
+      pairs,
+      this.#derivativeSegments
+    )) {
+      const slope = (second.y - first.y) / (second.x - first.x);
+      /**
+       * The x and y scales are off by a factor of 2.
+       * This is the y that the SVG can handle.
+       */
+      const y = slope / 2;
+      start.cx.baseVal.value = middle.x1.baseVal.value = first.x;
+      start.cy.baseVal.value = middle.y1.baseVal.value = y;
+      end.cx.baseVal.value = middle.x2.baseVal.value = second.x;
+      end.cy.baseVal.value = middle.y2.baseVal.value = y;
+    }
+  }
+}
+
+const firstExample = new DerivativeApproximation(
+  6,
+  "sampleParabola",
+  "sampleDerivative",
+  1
+);
