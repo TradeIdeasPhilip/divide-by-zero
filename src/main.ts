@@ -66,9 +66,11 @@ function setArrowPosition(
   );
 }
 
-mouseListenerElement.addEventListener("mousemove", (mouseEvent) => {
-  setArrowPosition(mousePointerElement, mouseToCircle(mouseEvent));
-});
+(["mousemove", "mouseenter"] as const).forEach((eventName) =>
+  mouseListenerElement.addEventListener(eventName, (mouseEvent) => {
+    setArrowPosition(mousePointerElement, mouseToCircle(mouseEvent));
+  })
+);
 
 // TODO reorganize:
 // • setNewZoom should be private (if not completely removed)
