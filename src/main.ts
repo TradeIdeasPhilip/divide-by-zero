@@ -72,8 +72,6 @@ function setArrowPosition(
   })
 );
 
-// TODO reorganize:
-// • setNewZoom should be private (if not completely removed)
 class Zoom {
   private static centerX = 0;
   private static centerY = 0;
@@ -226,12 +224,11 @@ class Zoom {
    *
    * @param ratio 1.0 means actual size.  2.0 means double in both dimensions.
    */
-  static setNewZoom(ratio: number) {
+  private static setNewZoom(ratio: number) {
     this.ratio = ratio;
     this.updateGUI();
   }
 }
-(window as any).setNewZoom = Zoom.setNewZoom.bind(Zoom);
 
 function updateMouseCursor(mouseEvent: MouseEvent) {
   mouseListenerElement.style.cursor = mouseEvent.buttons
@@ -271,22 +268,53 @@ mouseListenerElement.addEventListener("mouseleave", () => {
 Zoom.selectNewTarget({ x: 0, y: 2 });
 Zoom.startAnimation();
 
-/*
- * A tangent line is just a line that touches a function at a point, and has the same slope as the function at that point.
+/**
+ * TODO Consider adding this paragraph and animation to the document.
+ *
+ * (a) A tangent line is just a line that touches a function at a point, and has the same slope as the function at that point.
  * This is another way to visualize a derivative.
+ *
+ * (b) It would impossible to see the tiny line segments.
+ * Instead, it's common to expand just one of these segments at a time.
+ * The result is called a <i>tangent line</i>.
+ * Notice that each tangent line touches the parabola at exactly one point.
+ *
+ * (c) It would impossible to see the <i>tiny</i> line segments we discussed in Really Small Pieces.
+ * Instead, it's common to expand just one of these line segments at a time.
+ * The result is called a <i>tangent line</i>.
+ * Notice that each tangent line touches the parabola at exactly one point.
  *
  * This would make a great graphic.  A simple animation.  Start with the 2-x*x picture.  Draw the line moving from one point to the next, back and forth,
  * at a comfortable speed to stare at.  Keep the default ease in and out on both sides.
  *
- * Maybe a summary for the derivate section?  Or where I'm already discussing something related.
+ * Put the (b) wording of this right above Physics Examples in the Derivatives section.
+ *
+ * Or put the (a) wording in the Terminology section for Derivatives.
  *
  * Hmmm.  For some reason I thought I'd already mentioned the tangent line.  Then it seemed like a good idea
  * to add a definition.  Now it seems less important.  It would make a nice animation.  I could probably adapt
  * my code for the mouse cursor arrow to make a tangent line demo with very little effort.
+ *
+ * Ah.  I mentioned the tangent line in a video.  https://www.youtube.com/watch?v=VnLQNXIJ1l4
+ * In that video I was summarizing rough-draft.md and I was speaking off the top of my head.
  */
 
+/**
+ * It often makes sense to create on example of an element in the document,
+ * then use the code to duplicate that object.  That's the easy way to make
+ * sure all of the properties are right.  This class takes care of some of
+ * common tasks related to this activity.
+ */
 class CopyElement<T extends Element> {
+  /**
+   * The one that we moved out of the document.
+   */
   readonly #archetype: T;
+  /**
+   * This will immediately pull the sample element out of the document, making it invisible.
+   * @param parent This is the element where we find the sample and add the new copies.
+   * @param type This is the expected & required type of the element to duplicate.
+   */
   constructor(readonly parent: SVGGElement, readonly type: { new (): T }) {
     let archetype: T | undefined;
     for (const child of parent.children) {
@@ -301,9 +329,18 @@ class CopyElement<T extends Element> {
     archetype.remove();
     this.#archetype = archetype;
   }
+  /**
+   *
+   * @returns A new copy of the sample element.
+   */
   create(): T {
     return assertClass(this.#archetype.cloneNode(true), this.type);
   }
+  /**
+   * This calls `create()` and also appends this new element to the end of the parent.
+   * This is a very common use case, where the copies go back where the sample came from.
+   * @returns A new copy of the sample element.
+   */
   createParented(): T {
     return this.parent.appendChild(this.create());
   }
@@ -327,35 +364,40 @@ class DerivativeApproximation {
   /**
    *
    * @param numberOfSegments How many line segments to draw.
-   * @param parabolaGroup Where to put the new SVG Elements that we create.  And where to find the sample elements to duplicate.
+   * @param parabolaGroup Where to put the new SVG Elements that we create.
+   * And where to find the sample elements to duplicate.
+   * Undefined means to skip this graph.
    * @param derivativeGroup  Where to put the new SVG Elements that we create.  And where to find the sample elements to duplicate.
    * @param initialSize The distance between two adjacent points.  Should be ≥ 0.  Will be overwritten by the next call to resize().
+   * The default is just enough to fit all of the segments on the charts.
    */
   constructor(
     readonly numberOfSegments: number,
-    parabolaGroup: SVGGElement | string,
-    derivativeGroup: SVGGElement | string,
-    initialSize: number
+    parabolaGroup: string | undefined,
+    derivativeGroup: string,
+    initialSize = 6 / numberOfSegments
   ) {
     const parabolaGElement =
-      parabolaGroup instanceof SVGGElement
-        ? parabolaGroup
+      parabolaGroup === undefined
+        ? undefined
         : getById(parabolaGroup, SVGGElement);
-    const derivativeGElement =
-      derivativeGroup instanceof SVGGElement
-        ? derivativeGroup
-        : getById(derivativeGroup, SVGGElement);
-    {
-      const factory = new CopyElement(parabolaGElement, SVGCircleElement);
-      this.#parabolaPoints = initializedArray(numberOfSegments + 1, () =>
-        factory.createParented()
-      );
-    }
-    {
-      const factory = new CopyElement(parabolaGElement, SVGLineElement);
-      this.#parabolaLines = initializedArray(numberOfSegments, () =>
-        factory.createParented()
-      );
+    const derivativeGElement = getById(derivativeGroup, SVGGElement);
+    if (parabolaGElement) {
+      {
+        const factory = new CopyElement(parabolaGElement, SVGCircleElement);
+        this.#parabolaPoints = initializedArray(numberOfSegments + 1, () =>
+          factory.createParented()
+        );
+      }
+      {
+        const factory = new CopyElement(parabolaGElement, SVGLineElement);
+        this.#parabolaLines = initializedArray(numberOfSegments, () =>
+          factory.createParented()
+        );
+      }
+    } else {
+      this.#parabolaPoints = [];
+      this.#parabolaLines = [];
     }
     {
       const circleFactory = new CopyElement(
@@ -416,9 +458,15 @@ class DerivativeApproximation {
   }
 }
 
-const firstExample = new DerivativeApproximation(
-  6,
-  "sampleParabola",
-  "sampleDerivative",
-  1
-);
+new DerivativeApproximation(6, "sampleParabola", "sampleDerivative", 1);
+
+new DerivativeApproximation(
+  12,
+  "animatedParabola1",
+  "animatedDerivative1",
+  0.5
+); // TODO animate this!!!  From 1 to 0.5, then sits on 0.5 for a while, then jumps back to the beginning.  maybe 2/3 or 3/4 of the time it's paused at the end.
+
+new DerivativeApproximation(24, "animatedParabola2", "animatedDerivative2"); // TODO animate this!!!
+
+new DerivativeApproximation(48, undefined, "animatedDerivative3"); // TODO animate this!!!

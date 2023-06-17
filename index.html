@@ -1210,6 +1210,7 @@
           preserveAspectRatio="none"
         ></image>
         <g transform="scale(198.75, -199.17) translate(3.2, -2.2)">
+          <!--
           <g fill="green" stroke="green" stroke-width="0.014">
             <circle cx="-2" cy="2" r="0.025"></circle>
             <circle cx="-1" cy="0.5" r="0.025"></circle>
@@ -1221,14 +1222,17 @@
               fill="none"
             ></path>
           </g>
+          -->
         </g>
       </svg>
       <div>
-        <code>x<span class="superscript">2</span> ÷ 2</code> in red,
-        approximation in green
+        <code>x<span class="superscript">2</span> ÷ 2</code>
       </div></a
     >
-
+    <p>
+      I’ll start by drawing some line segments to create a simple approximation
+      of this parabola. I’ll draw one point at each integer value of x.
+    </p>
     <a
       class="figure"
       href="https://www.desmos.com/calculator/qs3dtiibyp"
@@ -1265,57 +1269,13 @@
       </div></a
     >
 
-    <div class="phil-notes">
-      ‼️ Draw a graph of x<span class="superscript">2</span>. x goes from -1 to
-      4. To save space y goes from -1 to 10. So the line will go off the top of
-      the graph somewhere between x=3 and x=4. Label the x axis with an “x”.
-      Label the y axis with “y = x<span class="superscript">2</span>”.
-    </div>
     <p>
-      You could say that the <i>average</i> rate of change between 0 and 1 is 1.
-      And the average rate of change between 1 and 2 is 3. If you keep going
-      you’ll get a graph like this for the derivative x<span class="superscript"
-        >2</span
-      >.
+      You know how to take the derivate of a series of line segments. Just like
+      in the <a href="#Smaller_Pieces">previous section</a>, you need to plot
+      the slope of each line segment, and draw an empty circle anywhere the
+      slope changes suddenly. That will give you a graph like this for the
+      derivative x<span class="superscript">2</span>.
     </p>
-
-    <a
-      class="figure"
-      href="https://www.desmos.com/calculator/9akskejdg4"
-      target="_blank"
-    >
-      <svg
-        style="background-color: blanchedalmond"
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 1272 498"
-      >
-        <image
-          x="0"
-          y="0"
-          width="1272"
-          height="498"
-          href="./rough-draft-images/1600a.png"
-          preserveAspectRatio="none"
-        ></image>
-        <g transform="scale(198.75, -199.2) translate(3.2, -1.25)">
-          <g stroke="blue" fill="white" stroke-width="0.028">
-            <line x1="-3" y1="-1.25" x2="-2" y2="-1.25"></line>
-            <circle cx="-3" cy="-1.25" r="0.05"></circle>
-            <circle cx="-2" cy="-1.25" r="0.05"></circle>
-            <line x1="-2" y1="-0.75" x2="-1" y2="-0.75"></line>
-            <circle cx="-2" cy="-0.75" r="0.05"></circle>
-            <circle cx="-1" cy="-0.75" r="0.05"></circle>
-            <line x1="-1" y1="-0.25" x2="0" y2="-0.25"></line>
-            <circle cx="-1" cy="-0.25" r="0.05"></circle>
-            <circle cx="0" cy="-0.25" r="0.05"></circle>
-          </g>
-        </g>
-      </svg>
-      <div>
-        derivative of an approximation of
-        <code>x<span class="superscript">2</span> ÷ 2</code>
-      </div></a
-    >
 
     <a
       class="figure"
@@ -1348,60 +1308,225 @@
         </g>
       </svg>
       <div>
-        derivative of an approximation of
+        Derivative of <i>an approximation</i> of
+        <code>x<span class="superscript">2</span> ÷ 2</code>
+      </div></a
+    >
+    <p>
+      But there’s no reason to break things up that way. What if you asked for
+      the average every time x changes by ½? Then the answers would look like
+      these graphs.
+    </p>
+
+    <a
+      class="figure"
+      href="https://www.desmos.com/calculator/qs3dtiibyp"
+      target="_blank"
+    >
+      <svg
+        style="background-color: blanchedalmond"
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 1272 478"
+      >
+        <image
+          x="0"
+          y="0"
+          width="1272"
+          height="478"
+          href="./rough-draft-images/1500.png"
+          preserveAspectRatio="none"
+        ></image>
+        <g transform="scale(198.75, -199.17) translate(3.2, -2.2)">
+          <g
+            fill="green"
+            stroke="green"
+            stroke-width="0.014"
+            id="animatedParabola1"
+          >
+            <circle cx="-1" cy="0.5" r="0.025"></circle>
+            <line x1="-1" y1="0.5" x2="0" y2="0"></line>
+          </g>
+        </g>
+      </svg>
+      <div>
+        <code>x<span class="superscript">2</span> ÷ 2</code> with a
+        <i>better</i> approximation
+      </div>
+    </a>
+
+    <br />
+
+    <a
+      class="figure"
+      href="https://www.desmos.com/calculator/9akskejdg4"
+      target="_blank"
+    >
+      <svg
+        style="background-color: blanchedalmond"
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 1272 498"
+      >
+        <image
+          x="0"
+          y="0"
+          width="1272"
+          height="498"
+          href="./rough-draft-images/1600a.png"
+          preserveAspectRatio="none"
+        ></image>
+        <g transform="scale(198.75, -199.2) translate(3.2, -1.25)">
+          <g
+            stroke="blue"
+            fill="white"
+            stroke-width="0.028"
+            id="animatedDerivative1"
+          >
+            <line x1="-3" y1="-1.25" x2="-2" y2="-1.25"></line>
+            <circle cx="-3" cy="-1.25" r="0.05"></circle>
+          </g>
+        </g>
+      </svg>
+      <div>
+        Derivative of the <i>better</i> approximation of
         <code>x<span class="superscript">2</span> ÷ 2</code>
       </div></a
     >
 
-    <div class="phil-notes">
-      ‼️ Keep the previous graph and add new lines in a different color. Draw
-      straight lines connecting this series of points (-1, 1), (0,0), (1,1),
-      (2,4), (3,9), (4,16). Add a second graph below the first. The x axis
-      scales should line up perfectly. The y axis on the bottom should be
-      labeled “y’ = the derivative of x<span class="superscript">2</span>”. Fill
-      in the values. These should each be horizontal segments with open circles
-      on both sides.
-    </div>
     <p>
-      But there’s no reason to break things up that way. What if you asked for
-      the average every time x changes by ½? Then the answers would look like
-      this graph.
+      Is it safe to approximate a curve with a lot of line segments?
+      <b>Yes!</b>
+      Remember what you saw in the <a href="#zoom_in_demo">zooming in demo</a>,
+      above. As we zoom in, any one part of a smooth function will look more and
+      more like a straight line.
     </p>
-    <div class="phil-notes">
-      ‼️ Just like the previous pair of graphs, but draw twice as many points.
-      x=0, x=0.5, x=1, x=1.5, etc.
-    </div>
     <p>
-      As you look at smaller and smaller sections, you see more an more detail.
+      As you look at smaller and smaller sections, you see more and more detail.
       How small can we make the sections?
-      <a href="#zoom_in_demo">#zoom_in_demo</a>
     </p>
-    <div class="phil-notes">
-      ‼️ Similar to previous two illustrations, but make the sections much
-      smaller. Look at the result to decide how small to make these. It should
-      still be obvious that these are separate segments, but, clearly getting
-      closer to smooth.
-    </div>
+    <a
+      class="figure"
+      href="https://www.desmos.com/calculator/qs3dtiibyp"
+      target="_blank"
+    >
+      <svg
+        style="background-color: blanchedalmond"
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 1272 478"
+      >
+        <image
+          x="0"
+          y="0"
+          width="1272"
+          height="478"
+          href="./rough-draft-images/1500.png"
+          preserveAspectRatio="none"
+        ></image>
+        <g transform="scale(198.75, -199.17) translate(3.2, -2.2)">
+          <g
+            fill="green"
+            stroke="green"
+            stroke-width="0.014"
+            id="animatedParabola2"
+          >
+            <circle cx="-1" cy="0.5" r="0.025"></circle>
+            <line x1="-1" y1="0.5" x2="0" y2="0"></line>
+          </g>
+        </g>
+      </svg>
+      <div>
+        <code>x<span class="superscript">2</span> ÷ 2</code> with an
+        <i>even better</i>
+        approximation
+      </div></a
+    >
+
+    <br />
+
+    <a
+      class="figure"
+      href="https://www.desmos.com/calculator/9akskejdg4"
+      target="_blank"
+    >
+      <svg
+        style="background-color: blanchedalmond"
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 1272 498"
+      >
+        <image
+          x="0"
+          y="0"
+          width="1272"
+          height="498"
+          href="./rough-draft-images/1600a.png"
+          preserveAspectRatio="none"
+        ></image>
+        <g transform="scale(198.75, -199.2) translate(3.2, -1.25)">
+          <g
+            stroke="blue"
+            fill="white"
+            stroke-width="0.014"
+            id="animatedDerivative2"
+          >
+            <line x1="-3" y1="-1.25" x2="-2" y2="-1.25"></line>
+            <circle cx="-3" cy="-1.25" r="0.025"></circle>
+          </g>
+        </g>
+      </svg>
+      <div>
+        Derivative of the <i>even better</i> approximation of
+        <code>x<span class="superscript">2</span> ÷ 2</code>
+      </div></a
+    >
     <p>
       As we get closer and closer to 0, the answer gets better and better. What
       if we asked about a change of 0? Every time x moves 0 units to the right,
       x<span class="superscript">2</span> moves 0 units up. And
       <code>0 ÷ 0</code> = <i>what?</i>
     </p>
-    <div class="phil-notes">
-      ‼️ Draw 2 graphs. On top, just x<span class="superscript">2</span> without
-      anything else. On the bottom draw the graph of 2x.
-    </div>
+
+    <a
+      class="figure"
+      href="https://www.desmos.com/calculator/9akskejdg4"
+      target="_blank"
+    >
+      <svg
+        style="background-color: blanchedalmond"
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 1272 498"
+      >
+        <image
+          x="0"
+          y="0"
+          width="1272"
+          height="498"
+          href="./rough-draft-images/1600.png"
+          preserveAspectRatio="none"
+        ></image>
+        <g transform="scale(198.75, -199.2) translate(3.2, -1.25)">
+          <g
+            stroke="blue"
+            fill="white"
+            stroke-width="0.014"
+            id="animatedDerivative3"
+          >
+            <line x1="-3" y1="-1.25" x2="-2" y2="-1.25"></line>
+            <circle cx="-3" cy="-1.25" r="0.0125"></circle>
+          </g>
+        </g>
+      </svg>
+      <div>Actual derivative in orange, approximation in blue.</div></a
+    >
+
     <p>
       And that’s why we learn limits before we learn derivatives. When you work
       out the problem in class you’ll eventually learn that the derivative of
-      <code>x<span class="superscript">2</span></code> is <code>2x</code>,
+      <code>x<span class="superscript">2</span> ÷ 2</code> is <code>x</code>,
       matching what we see on the graph. But along the way to
-      <code>2x</code> you’d see something (roughly) similar to
-      <code>2x<span class="superscript">2</span> ÷ x</code>. Because you know
+      <code>x</code> you’d see something (roughly) similar to
+      <code>x<span class="superscript">2</span> ÷ x</code>. Because you know
       limits you can simplify
-      <code>2x<span class="superscript">2</span> ÷ x</code> to
-      <code>2x</code> without being afraid to divide by 0.
+      <code>x<span class="superscript">2</span> ÷ x</code> to
+      <code>x</code> without being afraid to divide by 0.
     </p>
     <h2><a id="Physics_Examples"></a>Physics Examples</h2>
     <p>
