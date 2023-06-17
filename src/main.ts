@@ -2,6 +2,7 @@ import {
   assertClass,
   initializedArray,
   makeBoundedLinear,
+  makeLinear,
   zip,
 } from "phil-lib/misc";
 import "./style.css";
@@ -469,4 +470,25 @@ new DerivativeApproximation(
 
 new DerivativeApproximation(24, "animatedParabola2", "animatedDerivative2"); // TODO animate this!!!
 
-new DerivativeApproximation(48, undefined, "animatedDerivative3"); // TODO animate this!!!
+{
+  const loopPeriodMS = 5000;
+  const size = makeLinear(0, 1, loopPeriodMS, 6 / 48);
+  const graphics = new DerivativeApproximation(
+    48,
+    undefined,
+    "animatedDerivative3"
+  );
+  function updateDerivative3(time: DOMHighResTimeStamp) {
+    const timeSinceLoopStart = time % loopPeriodMS;
+    graphics.resize(size(timeSinceLoopStart));
+  }
+  function runSoon() {
+    requestAnimationFrame(runNow);
+  }
+  function runNow(time: DOMHighResTimeStamp) {
+    runSoon();
+    updateDerivative3(time);
+  }
+  runSoon();
+  // TODO It's super jerky, especially at the end when it loops back to the beginning.  Do something!
+}
