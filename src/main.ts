@@ -492,3 +492,30 @@ new DerivativeApproximation(24, "animatedParabola2", "animatedDerivative2"); // 
   runSoon();
   // TODO It's super jerky, especially at the end when it loops back to the beginning.  Do something!
 }
+
+class TangentLine {
+  static #element = getById("tangentLine", SVGGElement);
+  /**
+   * Move to a specific position.
+   * @param x The x value from the scale on the graph.
+   */
+  static setPosition(x : number) {
+    const y = 2 - x * x;
+    const slope = -2 * x;
+    const angleInDegrees = (Math.atan(slope) / Math.PI) * 180;
+    this.#element.setAttribute(
+      "transform",
+      `translate(${x}, ${y}) rotate(${angleInDegrees})`
+    );
+  }
+  /**
+   * 
+   * @param r -1 for the furthest left recommended position.
+   * 1 for the furthest right recommended position.
+   */
+  static setRelativePosition(r : number) {
+    this.setPosition(r * 2.25);
+  }
+}
+
+TangentLine.setRelativePosition(Math.sin(Math.random()*1000));
