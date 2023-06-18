@@ -1189,7 +1189,10 @@
     >
 
     <h2><a id="Really_Small_Pieces"></a>Really Small Pieces</h2>
-    <p>That last example looked a little too made up.  Let’s go back to a parabola.  What’s the derivative of x<span class="superscript">2</span> ÷ 2?</p>
+    <p>
+      That last example was a little too contrived. Let’s go back to a parabola.
+      What’s the derivative of x<span class="superscript">2</span> ÷ 2?
+    </p>
 
     <a
       class="figure"
@@ -1379,7 +1382,7 @@
     >
 
     <p>
-      Is it safe to approximate a curve with a lot of line segments?
+      Is it reasonable to approximate a parabola with a lot of line segments?
       <b>Yes!</b>
       Remember what you saw in the <a href="#zoom_in_demo">zooming in demo</a>,
       above. As we zoom in, any one part of a smooth function will look more and
@@ -1464,10 +1467,10 @@
       </div></a
     >
     <p>
-      As we get closer and closer to 0, the answer gets better and better. What
-      if we asked about a change of <i>exactly</i> 0? Every time x moves 0 units
-      to the right, x<span class="superscript">2</span> moves 0 units up. And
-      <code>0 ÷ 0</code> = <i>what?</i>
+      As the line segments get smaller and smaller, our results get more and
+      more precise. What if we asked about a change of <i>exactly</i> 0? Every
+      time x moves 0 units to the right, x<span class="superscript">2</span> ÷ 2
+      moves 0 units up. And <code>0 ÷ 0</code> = <i>what?</i>
     </p>
 
     <a
@@ -1506,22 +1509,22 @@
     <p>
       The orange line, above, shows the actual derivative of the function, and
       the blue lines show our approximation of the derivative. No surprise: our
-      approximations were getting closer and closer to the right answer.
+      approximations were getting closer and closer to the right answer. Also
+      notice that we have more open circles (unknown values) as the
+      approximations get more precise.
     </p>
 
     <p>
       Can we really jump from an infinite number of open circles to a solid
       line?
       <b>Yes.</b>
-      That’s why we learn limits before we learn derivatives. When you work out
-      the problem in class you’ll eventually learn that the derivative of
+      That may look intimidating now, but by the time you get to this you will
+      already be a <i>master</i> of limits. When you work out the problem in
+      class you’ll eventually learn that the derivative of
       <code>x<span class="superscript">2</span> ÷ 2</code> is <code>x</code>,
       matching the graph. But along the way to <code>x</code> you’d see
-      something (roughly) similar to
-      <code>x<span class="superscript">2</span> ÷ x</code>. Because you know
-      limits you can simplify
-      <code>x<span class="superscript">2</span> ÷ x</code> to
-      <code>x</code> without being afraid to divide by 0.
+      something like <code>(0 ÷ 0) + x + 0</code>. Because you know limits you
+      can simplify that to <code>x</code> without being afraid to divide by 0.
     </p>
     <h2><a id="Physics_Examples"></a>Physics Examples</h2>
     <p>
@@ -1574,7 +1577,20 @@
       respect to x.”
     </p>
 
-    <div class="phil-notes"><b>TODO</b>: Copy text from the .ts file.</div>
+    <p>
+      You may hear the term “tangent line.” That's a slight variation on what I
+      discussed in <a href="#Really_Small_Pieces">Really Small Pieces</a>,
+      above. Start from any <i>one</i> of those really small line segments.
+      Extend it forever in both directions so it’s easy to see. Keep the slope
+      of the segment. The image below shows multiple tangent lines. Notice how
+      each tangent line touches the parabola at exactly one point. That point is
+      where the original tiny line segment is.
+      <i
+        >The the derivative at any point on a parabola is the slope of the
+        tangent line at that point.</i
+      >
+    </p>
+
     <div class="figure">
       <svg
         style="background-color: blanchedalmond"

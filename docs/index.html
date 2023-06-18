@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>÷ 0</title>
     
-    <script type="module" crossorigin src="./assets/main-c1cfebb5.js"></script>
+    <script type="module" crossorigin src="./assets/main-9b012d3a.js"></script>
     <link rel="stylesheet" href="./assets/index-789bc70f.css">
   </head>
   <body>
@@ -1191,7 +1191,10 @@
     >
 
     <h2><a id="Really_Small_Pieces"></a>Really Small Pieces</h2>
-    <p>So, what’s the derivative of x<span class="superscript">2</span>?</p>
+    <p>
+      That last example was a little too contrived. Let’s go back to a parabola.
+      What’s the derivative of x<span class="superscript">2</span> ÷ 2?
+    </p>
 
     <a
       class="figure"
@@ -1211,21 +1214,7 @@
           href="./assets/1500-583de6f2.png"
           preserveAspectRatio="none"
         ></image>
-        <g transform="scale(198.75, -199.17) translate(3.2, -2.2)">
-          <!--
-          <g fill="green" stroke="green" stroke-width="0.014">
-            <circle cx="-2" cy="2" r="0.025"></circle>
-            <circle cx="-1" cy="0.5" r="0.025"></circle>
-            <circle cx="0" cy="0" r="0.025"></circle>
-            <circle cx="1" cy="0.5" r="0.025"></circle>
-            <circle cx="2" cy="2" r="0.025"></circle>
-            <path
-              d="M -3,4.5 L -2,2 -1,0.5 0,0 1,0.5 2,2 3,4.5"
-              fill="none"
-            ></path>
-          </g>
-          -->
-        </g>
+        <g transform="scale(198.75, -199.17) translate(3.2, -2.2)"></g>
       </svg>
       <div>
         <code>x<span class="superscript">2</span> ÷ 2</code>
@@ -1276,7 +1265,7 @@
       in the <a href="#Smaller_Pieces">previous section</a>, you need to plot
       the slope of each line segment, and draw an empty circle anywhere the
       slope changes suddenly. That will give you a graph like this for the
-      derivative x<span class="superscript">2</span>.
+      derivative x<span class="superscript">2</span> ÷ 2.
     </p>
 
     <a
@@ -1395,7 +1384,7 @@
     >
 
     <p>
-      Is it safe to approximate a curve with a lot of line segments?
+      Is it reasonable to approximate a parabola with a lot of line segments?
       <b>Yes!</b>
       Remember what you saw in the <a href="#zoom_in_demo">zooming in demo</a>,
       above. As we zoom in, any one part of a smooth function will look more and
@@ -1480,10 +1469,10 @@
       </div></a
     >
     <p>
-      As we get closer and closer to 0, the answer gets better and better. What
-      if we asked about a change of <i>exactly</i> 0? Every time x moves 0 units
-      to the right, x<span class="superscript">2</span> moves 0 units up. And
-      <code>0 ÷ 0</code> = <i>what?</i>
+      As the line segments get smaller and smaller, our results get more and
+      more precise. What if we asked about a change of <i>exactly</i> 0? Every
+      time x moves 0 units to the right, x<span class="superscript">2</span> ÷ 2
+      moves 0 units up. And <code>0 ÷ 0</code> = <i>what?</i>
     </p>
 
     <a
@@ -1522,22 +1511,22 @@
     <p>
       The orange line, above, shows the actual derivative of the function, and
       the blue lines show our approximation of the derivative. No surprise: our
-      approximations were getting closer and closer to the right answer.
+      approximations were getting closer and closer to the right answer. Also
+      notice that we have more open circles (unknown values) as the
+      approximations get more precise.
     </p>
 
     <p>
       Can we really jump from an infinite number of open circles to a solid
       line?
       <b>Yes.</b>
-      That’s why we learn limits before we learn derivatives. When you work out
-      the problem in class you’ll eventually learn that the derivative of
+      That may look intimidating now, but by the time you get to this you will
+      already be a <i>master</i> of limits. When you work out the problem in
+      class you’ll eventually learn that the derivative of
       <code>x<span class="superscript">2</span> ÷ 2</code> is <code>x</code>,
       matching the graph. But along the way to <code>x</code> you’d see
-      something (roughly) similar to
-      <code>x<span class="superscript">2</span> ÷ x</code>. Because you know
-      limits you can simplify
-      <code>x<span class="superscript">2</span> ÷ x</code> to
-      <code>x</code> without being afraid to divide by 0.
+      something like <code>(0 ÷ 0) + x + 0</code>. Because you know limits you
+      can simplify that to <code>x</code> without being afraid to divide by 0.
     </p>
     <h2><a id="Physics_Examples"></a>Physics Examples</h2>
     <p>
@@ -1589,6 +1578,61 @@
       written as <code>dy / dx</code>, pronounced “the derivate of y with
       respect to x.”
     </p>
+
+    <p>
+      You may hear the term “tangent line.” That's a slight variation on what I
+      discussed in <a href="#Really_Small_Pieces">Really Small Pieces</a>,
+      above. Start from any <i>one</i> of those really small line segments.
+      Extend it forever in both directions so it’s easy to see. Keep the slope
+      of the segment. The image below shows multiple tangent lines. Notice how
+      each tangent line touches the parabola at exactly one point. That point is
+      where the original tiny line segment is.
+      <i
+        >The the derivative at any point on a parabola is the slope of the
+        tangent line at that point.</i
+      >
+    </p>
+
+    <div class="figure">
+      <svg
+        style="background-color: blanchedalmond"
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 1272 1270"
+      >
+        <image
+          x="0"
+          y="0"
+          width="1272"
+          height="1270"
+          href="./assets/0100-6ec0f952.png"
+          preserveAspectRatio="none"
+        ></image>
+        <g transform="scale(198.59375, -198.59375) translate(3.2, -3.2)">
+          <g id="tangentLine">
+            <line
+              x1="-9"
+              y1="0"
+              x2="9"
+              y2="0"
+              stroke="orange"
+              stroke-width="0.025"
+            ></line>
+            <circle
+              cx="0"
+              cy="0"
+              r="0.05"
+              stroke="orange"
+              fill="orange"
+              stroke-width="0.028"
+            ></circle>
+          </g>
+        </g>
+      </svg>
+      <div>
+        <code>2 - x<span class="superscript">2</span></code> with tangent lines
+      </div>
+    </div>
+
     <h1><a id="Integrals"></a>Integrals</h1>
     <p>
       When you see the ∫ symbol, that means to take the integral of a function.

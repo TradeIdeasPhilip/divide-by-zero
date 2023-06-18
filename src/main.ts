@@ -269,37 +269,6 @@ Zoom.selectNewTarget({ x: 0, y: 2 });
 Zoom.startAnimation();
 
 /**
- * TODO Consider adding this paragraph and animation to the document.
- *
- * (a) A tangent line is just a line that touches a function at a point, and has the same slope as the function at that point.
- * This is another way to visualize a derivative.
- *
- * (b) It would impossible to see the tiny line segments.
- * Instead, it's common to expand just one of these segments at a time.
- * The result is called a <i>tangent line</i>.
- * Notice that each tangent line touches the parabola at exactly one point.
- *
- * (c) It would impossible to see the <i>tiny</i> line segments we discussed in Really Small Pieces.
- * Instead, it's common to expand just one of these line segments at a time.
- * The result is called a <i>tangent line</i>.
- * Notice that each tangent line touches the parabola at exactly one point.
- *
- * This would make a great graphic.  A simple animation.  Start with the 2-x*x picture.  Draw the line moving from one point to the next, back and forth,
- * at a comfortable speed to stare at.  Keep the default ease in and out on both sides.
- *
- * Put the (b) wording of this right above Physics Examples in the Derivatives section.
- *
- * Or put the (a) wording in the Terminology section for Derivatives.
- *
- * Hmmm.  For some reason I thought I'd already mentioned the tangent line.  Then it seemed like a good idea
- * to add a definition.  Now it seems less important.  It would make a nice animation.  I could probably adapt
- * my code for the mouse cursor arrow to make a tangent line demo with very little effort.
- *
- * Ah.  I mentioned the tangent line in a video.  https://www.youtube.com/watch?v=VnLQNXIJ1l4
- * In that video I was summarizing rough-draft.md and I was speaking off the top of my head.
- */
-
-/**
  * It often makes sense to create on example of an element in the document,
  * then use the code to duplicate that object.  That's the easy way to make
  * sure all of the properties are right.  This class takes care of some of
@@ -458,6 +427,23 @@ class DerivativeApproximation {
   }
 }
 
+class AnimationLoop {
+  constructor(private readonly toDo: (time: DOMHighResTimeStamp) => void) {
+    this.callback = this.callback.bind(this);
+    this.callback(performance.now());
+  }
+  #cancelled = false;
+  cancel() {
+    this.#cancelled = true;
+  }
+  private callback(time: DOMHighResTimeStamp) {
+    if (!this.#cancelled) {
+      requestAnimationFrame(this.callback);
+      this.toDo(time);
+    }
+  }
+}
+
 new DerivativeApproximation(6, "sampleParabola", "sampleDerivative", 1);
 
 new DerivativeApproximation(
@@ -478,18 +464,10 @@ new DerivativeApproximation(24, "animatedParabola2", "animatedDerivative2"); // 
     undefined,
     "animatedDerivative3"
   );
-  function updateDerivative3(time: DOMHighResTimeStamp) {
+  new AnimationLoop((time: DOMHighResTimeStamp) => {
     const timeSinceLoopStart = time % loopPeriodMS;
     graphics.resize(size(timeSinceLoopStart));
-  }
-  function runSoon() {
-    requestAnimationFrame(runNow);
-  }
-  function runNow(time: DOMHighResTimeStamp) {
-    runSoon();
-    updateDerivative3(time);
-  }
-  runSoon();
+  });
   // TODO It's super jerky, especially at the end when it loops back to the beginning.  Do something!
 }
 
@@ -499,7 +477,7 @@ class TangentLine {
    * Move to a specific position.
    * @param x The x value from the scale on the graph.
    */
-  static setPosition(x : number) {
+  static setPosition(x: number) {
     const y = 2 - x * x;
     const slope = -2 * x;
     const angleInDegrees = (Math.atan(slope) / Math.PI) * 180;
@@ -509,13 +487,15 @@ class TangentLine {
     );
   }
   /**
-   * 
+   *
    * @param r -1 for the furthest left recommended position.
    * 1 for the furthest right recommended position.
    */
-  static setRelativePosition(r : number) {
+  static setRelativePosition(r: number) {
     this.setPosition(r * 2.25);
   }
 }
 
-TangentLine.setRelativePosition(Math.sin(Math.random()*1000));
+new AnimationLoop((time) =>
+  TangentLine.setRelativePosition(Math.sin(time / 2200))
+);
