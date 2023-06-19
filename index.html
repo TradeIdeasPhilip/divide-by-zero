@@ -324,6 +324,7 @@
       you the same answer, ⅔.
     </p>
     <p>
+      <a id="same_derivative"></a>
       In the next graph notice that
       <code class="with-border" style="border-color: blue"
         >g(x) = 2x ÷ 3 + 1</code
@@ -1520,11 +1521,11 @@
       <b>Yes.</b>
       That may look intimidating now, but by the time you get to this you will
       already be a <i>master</i> of limits. When you work out the problem in
-      class you’ll eventually learn that the derivative of
+      class you’ll <i>eventually</i> learn that the derivative of
       <code>x<span class="superscript">2</span> ÷ 2</code> is <code>x</code>,
-      matching the graph. But along the way to <code>x</code> you’d see
-      something like <code>(0 ÷ 0) + x + 0</code>. Because you know limits you
-      can simplify that to <code>x</code> without being afraid to divide by 0.
+      matching the graph. Along the way to <code>x</code> you’d see something
+      like <code>(0 ÷ 0) + x + 0</code>. Because you know limits you can
+      simplify that to <code>x</code> without being afraid to divide by 0.
     </p>
     <h2><a id="Physics_Examples"></a>Physics Examples</h2>
     <p>
@@ -1551,8 +1552,11 @@
       parts of your trip. You can get more precise answers if you look at
       smaller and smaller time intervals. And, if you ask for the
       <i>exact</i> speed at an <i>exact</i> instant in time, that’s the
-      derivative. Acceleration is the derivative of speed. Electric current is
-      the derivative of charge. Etc.
+      derivative.
+    </p>
+    <p>
+      Acceleration is the derivative of speed. Electric current is the
+      derivative of charge. Etc.
     </p>
     <h2><a id="Interest_Rates"></a>Interest Rates</h2>
     <p>
@@ -1578,20 +1582,25 @@
     </p>
 
     <p>
-      You may hear the term “tangent line.” That's a slight variation on what I
-      discussed in <a href="#Really_Small_Pieces">Really Small Pieces</a>,
-      above. Start from any <i>one</i> of those really small line segments.
-      Extend it forever in both directions so it’s easy to see. Keep the slope
-      of the segment. The image below shows multiple tangent lines. Notice how
-      each tangent line touches the parabola at exactly one point. That point is
-      where the original tiny line segment is.
+      You may hear the term “tangent line.” A tangent line is a slight variation
+      on what I discussed in
+      <a href="#Really_Small_Pieces">Really Small Pieces</a>, above. Start from
+      any <i>one</i> of those really small line segments. Extend it forever in
+      both directions so it’s easy to see. Keep the slope of the segment. The
+      graph below shows multiple tangent lines. Notice how each tangent line
+      touches the parabola at exactly one point. That point is where the
+      original tiny line segment is.
       <i
         >The the derivative at any point on a parabola is the slope of the
         tangent line at that point.</i
       >
     </p>
 
-    <div class="figure">
+    <a
+      class="figure"
+      href="https://www.desmos.com/calculator/jyszc0slze"
+      target="_blank"
+    >
       <svg
         style="background-color: blanchedalmond"
         xmlns="http://www.w3.org/2000/svg"
@@ -1629,7 +1638,7 @@
       <div>
         <code>2 - x<span class="superscript">2</span></code> with tangent lines
       </div>
-    </div>
+    </a>
 
     <h1><a id="Integrals"></a>Integrals</h1>
     <p>
@@ -1638,16 +1647,27 @@
     <h2><a id="The_Anti_Derivative"></a>The Anti-Derivative</h2>
     <p>
       Integration and differentiation are inverses of each other. If g(x) is an
-      integral of f(x) then f(x) is the derivative of g(x). That applies to all
-      of the examples above. E.g. Position is the integral of speed. How did
-      ships know their position before GPS was invented? One way is called dead
-      reckoning. From time to time they would measure their speed. They would
-      multiply each speed measurement by the amount of time they were going that
-      speed, then add all the values together. That’s the inverse of what we did
-      in the derivative examples, above. The more often they measured their
-      speed, the more accurate their estimate would be. If they could measure
-      their speed constantly, they would know exactly where they were. But
-      that’s tricky. If they measure the speed constantly, they will have an
+      integral of f(x) then f(x) is the derivative of g(x).
+    </p>
+    <p>
+      That applies to all of the examples above. E.g. Position is the integral
+      of speed.
+    </p>
+    <p>
+      How did ships know their position before GPS was invented? One way is
+      called dead reckoning. From time to time they would measure their speed.
+      They would multiply each speed measurement by the amount of time they were
+      going that speed, then add all the values together. That’s the inverse of
+      what we did in <a href="#Really_Small_Pieces">the derivative examples</a>,
+      above.
+    </p>
+    <p>
+      The more often they measured their speed, the more accurate their estimate
+      would be. If they could measure their speed constantly, they would know
+      exactly where they were.
+    </p>
+    <p>
+      But that’s tricky. If they measure the speed constantly, they will have an
       infinite number of distances to add up. And each distance is a speed times
       a time, and the times are all 0. If you’re not careful you’ll get
       <code>∞ ⨉ 0</code>. But by this time you’ll be an expert at limits, so you
@@ -1658,36 +1678,41 @@
       Anti-Derivative
     </h2>
     <p>
-      How do you calculate an integral? One option is to look at all of the
+      How do you calculate an integral? One method is to look at all of the
       rules for computing derivatives, and to invert each of them. For example,
       we saw above that the derivative of
-      <code>x<span class="superscript">2</span></code> is <code>2x</code>. So
-      any time you have to integrate <code>2x</code>, you can look that up in
+      <code>x<span class="superscript">2</span> ÷ 2</code> is <code>x</code>. So
+      any time you have to integrate <code>x</code>, you can look that up in
       your list and say <i>an</i> answer is
-      <code>x<span class="superscript">2</span></code
-      >.
+      <code>x<span class="superscript">2</span> ÷ 2</code>.
     </p>
     <p>
       <i>An</i> answer. Remember, a derivative is just a fancy version of a
-      slope, and more than one line can have the same slope. So more than one
-      function can have the same derivative. So each function will have multiple
-      anti-derivatives. The short version is that you need to write
-      <code>+ C</code> at the end of your answer. So the integral of
-      <code>2x</code> is <code>x<span class="superscript">2</span> + C</code>.
-      Your teacher will take off a lot of points of you forget the
-      <code>+ C</code>!
+      slope. And as we saw above,
+      <a href="#same_derivative">more than one line can have the same slope</a>.
+      So more than one function can have the same derivative. So each function
+      will have multiple anti-derivatives. The short version is that you need to
+      write <code>+ C</code> at the end of your answer. So the integral of
+      <code>x</code> is
+      <code>x<span class="superscript">2</span> ÷ 2 + C</code>. Your teacher
+      will take off a lot of points of you forget the <code>+ C</code>!
     </p>
     <p>
       <code>C</code> is any number. That means that
-      <code>x<span class="superscript">2</span></code
-      >, <code>x<span class="superscript">2</span> <b>+ 2</b></code
-      >, <code>x<span class="superscript">2</span> <b>+ 3</b></code
-      >, <code>x<span class="superscript">2</span> <b>+ 3.1</b></code
-      >, <code>x<span class="superscript">2</span> <b>+ π</b></code
-      >, <code>x<span class="superscript">2</span> <b>- 27</b></code
-      >, etc., are all valid integrals of <code>2x</code>. This method is nice
-      because it gives you an exact answer. However, this method can be
-      difficult in some cases and impossible in others.
+      <code>x<span class="superscript">2</span> ÷ 2</code>,
+      <code>x<span class="superscript">2</span> ÷ 2 <b>+ 2</b></code
+      >, <code>x<span class="superscript">2</span> ÷ 2 <b>+ 3</b></code
+      >,
+      <code
+        >x<span class="superscript">2</span> ÷ 2
+        <b>+ <span id="anyNumber">34,567.89</span></b></code
+      >, <code>x<span class="superscript">2</span> ÷ 2 <b>+ π</b></code
+      >, <code>x<span class="superscript">2</span> ÷ 2 <b>- 27</b></code
+      >, etc., are all valid integrals of <code>x</code>.
+    </p>
+    <p>
+      This method is nice because it gives you an exact answer. However, this
+      method can be difficult in some cases and impossible in others.
     </p>
     <h2>
       <a id="Definite_vs_Indefinite_Integrals"></a>Definite vs Indefinite

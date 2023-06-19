@@ -499,3 +499,24 @@ class TangentLine {
 new AnimationLoop((time) =>
   TangentLine.setRelativePosition(Math.sin(time / 2200))
 );
+
+{
+  const anyNumberSpan = getById("anyNumber", HTMLSpanElement);
+  const current = Array.from("34,567.89"); 
+  setInterval(() => {
+    let index = (Math.random() * 7)|0;
+    if (index == 2) {
+      index = 7;
+    } else if (index == 6) {
+      index = 8;
+    }
+    let newValue : number;
+    if (index == 0) {
+      newValue = ((Math.random() * 9)|0)+1;
+    } else {
+      newValue = (Math.random() * 10)|0;
+    }
+    current[index] = newValue.toString();
+    anyNumberSpan.innerText = current.join("");
+  }, 500)
+}
