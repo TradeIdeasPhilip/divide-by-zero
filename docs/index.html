@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>÷ 0</title>
     
-    <script type="module" crossorigin src="./assets/main-c35a6651.js"></script>
+    <script type="module" crossorigin src="./assets/main-88ca9b06.js"></script>
     <link rel="stylesheet" href="./assets/index-789bc70f.css">
   </head>
   <body>
@@ -1530,6 +1530,25 @@
       simplify that to <code>x</code> without being afraid to divide by 0.
     </p>
     <h2><a id="Physics_Examples"></a>Physics Examples</h2>
+    <div class="phil-notes">
+      Throw out the examples below. Instead show animations of a pendulum, a
+      mass on a spring, and an electron oscillating in an LC circuit. All moving
+      at the same rate. All with y, y′ and y′′ clearly labeled. As arrows that
+      grow and shrink. And a chart, in realtime, showing the entire sine wave
+      and a pointer to now. All three of y, y′ and y′′ get plotted, maybe on the
+      same chart. Easy to draw a pendulum and a spring in svg. For the LC
+      circuit use a picture from the internet and just a circle for the
+      electron.
+      <a href="https://www.google.com/search?q=lc+circuit&tbm=isch&ved=2ahUKEwjKlaKiss7_AhXLB0QIHSxMBa4Q2-cCegQIABAA&oq=lc+circuit&gs_lcp=CgNpbWcQAzIHCAAQigUQQzIHCAAQigUQQzIHCAAQigUQQzIHCAAQigUQQzIHCAAQigUQQzIFCAAQgAQyBQgAEIAEMgUIABCABDIFCAAQgAQyBQgAEIAEOgcIABAYEIAEULMGWOYXYJgfaABwAHgAgAFXiAH1AZIBATOYAQCgAQGqAQtnd3Mtd2l6LWltZ8ABAQ&sclient=img&ei=lsuPZMryO8uPkPIPrJiV8Ao&bih=821&biw=1440">Google image search.</a>     
+      I like the Wikipedia image because we can link back to a relevant article
+      <i>and</i> the source of the picture at the same time.
+      <br>
+      <br>
+      These examples are all very similar.
+      Acceleration is proportional to force.
+      Force is proportional to offset.
+      Acceleration is the second derivate of offset.
+    </div>
     <p>
       Derivatives are used a lot in physics. For example, if f(x) is the
       <i>position</i> of your car at time x, then the derivative of f(x) will
@@ -1693,9 +1712,11 @@
       slope. And as we saw above,
       <a href="#same_derivative">more than one line can have the same slope</a>.
       So more than one function can have the same derivative. So each function
-      will have multiple anti-derivatives. The short version is that you need to
-      write <code>+ C</code> at the end of your answer. So the integral of
-      <code>x</code> is
+      will have multiple anti-derivatives.
+    </p>
+    <p>
+      The short version is that you need to write <code>+ C</code> at the end of
+      your answer. So the integral of <code>x</code> is
       <code>x<span class="superscript">2</span> ÷ 2 + C</code>. Your teacher
       will take off a lot of points of you forget the <code>+ C</code>!
     </p>
@@ -1722,26 +1743,37 @@
     </h2>
     <p>
       The previous section begs an important question. Are you expecting a
-      number or a formula for an answer? If you see a problem like
-      <code>∫ 2x dx</code>, that’s called an <i>indefinite</i> integral. The
-      answer should look like
+      number or a formula for an answer?
+    </p>
+    <p>
+      If you see a problem like <code>∫ 2x dx</code>, that’s called an
+      <i>indefinite</i> integral. The answer should look like
       <code>x<span class="superscript">2</span> + C</code>, as described above.
+    </p>
+    <p>
       What if you wanted an exact value? You can’t just plug in a number for
       <code>x</code>. Remember, <code>C</code> can be any number, so
       <code>x<span class="superscript">2</span> + C</code> can be any number.
-      That’s not very helpful! Back to our boat example: What if we add up all
-      of our measurements and got a total of 10 miles? That means the boat
-      <i>moved</i> 10 miles. But that doesn’t tell us the <i>position</i> of the
-      boat. There could be two or more boats all going the same speed, but if
-      they start at different positions they will end in different positions.
-      Crudely speaking, <code>C</code> corresponds to the initial position of
-      the boat. In practice, if you want an actual number from an integral, you
-      will use what’s called a <i>definite</i> integral. A
-      <i>definite</i> integral looks just like an <i>indefinite</i> integral,
-      except that the problem will specify a start value <i>and</i> an end
-      value. In our boat example, you might ask how far did the boat move
-      between 10am and 10:05. In our <code>2x</code> example you might ask
-      what’s the integral of <code>2x</code> between <code>x = 3</code> and
+      That’s not very helpful!
+    </p>
+    <p>
+      Back to our boat example: What if we add up all of our measurements and
+      got a total of 10 miles? That means the boat <i>moved</i> 10 miles. But
+      that doesn’t tell us the <i>position</i> of the boat. There could be two
+      or more boats all going the same speed, but if they start at different
+      positions they will end in different positions. Crudely speaking,
+      <code>C</code> corresponds to the initial position of the boat.
+    </p>
+    <p>
+      In practice, if you want an actual number from an integral, you will use
+      what’s called a <i>definite</i> integral. A <i>definite</i> integral looks
+      just like an <i>indefinite</i> integral, except that the problem will
+      specify a start value <i>and</i> an end value.
+    </p>
+    <p>
+      In our boat example, you might ask how far did the boat move between 10am
+      and 10:05. In our <code>2x</code> example you might ask what’s the
+      integral of <code>2x</code> between <code>x = 3</code> and
       <code>x = 7</code>. Those problems are both <i>definite</i> integrals.
     </p>
     <div class="phil-notes">
@@ -1774,24 +1806,42 @@
     <h2><a id="The_Area_Under_the_Curve"></a>The Area Under the Curve</h2>
     <p>
       A different way to think about an integral is
-      <i>the area under the curve</i>. Same problem: What’s the integral of
-      <code>2x</code> between <code>x = 3</code> and <code>x = 7</code>? Let’s
-      start by graphing <code>2x</code> and marking <code>x = 3</code> and
+      <i>the area under the curve</i>.
+    </p>
+    <p>
+      Same problem: What’s the integral of <code>2x</code> between
+      <code>x = 3</code> and <code>x = 7</code>?
+    </p>
+    <p>
+      Let’s start by graphing <code>2x</code> and marking <code>x = 3</code> and
       <code>x = 7</code> on the same graph. The area I’ve highlighted in green
       is the answer we want. You could measure that with a ruler! Or you could
       notice that it’s a trapezoid, and Google “area of a trapezoid” if you
       don’t remember that formula. Or break it into a triangle and a rectangle
-      if that’s easier. Notice that when the original function is below the x
-      axis, we subtract that from the total area. What if the function we are
-      integrating is more complicated than a line? Break it into smaller pieces.
-      Compute each piece separately then add them up. Like we’ve been doing!
+      if that’s easier.
+    </p>
+    <p>
+      Notice that when the original function is below the x axis, we subtract
+      that from the total area.
+    </p>
+    <p>
+      What if the function we are integrating is more complicated than a line?
+      Break it into smaller pieces. Compute each piece separately then add them
+      up. Like we’ve been doing!
+    </p>
+    <p>
       What if the function we are trying to integrate is a curve, not a set of
       line segments? Break it into small pieces then add them up. How small? It
-      depends how accurate you want your estimate to be. But this method is not
-      just for estimates. If you take the <i>limit</i> as the pieces get
-      infinitely small, that will be the exact answer. The formal definition of
-      an integral involves an infinite sum. And that’s exactly what we did with
-      the dead reckoning example, and with the area under the curve.
+      depends how accurate you want your estimate to be.
+    </p>
+    <p>
+      But this method is not just for estimates. If you take the <i>limit</i> as
+      the pieces get infinitely small, that will be the exact answer.
+    </p>
+    <p>
+      The formal definition of an integral involves an infinite sum. And that’s
+      exactly what we did with the dead reckoning example, and with the area
+      under the curve.
     </p>
     <div class="phil-notes">‼️ Need some images here.</div>
     <h1><a id="Final_Thoughts"></a>Final Thoughts</h1>
@@ -1812,7 +1862,7 @@
       >
       contest.
       <a href="https://www.youtube.com/hashtag/some3">#SoME3</a>
-      Click on the images for attribution and other details.
     </p>
+    <p>Click on the images for attribution and other details.</p>
   </body>
 </html>

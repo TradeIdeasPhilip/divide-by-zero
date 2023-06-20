@@ -1,7 +1,9 @@
 import {
+  LinearFunction,
   assertClass,
   initializedArray,
   makeBoundedLinear,
+  makeLinear,
   zip,
 } from "phil-lib/misc";
 import "./style.css";
@@ -444,21 +446,80 @@ class AnimationLoop {
   }
 }
 
+/**
+ * Similar to makeBoundedLinear().
+ * This will return a new function based on the two input points.
+ * If you give x1 or x2 to the new function, the result will be y1 or y2, respectively.
+ * Between x1 and x2 the function will be **smooth**.
+ * Outside of x1 and x2, including at x1 and 2, the function will have a derivative of 0.
+ * I.e. the function will be flat outside of the range, and smooth everywhere.
+ * @param x1 One valid input.
+ * @param y1 The expected output at x1.
+ * @param x2 Another valid input.
+ * @param y2 The expected output at x2.
+ * @returns A function that takes x as an input.
+ */
+function makeEaseInOut(
+  x1: number,
+  y1: number,
+  x2: number,
+  y2: number
+): LinearFunction {
+  if (x2 < x1) {
+    [x1, y1, x2, y2] = [x2, y2, x1, y1];
+  }
+  // Now x1 <= x2;
+  const transformInput = makeLinear(x1, 0, x2, Math.PI);
+  const transformOutput = makeLinear(1, y1, -1, y2);
+  return function (x: number) {
+    if (x <= x1) {
+      return y1;
+    } else if (x >= x2) {
+      return y2;
+    } else {
+      return transformOutput(Math.cos(transformInput(x)));
+    }
+  };
+}
+
 new DerivativeApproximation(6, "sampleParabola", "sampleDerivative", 1);
 
-new DerivativeApproximation(
-  12,
-  "animatedParabola1",
-  "animatedDerivative1",
-  0.5
-); // TODO animate this!!!  From 1 to 0.5, then sits on 0.5 for a while, then jumps back to the beginning.  maybe 2/3 or 3/4 of the time it's paused at the end.
+{
+  const loopPeriodMS = 4897;
+  const activePeriodMS = 2000;
+  const size = makeEaseInOut(0, 1, activePeriodMS, 0.5);
+  const graphics = new DerivativeApproximation(
+    24,
+    "animatedParabola1",
+    "animatedDerivative1"
+  );
+  new AnimationLoop((time: DOMHighResTimeStamp) => {
+    const timeSinceLoopStart = time % loopPeriodMS;
+    graphics.resize(size(timeSinceLoopStart));
+  });
+}
 
-new DerivativeApproximation(24, "animatedParabola2", "animatedDerivative2"); // TODO animate this!!!
+{
+  const loopPeriodMS = 5000;
+  const activePeriodMS = 2000;
+  const size = makeEaseInOut(0, 6 / 12, activePeriodMS, 6 / 24);
+  const graphics = new DerivativeApproximation(
+    24,
+    "animatedParabola2",
+    "animatedDerivative2"
+  );
+  new AnimationLoop((time: DOMHighResTimeStamp) => {
+    const timeSinceLoopStart = time % loopPeriodMS;
+    graphics.resize(size(timeSinceLoopStart));
+  });
+}
 
 {
   const loopPeriodMS = 7000;
   const activePeriodMS = 5000;
-  const size = makeBoundedLinear(0, 1, activePeriodMS, 6 / 48);
+  const size = //makeBoundedLinear(0, 1, activePeriodMS, 6 / 48);
+    makeEaseInOut(0, 1, activePeriodMS, 6 / 48);
+
   const graphics = new DerivativeApproximation(
     48,
     undefined,
@@ -468,7 +529,6 @@ new DerivativeApproximation(24, "animatedParabola2", "animatedDerivative2"); // 
     const timeSinceLoopStart = time % loopPeriodMS;
     graphics.resize(size(timeSinceLoopStart));
   });
-  // TODO It's super jerky, especially at the end when it loops back to the beginning.  Do something!
 }
 
 class TangentLine {
@@ -502,21 +562,21 @@ new AnimationLoop((time) =>
 
 {
   const anyNumberSpan = getById("anyNumber", HTMLSpanElement);
-  const current = Array.from("34,567.89"); 
+  const current = Array.from("34,567.89");
   setInterval(() => {
-    let index = (Math.random() * 7)|0;
+    let index = (Math.random() * 7) | 0;
     if (index == 2) {
       index = 7;
     } else if (index == 6) {
       index = 8;
     }
-    let newValue : number;
+    let newValue: number;
     if (index == 0) {
-      newValue = ((Math.random() * 9)|0)+1;
+      newValue = ((Math.random() * 9) | 0) + 1;
     } else {
-      newValue = (Math.random() * 10)|0;
+      newValue = (Math.random() * 10) | 0;
     }
     current[index] = newValue.toString();
     anyNumberSpan.innerText = current.join("");
-  }, 500)
+  }, 500);
 }
