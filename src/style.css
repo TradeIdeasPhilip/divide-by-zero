@@ -29,6 +29,9 @@ a {
 a:visited {
   text-decoration-color: #881180;
 }
+.self-link {
+  text-decoration: none;
+}
 
 body {
   margin: 0.5rem;
@@ -50,6 +53,12 @@ p {
 }
 p {
   text-align: justify;
+}
+
+.title {
+  text-align: center;
+  margin-top: 0;
+  margin-bottom: 0;
 }
 
 code {

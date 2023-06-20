@@ -580,3 +580,11 @@ new AnimationLoop((time) =>
     anyNumberSpan.innerText = current.join("");
   }, 500);
 }
+
+Array.from(document.querySelectorAll("a:not([href])[id]")).forEach(element => {
+  const anchor = assertClass(element, HTMLAnchorElement);
+  if (anchor.innerText != "") {
+    anchor.classList.add("self-link");
+    anchor.href = '#' + anchor.id;
+  }
+})
