@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>÷ 0</title>
     
-    <script type="module" crossorigin src="./assets/main-c06a08b5.js"></script>
+    <script type="module" crossorigin src="./assets/main-ef77286a.js"></script>
     <link rel="stylesheet" href="./assets/index-4ab23754.css">
   </head>
   <body>
@@ -1537,14 +1537,14 @@
     </p>
     <h2><a id="Physics_Examples">Physics Examples</a></h2>
     <div class="phil-notes">
-      Throw out the examples below. Instead show animations of a pendulum, a
-      mass on a spring, and an electron oscillating in an LC circuit. All moving
-      at the same rate. All with y, y′ and y′′ clearly labeled. As arrows that
-      grow and shrink. And a chart, in realtime, showing the entire sine wave
-      and a pointer to now. All three of y, y′ and y′′ get plotted, maybe on the
-      same chart. Easy to draw a pendulum and a spring in svg. For the LC
-      circuit use a picture from the internet and just a circle for the
-      electron.
+      Throw away the examples described below. Instead show animations of a
+      pendulum, a mass on a spring, and an electron oscillating in an LC
+      circuit. All moving at the same rate. All with y, y′ and y′′ clearly
+      labeled. As arrows that grow and shrink. And a chart, in realtime, showing
+      the entire sine wave and a pointer to now. All three of y, y′ and y′′ get
+      plotted, maybe on the same chart. Easy to draw a pendulum and a spring in
+      svg. For the LC circuit use a picture from the internet and just a circle
+      for the electron.
       <a
         href="https://www.google.com/search?q=lc+circuit&tbm=isch&ved=2ahUKEwjKlaKiss7_AhXLB0QIHSxMBa4Q2-cCegQIABAA&oq=lc+circuit&gs_lcp=CgNpbWcQAzIHCAAQigUQQzIHCAAQigUQQzIHCAAQigUQQzIHCAAQigUQQzIHCAAQigUQQzIFCAAQgAQyBQgAEIAEMgUIABCABDIFCAAQgAQyBQgAEIAEOgcIABAYEIAEULMGWOYXYJgfaABwAHgAgAFXiAH1AZIBATOYAQCgAQGqAQtnd3Mtd2l6LWltZ8ABAQ&sclient=img&ei=lsuPZMryO8uPkPIPrJiV8Ao&bih=821&biw=1440"
         >Google image search.</a
@@ -1557,13 +1557,195 @@
       force. Force is proportional to offset. Acceleration is the second
       derivate of offset.
     </div>
+
+    <div class="figure">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 100 100"
+        font-size="6"
+      >
+        <g transform="translate(50,10)">
+          <g transform="rotate(30)" id="pendulum">
+            <line
+              x1="0"
+              y1="0"
+              x2="0"
+              y2="70"
+              stroke-width="4"
+              stroke="black"
+              stroke-linecap="round"
+            ></line>
+            <circle cx="0" cy="70" r="10" fill="black"></circle>
+          </g>
+        </g>
+        <text transform="translate(10,95)" fill="red">Offset</text>
+        <line
+          id="offsetHorizontal"
+          x1="20"
+          y1="70"
+          x2="20"
+          y2="90"
+          width="8"
+          stroke="red"
+        ></line>
+        <polygon
+          style="opacity: 90%"
+          points="0,0 2.4,6 0.6,04.4 0.6,10 -0.6,10 -0.6,4.4 -2.4,6 0,0"
+          fill="rgb(0,0,255)"
+          stroke="none"
+          transform="translate(50,80)"
+        ></polygon>
+      </svg>
+      <div>The motion of a pendulum can be approximated with a sine wave.</div>
+    </div>
+
+    <div class="figure">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+        <g transform="translate(50,10) rotate(30)">
+          <line
+            x1="0"
+            y1="0"
+            x2="0"
+            y2="70"
+            stroke-width="2"
+            stroke="black"
+            stroke-linecap="round"
+          ></line>
+          <circle cx="0" cy="70" r="10" fill="black"></circle>
+        </g>
+        <path
+          d="M 50,10 a 20,10,180,0,0,0,20 a 20,7.5,180,0,0,0,-15 a 20,10,180,0,0,0,20 a 20,7.5,180,0,0,0,-15 a 20,10,180,0,0,0,20 a 20,7.5,180,0,0,0,-15 a 20,10,180,0,0,0,20 a 20,7.5,180,0,0,0,-15 a 20,10,180,0,0,0,20"
+          stroke="black"
+          fill="none"
+        ></path>
+      </svg>
+      <div>
+        The motion of a mass on a spring can be approximated with a sine wave.
+      </div>
+    </div>
+
+    <a
+      class="figure"
+      href="https://en.wikipedia.org/wiki/LC_circuit"
+      target="_blank"
+    >
+      <svg
+        height="220"
+        width="300"
+        xmlns="http://www.w3.org/2000/svg"
+        version="1.1"
+      >
+        <!-- wires -->
+
+        <polyline
+          points="70,70 70,30 230,30 230,70"
+          style="fill: none; stroke: black; stroke-width: 2"
+        />
+
+        <polyline
+          points="70,150 70,190 230,190 230,150"
+          style="fill: none; stroke: black; stroke-width: 2"
+        />
+
+        <!-- Electric current arrow and label -->
+
+        <polygon
+          points="125,30 115,25 115,35"
+          style="fill: black; stroke: black; stroke-width: 1"
+        />
+
+        <text
+          x="125"
+          y="20"
+          fill="black"
+          font-size="18"
+          style="font-family: Verdana; font-style: italic"
+        >
+          i
+        </text>
+
+        <!-- Inductor -->
+        <path
+          id="inductor"
+          d="M 70 70  l 0 15   q -40 5 0 10   q -40 5 0 10   
+        q -40 5 0 10   q -40 5 0 10  q -40 5 0 10   l 0 15 "
+          stroke="black"
+          stroke-width="2"
+          fill="none"
+        />
+
+        <text
+          x="20"
+          y="120"
+          fill="black"
+          font-size="24"
+          style="font-family: Verdana"
+        >
+          L
+        </text>
+
+        <!-- Capacitor -->
+        <path
+          id="capacitor"
+          d="M 230 70 l 0 35   m -20 0   l 40 0    m 0 10  l -40 0  m 20 0 l 0 35 "
+          stroke="black"
+          stroke-width="2"
+          fill="none"
+        />
+
+        <text
+          x="260"
+          y="120"
+          fill="black"
+          font-size="24"
+          style="font-family: Verdana"
+        >
+          C
+        </text>
+
+        <text
+          x="140"
+          y="50"
+          fill="black"
+          font-size="12"
+          style="font-family: Verdana"
+        >
+          +
+        </text>
+        <text
+          x="140"
+          y="115"
+          fill="black"
+          font-size="18"
+          style="font-family: Verdana; font-style: italic"
+        >
+          v
+        </text>
+        <text
+          x="140"
+          y="180"
+          fill="black"
+          font-size="12"
+          style="font-family: Verdana"
+        >
+          -
+        </text>
+      </svg>
+
+      <div>LC circuit</div></a
+    >
+
     <p>
       Derivatives are used a lot in physics. For example, if f(x) is the
       <i>position</i> of your car at time x, then the derivative of f(x) will
       tell you the <i>speed</i> you are going.
     </p>
     <div class="phil-notes">
-      ‼️ Draw two charts, one on top of the other with matching scales for the x
+      <b
+        >These notes are obsolete, replaced by the notes immediately above about
+        the pendulum.</b
+      >
+      Draw two charts, one on top of the other with matching scales for the x
       axes, as in the previous section. label the x axis for both “x =
       position”. The y axis for the top graph is “y = distance (miles)”, for the
       bottom graph “y = speed (miles/hour)”. Mark the first part of the x axis
@@ -1604,15 +1786,17 @@
     <p>
       Sometimes they talk about interest “compounding” yearly, quarterly,
       monthly, daily or <i>continuously</i>. “APR” is banker-speak for
-      “continuously.” That’s the same approximation that we did <a href="#Really_Small_Pieces">above</a>. The
-      smaller the time span you look at, the closer you get to the ideal or
-      continuous value.
+      “continuously.” That’s the same approximation that we did
+      <a href="#Really_Small_Pieces">above</a>. The smaller the time span you
+      look at, the closer you get to the ideal or continuous value.
     </p>
     <p>
-      There are more details, of course. I’ll leave those to your teacher. <b>Pay
-      particular attention when you get to
-      <code>e<span class="superscript">x</span></code
-      >!</b>
+      There are more details, of course. I’ll leave those to your teacher.
+      <b
+        >Pay particular attention when you get to
+        <code>e<span class="superscript">x</span></code
+        >!</b
+      >
     </p>
     <h2><a id="Derivatives_Terminology">Terminology</a></h2>
     <p>
@@ -1634,8 +1818,8 @@
       tangent lines. Notice how each tangent line touches the parabola at
       exactly one point. That point is where the original tiny line segment is.
       <i
-        >The derivative at any point on a curve is the slope of the tangent
-        line at that point.</i
+        >The derivative at any point on a curve is the slope of the tangent line
+        at that point.</i
       >
     </p>
 

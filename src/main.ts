@@ -581,10 +581,53 @@ new AnimationLoop((time) =>
   }, 500);
 }
 
-Array.from(document.querySelectorAll("a:not([href])[id]")).forEach(element => {
-  const anchor = assertClass(element, HTMLAnchorElement);
-  if (anchor.innerText != "") {
-    anchor.classList.add("self-link");
-    anchor.href = '#' + anchor.id;
+Array.from(document.querySelectorAll("a:not([href])[id]")).forEach(
+  (element) => {
+    const anchor = assertClass(element, HTMLAnchorElement);
+    if (anchor.innerText != "") {
+      anchor.classList.add("self-link");
+      anchor.href = "#" + anchor.id;
+    }
   }
-})
+);
+
+{
+  /**
+   *
+   * @param t
+   * @returns A number between -1 and 1.
+   */
+  function timeToRange(t: DOMHighResTimeStamp) {
+    const speed = 1000;
+    return Math.sin(t / speed);
+  }
+
+  //const maxPendulumDegrees = 30;
+
+  function updatePhysics(t: DOMHighResTimeStamp) {
+    const positionInRange = timeToRange(t);
+    {
+      const unscaledPendulumX = positionInRange / 2;
+      /**
+       * pendulumX and pendulumY are the center of the weight at the end of the pendulum.
+       * It seems like there's an easier way to get this.  Maybe SVGGraphicsElement.getCTM()
+       */
+      const pendulumX = unscaledPendulumX * 70 + 50;
+      const angle = Math.asin(unscaledPendulumX);
+      const pendulumElement = getById("pendulum", SVGGElement);
+      pendulumElement.setAttribute(
+        "transform",
+        `rotate(${(-angle / Math.PI) * 180})`
+      );
+      const pendulumY = Math.cos(angle) * 70 + 10;
+      const horizontalLine = getById("offsetHorizontal", SVGLineElement);
+      horizontalLine.x1.baseVal.value = horizontalLine.x2.baseVal.value =
+        pendulumX;
+      horizontalLine.y1.baseVal.value = pendulumY;
+    }
+  }
+
+  new AnimationLoop((time) => {
+    updatePhysics(time);
+  });
+}
