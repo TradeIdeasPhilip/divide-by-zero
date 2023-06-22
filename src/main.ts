@@ -646,8 +646,8 @@ class Pointer {
   );
 
   const springPath = getById("spring", SVGPathElement);
-  const springLeftHeight = makeLinear(-1, 10, 1, 19);
-  const springRightHeight = makeLinear(-1, 7.5, 1, 15);
+  const springLeftHeight = makeLinear(-1, 10, 1, 15);
+  const springRightHeight = makeLinear(-1, 7.5, 1, 10);
   const getSpringLoopWidth = makeLinear(-1, 22, 1, 18);
 
   function updatePhysics(t: DOMHighResTimeStamp) {
