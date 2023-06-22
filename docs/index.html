@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>÷ 0</title>
     
-    <script type="module" crossorigin src="./assets/main-0a87c5a0.js"></script>
+    <script type="module" crossorigin src="./assets/main-a0f27b5d.js"></script>
     <link rel="stylesheet" href="./assets/index-4ab23754.css">
   </head>
   <body>
@@ -96,6 +96,9 @@
         </li>
       </ul>
       <li><a class="toc-1" href="#Final_Thoughts">Final Thoughts</a></li>
+      <ul>
+        <li><a class="toc-2" href="#TL_DR">TL;DR</a></li>
+      </ul>
     </ul>
 
     <h1><a id="Prerequisites">Prerequisites</a></h1>
@@ -1476,10 +1479,11 @@
       </div></a
     >
     <p>
-      As the line segments get smaller and smaller, our results get more and
-      more precise. What if we asked about a change of <i>exactly</i> 0? Every
-      time x moves 0 units to the right, x<span class="superscript">2</span> ÷ 2
-      moves 0 units up. And <code>0 ÷ 0</code> = <i>what?</i>
+      <a id="remove_infinities"></a> As the line segments get smaller and
+      smaller, our results get more and more precise. What if we asked about a
+      change of <i>exactly</i> 0? Every time x moves 0 units to the right,
+      x<span class="superscript">2</span> ÷ 2 moves 0 units up. And
+      <code>0 ÷ 0</code> = <i>what?</i>
     </p>
 
     <a
@@ -1596,12 +1600,7 @@
 
     <div class="figure">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
-        <path
-          d="M 50,0 a 20,10,180,0,0,0,20 a 20,7.5,180,0,0,0,-15 a 20,10,180,0,0,0,20 a 20,7.5,180,0,0,0,-15 a 20,10,180,0,0,0,20 a 20,7.5,180,0,0,0,-15 a 20,10,180,0,0,0,20 a 20,7.5,180,0,0,0,-15 a 20,10,180,0,0,0,20"
-          stroke="black"
-          fill="none"
-          id="spring"
-        ></path>
+        <path stroke="black" fill="none" id="spring"></path>
       </svg>
       <div>
         The motion of a mass on a spring can be approximated with a sine wave.
@@ -1798,9 +1797,10 @@
       on what I discussed in
       <a href="#Really_Small_Pieces">Really Small Pieces</a>, above. Start from
       any <i>one</i> of those really small line segments. Extend it forever in
-      both directions so it’s easy to see. The graph below shows multiple
-      tangent lines. Notice how each tangent line touches the parabola at
-      exactly one point. That point is where the original tiny line segment is.
+      both directions so it’s easy to <i>see the slope</i> of that line segment.
+      The graph below shows multiple tangent lines. Notice how each tangent line
+      touches the parabola at exactly one point. That point is where the
+      original tiny line segment is.
       <i
         >The derivative at any point on a curve is the slope of the tangent line
         at that point.</i
@@ -1934,8 +1934,8 @@
       >
     </h2>
     <p>
-      The previous section begs an important question. Are you expecting a
-      number or a formula for an answer?
+      The previous section begs an important question. Are you expecting the
+      answer to be a number or should it be a formula?
     </p>
     <p>
       If you see a problem like <code>∫ 2x dx</code>, that’s called an
@@ -2056,5 +2056,40 @@
       <a href="https://www.youtube.com/hashtag/some3">#SoME3</a>
     </p>
     <p>Click on the images for attribution and other details.</p>
+    <h2><a id="TL_DR">TL;DR</a></h2>
+    <ul>
+      <li>
+        Calculus is the study of <a href="#Smoothness">smooth functions</a>.
+      </li>
+      <li>
+        Limits are about
+        <a href="#Filling_in_Missing_Values">filling in missing values</a>.
+      </li>
+      <li>
+        Limits are about
+        <a href="#remove_infinities">making infinities disappear</a>.
+      </li>
+      <li>
+        A derivate is a <a href="#Derivate_of_a_Line">slope</a> or a
+        <a href="#Definition">rate of change</a>.
+      </li>
+      <li>
+        Pay particular attention when you get to
+        <a href="#Interest_Rates"
+          ><code>e<span class="superscript">x</span></code></a
+        >
+        and <a href="#Physics_Examples"><code>sin(x)</code></a
+        >.
+      </li>
+      <li>
+        An integral is
+        <a href="#The_Area_Under_the_Curve">the area under the curve</a>.
+      </li>
+      <li>
+        Don't forget to write
+        <a href="#Calculating_the_Anti_Derivative"><code>+ C</code></a
+        >.
+      </li>
+    </ul>
   </body>
 </html>

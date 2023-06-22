@@ -682,14 +682,12 @@ class Pointer {
       const leftHeight = springLeftHeight(positionInRange);
       const rightHeight = springRightHeight(positionInRange);
       const width = getSpringLoopWidth(positionInRange);
-      let d = "M 50,10";
-      for (let i = 0; ; i++) {
+      let d = "M 50,-12";
+      for (let i = 0; i < 7; i++) {
         d += ` a ${width},${leftHeight},180,0,0,0,${2 * leftHeight}`;
-        if (i > 5) {
-          break;
-        }
         d += ` a ${width},${rightHeight},180,0,0,0,${-2 * rightHeight}`;
       }
+      d += ` a ${width},${leftHeight},180,0,0,${-width},${leftHeight}`;
       springPath.setAttribute("d", d);
     }
   }
