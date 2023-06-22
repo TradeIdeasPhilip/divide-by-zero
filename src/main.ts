@@ -591,6 +591,39 @@ Array.from(document.querySelectorAll("a:not([href])[id]")).forEach(
   }
 );
 
+class Pointer {
+  readonly element: SVGPolygonElement;
+  static DEFAULT_LENGTH = 10;
+  constructor(initialLength = Pointer.DEFAULT_LENGTH) {
+    this.element = document.createElementNS(
+      "http://www.w3.org/2000/svg",
+      "polygon"
+    );
+    this.setLength(initialLength);
+    this.element.setAttribute("stroke-width", "0.25");
+    this.element.setAttribute("stroke-miterlimit", "10");
+  }
+  setLength(length: number) {
+    if (!isFinite(length)) {
+      this.element.setAttribute("points", "");
+      return;
+    }
+    const minNormalArrowHeadLength = 6;
+    const headRatio =
+      Math.sign(length) *
+      Math.min(1, Math.abs(length) / minNormalArrowHeadLength);
+    this.element.setAttribute(
+      "points",
+      `0,0 2.4,${headRatio * 6} 0.6,${
+        headRatio * 4.4
+      } 0.6,${length} -0.6,${length} -0.6,${headRatio * 4.4} -2.4,${
+        headRatio * 6
+      } 0,0`
+    );
+  }
+}
+(window as any).Pointer = Pointer;
+
 {
   /**
    *
@@ -601,6 +634,16 @@ Array.from(document.querySelectorAll("a:not([href])[id]")).forEach(
     const speed = 1000;
     return Math.sin(t / speed);
   }
+
+  const pendulumContainer = getById("pendulumContainer", SVGSVGElement);
+
+  const positionPointer = new Pointer();
+  pendulumContainer.appendChild(positionPointer.element);
+  positionPointer.element.setAttribute("fill", "red");
+  positionPointer.element.setAttribute(
+    "transform",
+    "translate(50,90) rotate(90)"
+  );
 
   //const maxPendulumDegrees = 30;
 
@@ -624,6 +667,11 @@ Array.from(document.querySelectorAll("a:not([href])[id]")).forEach(
       horizontalLine.x1.baseVal.value = horizontalLine.x2.baseVal.value =
         pendulumX;
       horizontalLine.y1.baseVal.value = pendulumY;
+      positionPointer.setLength(unscaledPendulumX * 70);
+      positionPointer.element.setAttribute(
+        "transform",
+        `translate(${pendulumX},90) rotate(90)`
+      );
     }
   }
 

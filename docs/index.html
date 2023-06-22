@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>÷ 0</title>
     
-    <script type="module" crossorigin src="./assets/main-ef77286a.js"></script>
+    <script type="module" crossorigin src="./assets/main-0bd5ea4b.js"></script>
     <link rel="stylesheet" href="./assets/index-4ab23754.css">
   </head>
   <body>
@@ -1563,6 +1563,7 @@
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 100 100"
         font-size="6"
+        id="pendulumContainer"
       >
         <g transform="translate(50,10)">
           <g transform="rotate(30)" id="pendulum">
@@ -1578,23 +1579,17 @@
             <circle cx="0" cy="70" r="10" fill="black"></circle>
           </g>
         </g>
-        <text transform="translate(10,95)" fill="red">Offset</text>
+        <text transform="translate(10,97)" fill="red">Position</text>
         <line
           id="offsetHorizontal"
           x1="20"
           y1="70"
           x2="20"
           y2="90"
-          width="8"
+          stroke-width="0.6"
           stroke="red"
+          stroke-dasharray="0.6"
         ></line>
-        <polygon
-          style="opacity: 90%"
-          points="0,0 2.4,6 0.6,04.4 0.6,10 -0.6,10 -0.6,4.4 -2.4,6 0,0"
-          fill="rgb(0,0,255)"
-          stroke="none"
-          transform="translate(50,80)"
-        ></polygon>
       </svg>
       <div>The motion of a pendulum can be approximated with a sine wave.</div>
     </div>
