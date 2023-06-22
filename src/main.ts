@@ -645,12 +645,15 @@ class Pointer {
     "translate(50,90) rotate(90)"
   );
 
-  //const maxPendulumDegrees = 30;
+  const springPath = getById("spring", SVGPathElement);
+  const springLeftHeight = makeLinear(-1, 10, 1, 19);
+  const springRightHeight = makeLinear(-1, 7.5, 1, 15);
+  const getSpringLoopWidth = makeLinear(-1, 22, 1, 18);
 
   function updatePhysics(t: DOMHighResTimeStamp) {
     const positionInRange = timeToRange(t);
     {
-      const unscaledPendulumX = positionInRange / 2;
+      const unscaledPendulumX = positionInRange / 2; //const maxPendulumDegrees = 30;  I should make the connection between these two things more obvious.
       /**
        * pendulumX and pendulumY are the center of the weight at the end of the pendulum.
        * It seems like there's an easier way to get this.  Maybe SVGGraphicsElement.getCTM()
@@ -672,6 +675,22 @@ class Pointer {
         "transform",
         `translate(${pendulumX},90) rotate(90)`
       );
+    }
+    {
+      // Spring
+      //  d="M 50,10 a 20,10,180,0,0,0,20 a 20,7.5,180,0,0,0,-15 a 20,10,180,0,0,0,20 a 20,7.5,180,0,0,0,-15 a 20,10,180,0,0,0,20 a 20,7.5,180,0,0,0,-15 a 20,10,180,0,0,0,20 a 20,7.5,180,0,0,0,-15 a 20,10,180,0,0,0,20"
+      const leftHeight = springLeftHeight(positionInRange);
+      const rightHeight = springRightHeight(positionInRange);
+      const width = getSpringLoopWidth(positionInRange);
+      let d = "M 50,10";
+      for (let i = 0; ; i++) {
+        d += ` a ${width},${leftHeight},180,0,0,0,${2 * leftHeight}`;
+        if (i > 5) {
+          break;
+        }
+        d += ` a ${width},${rightHeight},180,0,0,0,${-2 * rightHeight}`;
+      }
+      springPath.setAttribute("d", d);
     }
   }
 
