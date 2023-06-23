@@ -591,19 +591,35 @@ Array.from(document.querySelectorAll("a:not([href])[id]")).forEach(
   }
 );
 
+/**
+ * An arrow.  A wrapper around an SVG element.
+ */
 class Pointer {
+  /**
+   * This class uses this.element.points.
+   * Otherwise you can do anything you want with the element.
+   */
   readonly element: SVGPolygonElement;
+  /**
+   * Some arrows are just to highlight a point.
+   * Other arrows need to be a specific size.
+   */
   static DEFAULT_LENGTH = 10;
+  #length: number;
+  #originAtHead = true;
   constructor(initialLength = Pointer.DEFAULT_LENGTH) {
     this.element = document.createElementNS(
       "http://www.w3.org/2000/svg",
       "polygon"
     );
-    this.setLength(initialLength);
+    this.#length = initialLength;
+    this.redraw();
     this.element.setAttribute("stroke-width", "0.25");
     this.element.setAttribute("stroke-miterlimit", "10");
   }
-  setLength(length: number) {
+  private redraw() {
+    const length = this.#length;
+    const offset = this.#originAtHead ? 0 : length;
     if (!isFinite(length)) {
       this.element.setAttribute("points", "");
       return;
@@ -614,12 +630,38 @@ class Pointer {
       Math.min(1, Math.abs(length) / minNormalArrowHeadLength);
     this.element.setAttribute(
       "points",
-      `0,0 2.4,${headRatio * 6} 0.6,${
-        headRatio * 4.4
-      } 0.6,${length} -0.6,${length} -0.6,${headRatio * 4.4} -2.4,${
-        headRatio * 6
-      } 0,0`
+      `0,${0 - offset} 2.4,${headRatio * 6 - offset} 0.6,${
+        headRatio * 4.4 - offset
+      } 0.6,${length - offset} -0.6,${length - offset} -0.6,${
+        headRatio * 4.4 - offset
+      } -2.4,${headRatio * 6 - offset} 0,${0 - offset}`
     );
+  }
+  get length() {
+    return this.#length;
+  }
+  set length(newValue) {
+    this.#length = newValue;
+    this.redraw();
+  }
+  /**
+   * If you set this to true, the default, the head of the arrow will be at 0,0.
+   * If you set this to false, the tail of the arrow will be at 0,0.
+   * Setting this to false will move the arrow up.
+   */
+  get originAtHead() {
+    return this.#originAtHead;
+  }
+  set originAtHead(newValue) {
+    this.#originAtHead = newValue;
+    this.redraw();
+  }
+  get originAtTail() {
+    // This property exists mostly to help document the originAtHead property.
+    return !this.originAtHead;
+  }
+  set originAtTail(newValue) {
+    this.originAtHead = !newValue;
   }
 }
 (window as any).Pointer = Pointer;
@@ -638,12 +680,28 @@ class Pointer {
   const pendulumContainer = getById("pendulumContainer", SVGSVGElement);
 
   const positionPointer = new Pointer();
+  positionPointer.originAtTail = true;
   pendulumContainer.appendChild(positionPointer.element);
   positionPointer.element.setAttribute("fill", "red");
   positionPointer.element.setAttribute(
     "transform",
     "translate(50,90) rotate(90)"
   );
+  /*
+  const leftTestPointer = new Pointer();
+  pendulumContainer.appendChild(leftTestPointer.element);
+  leftTestPointer.element.setAttribute(
+    "transform",
+    "translate(45,50) rotate(0)"
+  );
+  const rightTestPointer = new Pointer();
+  pendulumContainer.appendChild(rightTestPointer.element);
+  rightTestPointer.element.setAttribute(
+    "transform",
+    "translate(55,50) rotate(0)"
+  );
+  rightTestPointer.originAtHead = false;
+  */
 
   const springPath = getById("springPath", SVGPathElement);
   const springWeight = getById("springWeight", SVGCircleElement);
@@ -671,11 +729,7 @@ class Pointer {
       horizontalLine.x1.baseVal.value = horizontalLine.x2.baseVal.value =
         pendulumX;
       horizontalLine.y1.baseVal.value = pendulumY;
-      positionPointer.setLength(unscaledPendulumX * 70);
-      positionPointer.element.setAttribute(
-        "transform",
-        `translate(${pendulumX},90) rotate(90)`
-      );
+      positionPointer.length = unscaledPendulumX * 70;
     }
     {
       // Spring
