@@ -645,7 +645,8 @@ class Pointer {
     "translate(50,90) rotate(90)"
   );
 
-  const springPath = getById("spring", SVGPathElement);
+  const springPath = getById("springPath", SVGPathElement);
+  const springWeight = getById("springWeight", SVGCircleElement);
   const springLeftHeight = makeLinear(-1, 10, 1, 15);
   const springRightHeight = makeLinear(-1, 7.5, 1, 10);
   const getSpringLoopWidth = makeLinear(-1, 22, 1, 18);
@@ -679,16 +680,38 @@ class Pointer {
     {
       // Spring
       //  d="M 50,10 a 20,10,180,0,0,0,20 a 20,7.5,180,0,0,0,-15 a 20,10,180,0,0,0,20 a 20,7.5,180,0,0,0,-15 a 20,10,180,0,0,0,20 a 20,7.5,180,0,0,0,-15 a 20,10,180,0,0,0,20 a 20,7.5,180,0,0,0,-15 a 20,10,180,0,0,0,20"
-      const leftHeight = springLeftHeight(positionInRange);
-      const rightHeight = springRightHeight(positionInRange);
-      const width = getSpringLoopWidth(positionInRange);
-      let d = "M 50,-12";
-      for (let i = 0; i < 7; i++) {
-        d += ` a ${width},${leftHeight},180,0,0,0,${2 * leftHeight}`;
-        d += ` a ${width},${rightHeight},180,0,0,0,${-2 * rightHeight}`;
+      /**
+       * Half of the height of each ellipse used on the left side of the spring.
+       */
+      const leftRadius = springLeftHeight(positionInRange);
+      /**
+       * Half of the height of ellipse used on the right side of the spring.
+       */
+      const rightRadius = springRightHeight(positionInRange);
+      /**
+       * Half of the width of the ellipses used in the spring.
+       */
+      const horizontalRadius = getSpringLoopWidth(positionInRange);
+      const springTop = -17;
+      let d = `M 50,${springTop}`;
+      const loopCount = 7;
+      for (let i = 0; i < loopCount; i++) {
+        d += ` a ${horizontalRadius},${leftRadius},180,0,0,0,${2 * leftRadius}`;
+        d += ` a ${horizontalRadius},${rightRadius},180,0,0,0,${
+          -2 * rightRadius
+        }`;
       }
-      d += ` a ${width},${leftHeight},180,0,0,${-width},${leftHeight}`;
+      /**
+       * How far is it from the bottom of the springy part to the center of the weight.
+       */
+      const finalDrop = 21;
+      d += ` a ${horizontalRadius},${leftRadius},180,0,0,${-horizontalRadius},${leftRadius} h ${horizontalRadius} v ${finalDrop}`;
       springPath.setAttribute("d", d);
+      springWeight.cy.baseVal.value =
+        springTop +
+        loopCount * 2 * (leftRadius - rightRadius) +
+        leftRadius +
+        finalDrop;
     }
   }
 
