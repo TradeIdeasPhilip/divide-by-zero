@@ -1538,33 +1538,18 @@
       simplify that to <code>x</code> without being afraid to divide by 0.
     </p>
     <h2><a id="Physics_Examples">Physics Examples</a></h2>
-    <div class="phil-notes">
-      Throw away the examples described below. Instead show animations of a
-      pendulum, a mass on a spring, and an electron oscillating in an LC
-      circuit. All moving at the same rate. All with y, y′ and y′′ clearly
-      labeled. As arrows that grow and shrink. And a chart, in realtime, showing
-      the entire sine wave and a pointer to now. All three of y, y′ and y′′ get
-      plotted, maybe on the same chart. Easy to draw a pendulum and a spring in
-      svg. For the LC circuit use a picture from the internet and just a circle
-      for the electron.
-      <a
-        href="https://www.google.com/search?q=lc+circuit&tbm=isch&ved=2ahUKEwjKlaKiss7_AhXLB0QIHSxMBa4Q2-cCegQIABAA&oq=lc+circuit&gs_lcp=CgNpbWcQAzIHCAAQigUQQzIHCAAQigUQQzIHCAAQigUQQzIHCAAQigUQQzIHCAAQigUQQzIFCAAQgAQyBQgAEIAEMgUIABCABDIFCAAQgAQyBQgAEIAEOgcIABAYEIAEULMGWOYXYJgfaABwAHgAgAFXiAH1AZIBATOYAQCgAQGqAQtnd3Mtd2l6LWltZ8ABAQ&sclient=img&ei=lsuPZMryO8uPkPIPrJiV8Ao&bih=821&biw=1440"
-        >Google image search.</a
-      >
-      I like the Wikipedia image because we can link back to a relevant article
-      <i>and</i> the source of the picture at the same time.
-      <br />
-      <br />
-      These examples are all very similar. Acceleration is proportional to
-      force. Force is proportional to offset. Acceleration is the second
-      derivate of offset.
-    </div>
+
+    <p>
+      This first example highlights the <i>position</i>, <i>velocity</i>, and
+      <i>acceleration</i> of a pendulum. As you can see, they are clearly
+      related.
+    </p>
 
     <div class="figure">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 100 100"
-        font-size="6"
+        font-size="5"
         id="pendulumContainer"
       >
         <g transform="translate(50,10)">
@@ -1582,8 +1567,12 @@
           </g>
         </g>
         <text transform="translate(5,98)" fill="blue">Acceleration</text>
-        <text transform="translate(50,98)" fill="magenta" text-anchor="middle">Velocity</text>
-        <text transform="translate(95,98)" fill="red" text-anchor="end">Position</text>
+        <text transform="translate(50,98)" fill="magenta" text-anchor="middle">
+          Velocity
+        </text>
+        <text transform="translate(95,98)" fill="red" text-anchor="end">
+          Position
+        </text>
         <line
           id="offsetHorizontal"
           x1="20"
@@ -1595,8 +1584,30 @@
           stroke-dasharray="0.6"
         ></line>
       </svg>
-      <div>The motion of a pendulum can be approximated with a sine wave.</div>
+      <div>The motion of a pendulum.</div>
     </div>
+    <p>
+      Velocity is the derivative of position. The position of the pendulum is
+      changing fastest when the pendulum is in the middle, so the velocity arrow
+      is the biggest at that time. The velocity arrow points in the direction
+      that the pendulum is moving. The velocity arrow disappears, and the
+      velocity becomes 0, each time the pendulum changes direction.
+    </p>
+    <p>
+      Acceleration is the derivative of velocity. Notice how the acceleration
+      arrow acts similar to the velocity arrow, but the acceleration arrow is
+      slightly in the lead. And notice how the velocity arrow is similar to the
+      position arrow, but the velocity arrow is slightly in the lead.
+    </p>
+    <div class="phil-notes">
+      ‼️ Add a chart of the position, velocity, and acceleration, moving in time
+      with the other demos.
+    </div>
+    <p>
+      As the graph above shows, all three functions are actually sine waves. The
+      difference is that they are offset from one another. In the proper
+      terminology, they are <i>out of phase</i> from each other.
+    </p>
 
     <div class="figure">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
@@ -1609,10 +1620,20 @@
           id="springWeight"
         ></circle>
       </svg>
-      <div>
-        The motion of a mass on a spring can be approximated with a sine wave.
-      </div>
+      <div>A mass bouncing on a spring.</div>
     </div>
+
+    <p>
+      A mass on a spring acts very similar to a pendulum. Once again we use a
+      sine wave as a very good approximation of the position of the mass. So the
+      math will be the same. A mass on a spring problem is just a pendulum
+      problem in disguise.
+    </p>
+    <p>
+      Pay attention when your teacher explains the calculus of sine waves. They
+      are important and they come up a lot in physics and calculus. Here's one
+      more example.
+    </p>
 
     <a
       class="figure"
@@ -1726,38 +1747,17 @@
     >
 
     <p>
-      Derivatives are used a lot in physics. For example, if f(x) is the
-      <i>position</i> of your car at time x, then the derivative of f(x) will
-      tell you the <i>speed</i> you are going.
-    </p>
-    <div class="phil-notes">
-      <b
-        >These notes are obsolete, replaced by the notes immediately above about
-        the pendulum.</b
-      >
-      Draw two charts, one on top of the other with matching scales for the x
-      axes, as in the previous section. label the x axis for both “x =
-      position”. The y axis for the top graph is “y = distance (miles)”, for the
-      bottom graph “y = speed (miles/hour)”. Mark the first part of the x axis
-      “my neighborhood”, the second part “surface roads”, the third part
-      “freeway,” and the fourth part “surface roads,” again. The position graph
-      will be a little wavy, but definitely the slowest in the neighborhood and
-      the fastest on the freeway. Draw light/thin lines on the top chart, like
-      before, from the beginning to the end of each section. On the bottom chart
-      show two different lines in different colors. One labeled average speed,
-      and the other labeled speed.
-    </div>
-    <p>
-      Just like in the example above, you can talk about the average speed for
-      your entire trip. Or you can talk about the average speed for various
-      parts of your trip. You can get more precise answers if you look at
-      smaller and smaller time intervals. And, if you ask for the
-      <i>exact</i> speed at an <i>exact</i> instant in time, that’s the
-      derivative.
+      In this case you are watching an electron bouncing around a circuit. But
+      the math is the same. We talk about <i>charge</i> instead of position. And
+      the derivative of charge is <i>current</i>, instead of velocity. Charge,
+      current, and the derivative of current will all be sine waves, as in the
+      previous examples.
     </p>
     <p>
-      Acceleration is the derivative of speed. Electric current is the
-      derivative of charge. Etc.
+      I should remind you that these are simple approximations. This is as far
+      as you will get in highschool calculus. If you want to learn about
+      friction and resistance you’ll need to wait for differential equations class.
+      Until then you live in a safe an magical world with perpetual motion. 
     </p>
     <h2><a id="Interest_Rates">Interest Rates</a></h2>
     <p>

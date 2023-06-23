@@ -6,29 +6,33 @@ https://3blue1brown.substack.com/p/some3-begins
 I have some ideas I'd like to put into a document.
 
 [This document](https://tradeideasphilip.github.io/divide-by-zero/) will become my final presentation.
-It's a work in progress.
-The parts near the top are pretty close to complete.
+It's not finished, but it's really taking shape.
 My notes to myself have a yellow background.
 ‼️ means that I plan to add a picture.
 
-Some pictures require programming.
-Mostly it's just screenshots and static SVG.
-But there's currently one animation that includes user interaction.
+# Video
 
+These help document the status of this project.
+
+* [Bribing ALL of the #SoME3 judges — How much would it cost?](https://www.youtube.com/watch?v=VnLQNXIJ1l4)
+* [#some3 status update - interactive demo](https://www.youtube.com/shorts/RDkrc9fiNtw)
+
+# The pictures
 The backgrounds for my pictures come from Desmos.
 This was the quickest, easiest way to graph a function.
 And most of the pictures include a hyperlink back to the original Desmos graph, so the user can explore further without me.
 
 I added my own annotations using SVG.
 It was easy to scale the SVG so my annotations would match the original graph.
-And I have the option to animate any SVGs.
+And I use TypeScript (JavaScript) to animate some of the SVGs and to allow user interaction.
 
-The words seem pretty close to what I want.
-I've been cleaning them up as I add pictures.
-The pictures will take some time.
-The animation took a lot longer than I expected.
+My TypeScript code actually uses some interesting math.
+If you like the math presented in this document, you'll find even more when you look behind the curtain!
 
-# Problem
+My animated demos are taking a lot more time than the words.
+But I _really_ like the results, so I'm going to keep going.
+
+## Problem
 
 In Desmos I'm having trouble showing undefined points.
 https://cl.desmos.com/t/in-the-grarh-ui-show-undefined-points/3904/2
