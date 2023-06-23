@@ -605,6 +605,11 @@ class Pointer {
    * Other arrows need to be a specific size.
    */
   static DEFAULT_LENGTH = 10;
+  /**
+   * If you fill the polygon and set the stroke to none, i.e. keep the defaults, this will be the width of the shaft
+   * of the arrow.  If you want to stroke a path that is consistent with this arrow, use this for the stroke-width.
+   */
+  static STROKE_WIDTH = 1.6;
   #length: number;
   #originAtHead = true;
   constructor(initialLength = Pointer.DEFAULT_LENGTH) {
@@ -670,11 +675,14 @@ class Pointer {
   /**
    *
    * @param t
-   * @returns A number between -1 and 1.
+   * @returns A triple of numbers between -1 and 1.
    */
   function timeToRange(t: DOMHighResTimeStamp) {
     const speed = 1000;
-    return Math.sin(t / speed);
+    const position = Math.sin(t / speed);
+    const velocity = Math.cos(t / speed);
+    const acceleration = -Math.sin(t / speed);
+    return { position, velocity, acceleration };
   }
 
   const pendulumContainer = getById("pendulumContainer", SVGSVGElement);
@@ -687,21 +695,35 @@ class Pointer {
     "transform",
     "translate(50,90) rotate(90)"
   );
-  /*
-  const leftTestPointer = new Pointer();
-  pendulumContainer.appendChild(leftTestPointer.element);
-  leftTestPointer.element.setAttribute(
+  const velocityPointer = new Pointer();
+  velocityPointer.originAtTail = true;
+  pendulumContainer.appendChild(velocityPointer.element);
+  velocityPointer.element.setAttribute("fill", "violet");
+  velocityPointer.element.setAttribute(
     "transform",
-    "translate(45,50) rotate(0)"
+    "translate(50,80) rotate(90)"
   );
-  const rightTestPointer = new Pointer();
-  pendulumContainer.appendChild(rightTestPointer.element);
-  rightTestPointer.element.setAttribute(
+  const accelerationPointer = new Pointer();
+  accelerationPointer.originAtTail = true;
+  pendulumContainer.appendChild(accelerationPointer.element);
+  accelerationPointer.element.setAttribute("fill", "blue");
+  accelerationPointer.element.setAttribute(
     "transform",
-    "translate(55,50) rotate(0)"
+    "translate(50,80) rotate(90)"
   );
-  rightTestPointer.originAtHead = false;
-  */
+  {
+    const textObjects = pendulumContainer.querySelectorAll("text");
+    if (textObjects.length != 3) {
+      throw new Error("wtf");
+    }
+    const [left, center, right] = textObjects;
+    const moveRight =
+      (left.getBBox().width -
+        right.getBBox().width) /
+      2;
+    center.setAttribute("transform", `translate(${50 + moveRight},98)`);
+    console.log({left,center,right});
+  }
 
   const springPath = getById("springPath", SVGPathElement);
   const springWeight = getById("springWeight", SVGCircleElement);
@@ -710,9 +732,9 @@ class Pointer {
   const getSpringLoopWidth = makeLinear(-1, 22, 1, 18);
 
   function updatePhysics(t: DOMHighResTimeStamp) {
-    const positionInRange = timeToRange(t);
+    const { position, velocity, acceleration } = timeToRange(t);
     {
-      const unscaledPendulumX = positionInRange / 2; //const maxPendulumDegrees = 30;  I should make the connection between these two things more obvious.
+      const unscaledPendulumX = position / 2; //const maxPendulumDegrees = 30;  I should make the connection between these two things more obvious.
       /**
        * pendulumX and pendulumY are the center of the weight at the end of the pendulum.
        * It seems like there's an easier way to get this.  Maybe SVGGraphicsElement.getCTM()
@@ -730,6 +752,20 @@ class Pointer {
         pendulumX;
       horizontalLine.y1.baseVal.value = pendulumY;
       positionPointer.length = unscaledPendulumX * 70;
+
+      velocityPointer.element.setAttribute(
+        "transform",
+        `translate(${pendulumX},${pendulumY}) rotate(90)`
+      );
+      velocityPointer.length = velocity * 35;
+
+      accelerationPointer.element.setAttribute(
+        "transform",
+        `translate(${pendulumX},${
+          pendulumY - 10 + Pointer.STROKE_WIDTH / 2
+        }) rotate(90)`
+      );
+      accelerationPointer.length = acceleration * 35;
     }
     {
       // Spring
@@ -737,15 +773,15 @@ class Pointer {
       /**
        * Half of the height of each ellipse used on the left side of the spring.
        */
-      const leftRadius = springLeftHeight(positionInRange);
+      const leftRadius = springLeftHeight(position);
       /**
        * Half of the height of ellipse used on the right side of the spring.
        */
-      const rightRadius = springRightHeight(positionInRange);
+      const rightRadius = springRightHeight(position);
       /**
        * Half of the width of the ellipses used in the spring.
        */
-      const horizontalRadius = getSpringLoopWidth(positionInRange);
+      const horizontalRadius = getSpringLoopWidth(position);
       const springTop = -17;
       let d = `M 50,${springTop}`;
       const loopCount = 7;
