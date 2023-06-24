@@ -14,10 +14,14 @@ My notes to myself have a yellow background.
 
 These help document the status of this project.
 
-* [Bribing ALL of the #SoME3 judges — How much would it cost?](https://www.youtube.com/watch?v=VnLQNXIJ1l4)
-* [#some3 status update - interactive demo](https://www.youtube.com/shorts/RDkrc9fiNtw)
+- [Bribing ALL of the #SoME3 judges — How much would it cost?](https://www.youtube.com/watch?v=VnLQNXIJ1l4)
+- [#some3 status update - interactive demo](https://www.youtube.com/shorts/RDkrc9fiNtw)
+- [How to Divide by Infinity #SoME3 progress and behind the scenes](https://youtu.be/h_LclJS3_Nw)
+
+Newest ones are on the bottom.
 
 # The pictures
+
 The backgrounds for my pictures come from Desmos.
 This was the quickest, easiest way to graph a function.
 And most of the pictures include a hyperlink back to the original Desmos graph, so the user can explore further without me.
