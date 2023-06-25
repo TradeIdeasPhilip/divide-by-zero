@@ -717,12 +717,8 @@ class Pointer {
       throw new Error("wtf");
     }
     const [left, center, right] = textObjects;
-    const moveRight =
-      (left.getBBox().width -
-        right.getBBox().width) /
-      2;
+    const moveRight = (left.getBBox().width - right.getBBox().width) / 2;
     center.setAttribute("transform", `translate(${50 + moveRight},98)`);
-    console.log({left,center,right});
   }
 
   const springPath = getById("springPath", SVGPathElement);
@@ -809,3 +805,40 @@ class Pointer {
     updatePhysics(time);
   });
 }
+
+/*
+type DerivativePoint = {
+  readonly x: number;
+  readonly y: number;
+  readonly yPrime: number;
+};
+*/
+
+/**
+ * Each input describes a tangent line.
+ * @param p1 Start
+ * @param p2 End
+ * @returns Each input describes a tangent line.  Return the point where the two tangent lines intersect.
+ * Returns undefined on any sort of error.  For example, if the inputs describe two parallel ines, there is no correct answer.
+ */
+/*
+function quadraticControlPoint(
+  p1: DerivativePoint,
+  p2: DerivativePoint
+): { x: number; y: number } | undefined {
+  // (y - p1.y) / (x - p1.x) = p1.yPrime      First tangent line
+  // y - p1.y = (x - p1.x) ⨉ p1.yPrime
+  // y = (x - p1.x) ⨉ p1.yPrime + p1.y
+  //   and 
+  // y = (x - p2.x) ⨉ p2.yPrime + p2.y        Second tangent line
+  //   so
+  // (x - p1.x) ⨉ p1.yPrime + p1.y = (x - p2.x) ⨉ p2.yPrime + p2.y
+  // (x - p1.x) ⨉ p1.yPrime + p1.y = (x - p2.x) ⨉ p2.yPrime + p2.y
+  return undefined;
+}
+
+function functionToPath(input: readonly []): string {
+  let result = "";
+  return result;
+}
+*/
