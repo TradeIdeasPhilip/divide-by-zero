@@ -96,7 +96,7 @@ I couldn't find a good reference on the subject, so here's what I discovered by 
 </path>
 </svg>
 
-[Sample SVG Graphic](./parabola.svg)
+[Sample SVG Graphic](./readme-images/parabola.svg)
 
 I have to specify a starting and ending point.
 These are shown here as orange circles.
@@ -121,3 +121,76 @@ Those only exist as math behind the scenes.
 GitHub stripped the `<svg>` tags from my markdown.
 So I will still need to make my own HTML file for my presentation.
 That will also allow me to add some simple animations, and possibly some user interaction.
+
+# Sample Problem Solving
+
+These pictures show my progress solving a specific problem.  I'm trying to draw a sine wave in SVG.  Previously I've relied on Desmos to plot functions.
+
+I find it interesting to follow the progress as I worked on one problem after the next.
+This particular feature is a pretty random example.
+It's pretty visual, so I took pictures.
+
+See my first try, below.
+I'd been working for a while.
+When I finally got a graph to show up, this is the first thing I saw.
+
+![First Attempt — Drawn by a 3 year old.](./readme-images/Sin1.png)
+
+It looks like it was drawn by a three year old!
+And I feel a strange urge to print it out and hang it on my refrigerator.
+
+Ignore the cookies per square minute stuff in blue.
+I was just reusing an existing graph for a quick and dirty test.
+The thick black line was my first — and most entertaining — attempt at a sine wave.
+
+For this next test I disabled the curves.
+At first I thought there was a problem with the 11 points between the curves.
+
+![Second Attempt — 10 line segments, no curves.](./readme-images/Sin2.png)
+
+As soon as I plotted these 10 line segments it was obvious that these points were correct, and the curves were the problem.
+
+I found the horizontal segments the most interesting.
+They are so close to the grid lines.
+The curve will have to make contact with the grid lines.
+
+That chart helped me find a bug.
+I made a mistake in a simple algebra problem.
+That lead to this next image.
+
+![Third Attempt — Slopes reversed, most artistic.](./readme-images/Sin3.png)
+
+This is an improvement from the initial picture.
+It's so much more artistic!
+
+And from here I could guess what the next problem was.
+And, as the next image shows, my guess was correct.
+
+![Fourth Attempt — Looks a sine wave, as it should.](./readme-images/Sin4.png)
+
+I forgot a negative sign in a derivative!
+
+That last one _looks_ good, but is it correct?
+
+I created a second path with more data points and less interpolation.
+As you can see in the next image, it all looks good.
+
+![First test — Looks good, 10 segments per cycle.](./readme-images/Sin5.png)
+
+All three curves should be the same width.
+
+The image above looks pretty good.
+I wanted to be sure.
+The the thick black line above comes from 10 segments.
+The image below is the same but the black line came from 14 segments.
+
+![Another test — 14 segments per cycle.](./readme-images/Sin6.png)
+
+Is this better than the previous test?
+
+I don't know.
+When I looked closely they look similar.
+I could do some work and try to flip between them.
+Or I could just say the first one is good enough.
+I will be showing multiple sine waves, and I will be updating each one once per animation frame.
+And I have other things to do.

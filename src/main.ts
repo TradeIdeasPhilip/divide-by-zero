@@ -842,7 +842,7 @@ function quadraticControlPoint(
   if (!isFinite(y)) {
     return undefined;
   }
-  console.log({p1, p2, x, y});
+  //console.log({p1, p2, x, y});
   return { x, y };
 }
 
@@ -877,14 +877,16 @@ function functionToPath(input: readonly DerivativePoint[]): string {
   return result;
 }
 
-function sineWavePoints(options: { left : number, right : number, top: number, bottom:number}) {
+type SineWaveOptions =  {left : number, right : number, top: number, bottom:number, segmentCount: number};
+
+function sineWavePoints(options: SineWaveOptions) {
   const yOffset = (options.top + options.bottom) / 2;
   const yRatio = (options.bottom - options.top) / 2;
   const xRatio = Math.PI * 2 / (options.right - options.left);
   const points : DerivativePoint[] = [];
-  for (let i = 0; i <= 10; i++) {
-    const functionX = i / 10 * Math.PI * 2;
-    const displayX = options.left + i / 10 * (options.right - options.left);
+  for (let i = 0; i <= options.segmentCount; i++) {
+    const functionX = i / options.segmentCount * Math.PI * 2;
+    const displayX = options.left + i / options.segmentCount * (options.right - options.left);
     const functionY = Math.sin(functionX);
     const displayY = yOffset + functionY * yRatio;
     const yPrime = Math.cos(functionX) * -1; /* TODO */
@@ -892,23 +894,43 @@ function sineWavePoints(options: { left : number, right : number, top: number, b
   }
   return points;
 }
-function sineWavePath(options: { left : number, right : number, top: number, bottom:number}) {
+function sineWavePath(options: SineWaveOptions) {
   return functionToPath(sineWavePoints(options));
 }
 (window as any).sineWavePath = sineWavePath;
 
+const parent =assertClass(document.querySelector('a[href="https://www.desmos.com/calculator/rwgnkajodz"] svg g'), SVGGElement);
+
 const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
 // This should be the first derivative graph.  A bunch of blue horizontal line segments.
-assertClass(document.querySelector('a[href="https://www.desmos.com/calculator/rwgnkajodz"] svg g'), SVGGElement).appendChild(path);
+parent.appendChild(path);
 path.style.strokeWidth = "0.056";
 path.style.fill = "none";
 path.style.stroke = "black";
+path.style.strokeLinecap = "round";
+
+const innerPath = document.createElementNS("http://www.w3.org/2000/svg", "path");
+// This should be the first derivative graph.  A bunch of blue horizontal line segments.
+parent.appendChild(innerPath);
+innerPath.style.strokeWidth = "0.018666666666667";
+innerPath.style.fill = "none";
+innerPath.style.stroke = "white";
+innerPath.style.strokeLinecap = "round";
+
 function sineWaveDebug() {
-  const d = sineWavePath({left:0, top:1, bottom:-1, right:2*Math.PI});
-  let d1 = "M";
-  sineWavePoints({left:0, top:1, bottom:-1, right:2*Math.PI}).forEach(point => {
-    d1 += ` ${point.x},${point.y}`;
-  });
+  // Ideally you'd see three stripes with IDENTICAL sizes.  Black, white, black.
+  // Any place the stripes are uneven, that means that the approximation is off.
+  // And the more uneven they are, the further off the approximation is.
+  // In practice these look really good, well within a pixel, with a segment count
+  // of 10.  14 seems like a perfect match.
+  // segmentCount should be 2 times an odd number.
+  // We strongly desire creating a new segment each place that the sine wave
+  // is 0.  And it would be nice if the extreme points are each in the center
+  // of a segment.
+  // 102 is big enough that it should be pretty accurate no matter what.
+  const d = sineWavePath({left:0, top:1, bottom:-1, right:2*Math.PI, segmentCount:10});
   path.setAttribute("d", d);
+  const d1 = sineWavePath({left:0, top:1, bottom:-1, right:2*Math.PI, segmentCount:102});
+  innerPath.setAttribute("d", d1);
 }
 sineWaveDebug();
