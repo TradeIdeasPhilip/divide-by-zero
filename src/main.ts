@@ -806,13 +806,11 @@ class Pointer {
   });
 }
 
-/*
 type DerivativePoint = {
   readonly x: number;
   readonly y: number;
   readonly yPrime: number;
 };
-*/
 
 /**
  * Each input describes a tangent line.
@@ -821,7 +819,6 @@ type DerivativePoint = {
  * @returns Each input describes a tangent line.  Return the point where the two tangent lines intersect.
  * Returns undefined on any sort of error.  For example, if the inputs describe two parallel ines, there is no correct answer.
  */
-/*
 function quadraticControlPoint(
   p1: DerivativePoint,
   p2: DerivativePoint
@@ -832,13 +829,86 @@ function quadraticControlPoint(
   //   and 
   // y = (x - p2.x) ⨉ p2.yPrime + p2.y        Second tangent line
   //   so
-  // (x - p1.x) ⨉ p1.yPrime + p1.y = (x - p2.x) ⨉ p2.yPrime + p2.y
-  // (x - p1.x) ⨉ p1.yPrime + p1.y = (x - p2.x) ⨉ p2.yPrime + p2.y
-  return undefined;
+  // (x - p1.x) ⨉ p1.yPrime + p1.y           = (x - p2.x) ⨉ p2.yPrime + p2.y
+  // x ⨉ p1.yPrime - p1.x ⨉ p1.yPrime + p1.y = x ⨉ p2.yPrime - p2.x ⨉ p2.yPrime + p2.y
+  // x ⨉ p1.yPrime - x ⨉ p2.yPrime           = p1.x ⨉ p1.yPrime - p1.y - p2.x ⨉ p2.yPrime + p2.y
+  // x ⨉ (p1.yPrime - p2.yPrime)             = (p1.x ⨉ p1.yPrime - p1.y - p2.x ⨉ p2.yPrime + p2.y)
+  // x = (p1.x ⨉ p1.yPrime - p1.y - p2.x ⨉ p2.yPrime + p2.y) / (p1.yPrime - p2.yPrime) 
+  const x = (p1.x * p1.yPrime - p1.y - p2.x * p2.yPrime + p2.y) / (p1.yPrime - p2.yPrime) 
+  if (!isFinite(x)) {
+    return undefined;
+  }
+  const y = (x - p1.x) * p1.yPrime + p1.y;
+  if (!isFinite(y)) {
+    return undefined;
+  }
+  console.log({p1, p2, x, y});
+  return { x, y };
 }
 
-function functionToPath(input: readonly []): string {
+function* nOverlapping<T>(input : Iterable<T>, count = 2) {
+  if ((count < 1) || ((count|0) != count)) {
+    throw new Error("wtf");
+  }
+  const collection : T[] = [];
+  for (const element of input)  {
+    collection.push(element);
+    if (collection.length == count) {
+      yield collection;
+      collection.shift();
+    }
+  }
+}
+
+function functionToPath(input: readonly DerivativePoint[]): string {
   let result = "";
+  for (const [start, end] of nOverlapping(input)) {
+    if (result == "") {
+      result = `M ${start.x},${start.y}`
+    }
+    const controlPoint = quadraticControlPoint(start, end);
+    if (!controlPoint) {
+      result += ` M`;
+    } else {
+      result += ` Q ${controlPoint.x},${controlPoint.y}`;
+    }
+    result += ` ${end.x},${end.y}`;
+  }
   return result;
 }
-*/
+
+function sineWavePoints(options: { left : number, right : number, top: number, bottom:number}) {
+  const yOffset = (options.top + options.bottom) / 2;
+  const yRatio = (options.bottom - options.top) / 2;
+  const xRatio = Math.PI * 2 / (options.right - options.left);
+  const points : DerivativePoint[] = [];
+  for (let i = 0; i <= 10; i++) {
+    const functionX = i / 10 * Math.PI * 2;
+    const displayX = options.left + i / 10 * (options.right - options.left);
+    const functionY = Math.sin(functionX);
+    const displayY = yOffset + functionY * yRatio;
+    const yPrime = Math.cos(functionX) * -1; /* TODO */
+    points.push({x:displayX, y: displayY, yPrime});
+  }
+  return points;
+}
+function sineWavePath(options: { left : number, right : number, top: number, bottom:number}) {
+  return functionToPath(sineWavePoints(options));
+}
+(window as any).sineWavePath = sineWavePath;
+
+const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+// This should be the first derivative graph.  A bunch of blue horizontal line segments.
+assertClass(document.querySelector('a[href="https://www.desmos.com/calculator/rwgnkajodz"] svg g'), SVGGElement).appendChild(path);
+path.style.strokeWidth = "0.056";
+path.style.fill = "none";
+path.style.stroke = "black";
+function sineWaveDebug() {
+  const d = sineWavePath({left:0, top:1, bottom:-1, right:2*Math.PI});
+  let d1 = "M";
+  sineWavePoints({left:0, top:1, bottom:-1, right:2*Math.PI}).forEach(point => {
+    d1 += ` ${point.x},${point.y}`;
+  });
+  path.setAttribute("d", d);
+}
+sineWaveDebug();
