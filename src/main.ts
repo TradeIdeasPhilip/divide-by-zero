@@ -826,15 +826,17 @@ function quadraticControlPoint(
   // (y - p1.y) / (x - p1.x) = p1.yPrime      First tangent line
   // y - p1.y = (x - p1.x) ⨉ p1.yPrime
   // y = (x - p1.x) ⨉ p1.yPrime + p1.y
-  //   and 
+  //   and
   // y = (x - p2.x) ⨉ p2.yPrime + p2.y        Second tangent line
   //   so
   // (x - p1.x) ⨉ p1.yPrime + p1.y           = (x - p2.x) ⨉ p2.yPrime + p2.y
   // x ⨉ p1.yPrime - p1.x ⨉ p1.yPrime + p1.y = x ⨉ p2.yPrime - p2.x ⨉ p2.yPrime + p2.y
   // x ⨉ p1.yPrime - x ⨉ p2.yPrime           = p1.x ⨉ p1.yPrime - p1.y - p2.x ⨉ p2.yPrime + p2.y
   // x ⨉ (p1.yPrime - p2.yPrime)             = (p1.x ⨉ p1.yPrime - p1.y - p2.x ⨉ p2.yPrime + p2.y)
-  // x = (p1.x ⨉ p1.yPrime - p1.y - p2.x ⨉ p2.yPrime + p2.y) / (p1.yPrime - p2.yPrime) 
-  const x = (p1.x * p1.yPrime - p1.y - p2.x * p2.yPrime + p2.y) / (p1.yPrime - p2.yPrime) 
+  // x = (p1.x ⨉ p1.yPrime - p1.y - p2.x ⨉ p2.yPrime + p2.y) / (p1.yPrime - p2.yPrime)
+  const x =
+    (p1.x * p1.yPrime - p1.y - p2.x * p2.yPrime + p2.y) /
+    (p1.yPrime - p2.yPrime);
   if (!isFinite(x)) {
     return undefined;
   }
@@ -846,12 +848,12 @@ function quadraticControlPoint(
   return { x, y };
 }
 
-function* nOverlapping<T>(input : Iterable<T>, count = 2) {
-  if ((count < 1) || ((count|0) != count)) {
+function* nOverlapping<T>(input: Iterable<T>, count = 2) {
+  if (count < 1 || (count | 0) != count) {
     throw new Error("wtf");
   }
-  const collection : T[] = [];
-  for (const element of input)  {
+  const collection: T[] = [];
+  for (const element of input) {
     collection.push(element);
     if (collection.length == count) {
       yield collection;
@@ -864,7 +866,7 @@ function functionToPath(input: readonly DerivativePoint[]): string {
   let result = "";
   for (const [start, end] of nOverlapping(input)) {
     if (result == "") {
-      result = `M ${start.x},${start.y}`
+      result = `M ${start.x},${start.y}`;
     }
     const controlPoint = quadraticControlPoint(start, end);
     if (!controlPoint) {
@@ -877,20 +879,28 @@ function functionToPath(input: readonly DerivativePoint[]): string {
   return result;
 }
 
-type SineWaveOptions =  {left : number, right : number, top: number, bottom:number, segmentCount: number};
+type SineWaveOptions = {
+  left: number;
+  right: number;
+  top: number;
+  bottom: number;
+  segmentCount: number;
+};
 
 function sineWavePoints(options: SineWaveOptions) {
   const yOffset = (options.top + options.bottom) / 2;
   const yRatio = (options.top - options.bottom) / 2;
-  const xRatio = Math.PI * 2 / (options.right - options.left);
-  const points : DerivativePoint[] = [];
+  const xRatio = (Math.PI * 2) / (options.right - options.left);
+  const points: DerivativePoint[] = [];
   for (let i = 0; i <= options.segmentCount; i++) {
-    const functionX = i / options.segmentCount * Math.PI * 2;
-    const displayX = options.left + i / options.segmentCount * (options.right - options.left);
+    const functionX = (i / options.segmentCount) * Math.PI * 2;
+    const displayX =
+      options.left +
+      (i / options.segmentCount) * (options.right - options.left);
     const functionY = Math.sin(functionX);
     const displayY = yOffset + functionY * yRatio;
     const yPrime = Math.cos(functionX) * yRatio * xRatio;
-    points.push({x:displayX, y: displayY, yPrime});
+    points.push({ x: displayX, y: displayY, yPrime });
   }
   return points;
 }
@@ -899,7 +909,12 @@ function sineWavePath(options: SineWaveOptions) {
 }
 (window as any).sineWavePath = sineWavePath;
 
-const parent =assertClass(document.querySelector('a[href="https://www.desmos.com/calculator/rwgnkajodz"] svg g'), SVGGElement);
+const parent = assertClass(
+  document.querySelector(
+    'a[href="https://www.desmos.com/calculator/rwgnkajodz"] svg g'
+  ),
+  SVGGElement
+);
 
 const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
 // This should be the first derivative graph.  A bunch of blue horizontal line segments.
@@ -909,7 +924,10 @@ path.style.fill = "none";
 path.style.stroke = "black";
 path.style.strokeLinecap = "round";
 
-const innerPath = document.createElementNS("http://www.w3.org/2000/svg", "path");
+const innerPath = document.createElementNS(
+  "http://www.w3.org/2000/svg",
+  "path"
+);
 // This should be the first derivative graph.  A bunch of blue horizontal line segments.
 parent.appendChild(innerPath);
 innerPath.style.strokeWidth = "0.018666666666667";
@@ -928,7 +946,13 @@ function sineWaveDebug() {
   // is 0.  And it would be nice if the extreme points are each in the center
   // of a segment.
   // 102 is big enough that it should be pretty accurate no matter what.
-  const options : SineWaveOptions = {left:1, top:1, bottom:-1, right:5, segmentCount:10};
+  const options: SineWaveOptions = {
+    left: 1,
+    top: 1,
+    bottom: -1,
+    right: 5,
+    segmentCount: 10,
+  };
   const d = sineWavePath(options);
   path.setAttribute("d", d);
   options.segmentCount = 102;
