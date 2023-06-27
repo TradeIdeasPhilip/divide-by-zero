@@ -881,7 +881,7 @@ type SineWaveOptions =  {left : number, right : number, top: number, bottom:numb
 
 function sineWavePoints(options: SineWaveOptions) {
   const yOffset = (options.top + options.bottom) / 2;
-  const yRatio = (options.bottom - options.top) / 2;
+  const yRatio = (options.top - options.bottom) / 2;
   const xRatio = Math.PI * 2 / (options.right - options.left);
   const points : DerivativePoint[] = [];
   for (let i = 0; i <= options.segmentCount; i++) {
@@ -889,7 +889,7 @@ function sineWavePoints(options: SineWaveOptions) {
     const displayX = options.left + i / options.segmentCount * (options.right - options.left);
     const functionY = Math.sin(functionX);
     const displayY = yOffset + functionY * yRatio;
-    const yPrime = Math.cos(functionX) * -1; /* TODO */
+    const yPrime = Math.cos(functionX) * yRatio; /* TODO */
     points.push({x:displayX, y: displayY, yPrime});
   }
   return points;
@@ -928,9 +928,11 @@ function sineWaveDebug() {
   // is 0.  And it would be nice if the extreme points are each in the center
   // of a segment.
   // 102 is big enough that it should be pretty accurate no matter what.
-  const d = sineWavePath({left:0, top:1, bottom:-1, right:2*Math.PI, segmentCount:10});
+  const options : SineWaveOptions = {left:0, top:-0.5, bottom:-1, right:2*Math.PI, segmentCount:10};
+  const d = sineWavePath(options);
   path.setAttribute("d", d);
-  const d1 = sineWavePath({left:0, top:1, bottom:-1, right:2*Math.PI, segmentCount:102});
+  options.segmentCount = 102;
+  const d1 = sineWavePath(options);
   innerPath.setAttribute("d", d1);
 }
 sineWaveDebug();
