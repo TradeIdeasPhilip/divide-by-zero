@@ -806,6 +806,15 @@ class Pointer {
   });
 }
 
+/*
+ * Plotting a sine wave!
+ *
+ * And a good start toward plotting any function.
+ */
+
+/**
+ * To make a smooth plot I need three pieces of data about each point: x, y and y′.
+ */
 type DerivativePoint = {
   readonly x: number;
   readonly y: number;
@@ -848,7 +857,16 @@ function quadraticControlPoint(
   return { x, y };
 }
 
+/**
+ * Given inputs like ['a', 'b', 'c', 'd', 'e', 'f'] and 3, yield
+ * ['a', b', 'c'], ['b', 'c', 'd'], ['c', 'd', 'e'] then finally
+ * ['d', 'e', 'f'].
+ * @param input A list of elements to redistribute.
+ * @param count How many elements to give on each call to the iterator.
+ * This larger this number is, the fewer items the iterator will yield.
+ */
 function* nOverlapping<T>(input: Iterable<T>, count = 2) {
+  // TODO move this into phil-lib.
   if (count < 1 || (count | 0) != count) {
     throw new Error("wtf");
   }
@@ -862,6 +880,11 @@ function* nOverlapping<T>(input: Iterable<T>, count = 2) {
   }
 }
 
+/**
+ *
+ * @param input A series of points, in order from left to right.
+ * @returns A string suitable for
+ */
 function functionToPath(input: readonly DerivativePoint[]): string {
   let result = "";
   for (const [start, end] of nOverlapping(input)) {
@@ -879,36 +902,184 @@ function functionToPath(input: readonly DerivativePoint[]): string {
   return result;
 }
 
-type SineWaveOptions = {
+/**
+ * Describe a sin function.
+ *
+ * `Math.sin((x - x0) * frequencyMultiplier) * amplitude + yCenter`
+ */
+type SinOptions = {
+  /**
+   * The sin function will start here.
+   * i.e. f(x0) = 0 and fPrime(x0) > 0
+   *
+   * Making this number slightly larger will move the entire graph a little to the right.
+   *
+   * 0 would give you a standard sin function.
+   */
+  x0: number;
+  /**
+   * 1 keeps the standard frequency of 1 / (2 * PI).
+   * 2 doubles that frequency.
+   * 0.5 cuts the standard frequency in half.
+   *
+   * Should be positive.
+   */
+  frequencyMultiplier: number;
+  /**
+   * 0 for a standard sin function.
+   * This is the center of the sin's output.
+   * Positive numbers move the graph up.
+   */
+  yCenter: number;
+  /**
+   * 1 for a standard sin() function.
+   * 2 for twice as tall.
+   *
+   * This is the distance between the center and one of the extremes.
+   * This is half the distance between the extremes.
+   */
+  amplitude: number;
+};
+function makeSinFunction({
+  x0,
+  frequencyMultiplier,
+  yCenter,
+  amplitude,
+}: SinOptions) {
+  return {
+    f(x: number) {
+      return Math.sin((x - x0) * frequencyMultiplier) * amplitude + yCenter;
+    },
+    fPrime(x: number) {
+      return (
+        Math.cos((x - x0) * frequencyMultiplier) *
+        amplitude *
+        frequencyMultiplier
+      );
+    },
+  };
+}
+
+/**
+ * When we actually display the sine wave, we need to know the start and end of what we are plotting.
+ */
+type SineWaveOptions = SinOptions & {
+  /**
+   * The furthest left, in graph coordinates, that we should plot.
+   */
   left: number;
+  /**
+   * The furthest left, in graph coordinates, that we should plot.
+   */
   right: number;
-  top: number;
-  bottom: number;
-  segmentCount: number;
 };
 
-function sineWavePoints(options: SineWaveOptions) {
-  const yOffset = (options.top + options.bottom) / 2;
-  const yRatio = (options.top - options.bottom) / 2;
-  const xRatio = (Math.PI * 2) / (options.right - options.left);
-  const points: DerivativePoint[] = [];
-  for (let i = 0; i <= options.segmentCount; i++) {
-    const functionX = (i / options.segmentCount) * Math.PI * 2;
-    const displayX =
-      options.left +
-      (i / options.segmentCount) * (options.right - options.left);
-    const functionY = Math.sin(functionX);
-    const displayY = yOffset + functionY * yRatio;
-    const yPrime = Math.cos(functionX) * yRatio * xRatio;
-    points.push({ x: displayX, y: displayY, yPrime });
+/**
+ * This function decides where we should take samples of the sin function.
+ *
+ * Currently this function is pretty simple.  It adds enough points that
+ * the graph looks right.  However, this could do much more.  It could
+ * take more samples in some regions than others, for example.
+ * @param param0
+ * @returns A list of `x` values that we should put into the sin function.
+ */
+function getXs({
+  left,
+  right,
+  frequencyMultiplier,
+}: SineWaveOptions): number[] {
+  if (right <= left) {
+    // Nothing to display.
+    // Get rid of this case quickly and simply.
+    // The inputs are typically hard coded so we'd never see
+    // something that strange, barring a typo.
+    return [];
   }
+  /**
+   * Each time we show an entire sine wave we should break it into
+   * this many equal segments.
+   *
+   * 14 seems to work well.  100 isn't noticeably different.
+   *
+   * I start to see problems around 13.  It's sporadic at that point.  It
+   * gets worse as you make this even smaller.  Sometimes it just looks a
+   * little distorted.  More often it jumps to some crazy curves.  Each
+   * segment is a piece of a parabola, so you have no chance of using fewer
+   * than 2 per cycle!
+   *
+   * See TODO at the bottom of this file.  Even 30 isn't always good enough.
+   */
+  const SEGMENTS_PER_CYCLE = 30;
+  /**
+   * More cycles means we need more detail and therefore more segments.
+   */
+  const numberOfCycles = ((right - left) / (2 * Math.PI)) * frequencyMultiplier;
+  const numberOfSegments = Math.max(
+    1,
+    Math.round(numberOfCycles * SEGMENTS_PER_CYCLE)
+  );
+  const result = initializedArray(
+    numberOfSegments + 1,
+    makeLinear(0, left, numberOfSegments, right)
+  );
+  /*
+  console.log({
+    left,
+    right,
+    frequencyMultiplier,
+    numberOfCycles,
+    numberOfSegments,
+    result
+  });
+  */
+  return result;
+  // I originally tried to line these things up a specific way.  I wanted each point
+  // of inflection (second derivative = 0) to be the end of a segment.  But it was
+  // a pain to do.  And as long as I have enough segments, the result is very
+  // accurate.
+
+  // TODO TRY AGAIN.  When I make the number higher I see fewer problems.
+  // But the flickering never goes away.  The animation will keep hitting
+  // bad points.  Also, I think the animation might look better if I could
+  // eliminate any jiggling, no matter how small.  Maybe make this function
+  // smarter, like I described above.  Or maybe more brute force, like
+  // always plotting N full sine waves, but also having a clipping path!
+  // Or find the bug.  I think maybe an arctangent might be getting
+  // confused around slope = ±1.
+}
+
+/**
+ *
+ * @param options A description of what to draw.
+ * @returns A list of samples of the requested function within the
+ * requested region.  This is in the right format for input to
+ * `functionToPath()`.
+ */
+function sineWavePoints(options: SineWaveOptions): DerivativePoint[] {
+  const xs = getXs(options);
+  const sin = makeSinFunction(options);
+  const points: DerivativePoint[] = xs.map((x) => {
+    return { x, y: sin.f(x), yPrime: sin.fPrime(x) };
+  });
   return points;
 }
+/**
+ *
+ * @param options A description of what to draw.
+ * @returns A string suitable for the `d` attribute of a
+ * path element.
+ */
 function sineWavePath(options: SineWaveOptions) {
   return functionToPath(sineWavePoints(options));
 }
 (window as any).sineWavePath = sineWavePath;
 
+/**
+ * Where to draw the sine wave.
+ *
+ * This is temporary! TODO move this to a new image.
+ * I put this here for a quick test.
+ */
 const parent = assertClass(
   document.querySelector(
     'a[href="https://www.desmos.com/calculator/rwgnkajodz"] svg g'
@@ -916,6 +1087,9 @@ const parent = assertClass(
   SVGGElement
 );
 
+/**
+ * The test element.  Turn this into a sine wave.
+ */
 const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
 // This should be the first derivative graph.  A bunch of blue horizontal line segments.
 parent.appendChild(path);
@@ -923,40 +1097,18 @@ path.style.strokeWidth = "0.056";
 path.style.fill = "none";
 path.style.stroke = "black";
 path.style.strokeLinecap = "round";
+//path.style.strokeDasharray = " 0.027 0.075";
 
-const innerPath = document.createElementNS(
-  "http://www.w3.org/2000/svg",
-  "path"
-);
-// This should be the first derivative graph.  A bunch of blue horizontal line segments.
-parent.appendChild(innerPath);
-innerPath.style.strokeWidth = "0.018666666666667";
-innerPath.style.fill = "none";
-innerPath.style.stroke = "white";
-innerPath.style.strokeLinecap = "round";
-
-function sineWaveDebug() {
-  // Ideally you'd see three stripes with IDENTICAL sizes.  Black, white, black.
-  // Any place the stripes are uneven, that means that the approximation is off.
-  // And the more uneven they are, the further off the approximation is.
-  // In practice these look really good, well within a pixel, with a segment count
-  // of 10.  14 seems like a perfect match.
-  // segmentCount should be 2 times an odd number.
-  // We strongly desire creating a new segment each place that the sine wave
-  // is 0.  And it would be nice if the extreme points are each in the center
-  // of a segment.
-  // 102 is big enough that it should be pretty accurate no matter what.
+new AnimationLoop((time) => {
+  // A sine wave moving to the right at a rate of one unit per second.
   const options: SineWaveOptions = {
-    left: 1,
-    top: 1,
-    bottom: -1,
+    left: 0,
+    amplitude: 1,
+    yCenter: 0,
     right: 5,
-    segmentCount: 10,
+    x0: time / 1000,
+    frequencyMultiplier: 1,
   };
   const d = sineWavePath(options);
   path.setAttribute("d", d);
-  options.segmentCount = 102;
-  const d1 = sineWavePath(options);
-  innerPath.setAttribute("d", d1);
-}
-sineWaveDebug();
+});
