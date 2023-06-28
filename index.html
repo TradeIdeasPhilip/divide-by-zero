@@ -2,7 +2,10 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0"
+    />
     <title>÷ 0</title>
     <script type="module" src="/src/main.ts"></script>
   </head>
@@ -1102,11 +1105,6 @@
       that the derivative is only defined where the original function is (a)
       defined, (b) continuous, and (c) smooth.
     </p>
-    <p class="phil-notes">
-      Ignore the glitchy sine wave.
-      That's part of an unrelated test.
-      It will be moved before this document is complete.
-    </p>
     <a
       class="figure"
       href="https://www.desmos.com/calculator/rwgnkajodz"
@@ -1605,15 +1603,43 @@
       slightly in the lead. And notice how the velocity arrow is similar to the
       position arrow, but the velocity arrow is slightly in the lead.
     </p>
-    <div class="phil-notes">
-      ‼️ Add a chart of the position, velocity, and acceleration, moving in time
-      with the other demos.
-    </div>
+
     <p>
-      As the graph above shows, all three functions are actually sine waves. The
+      Let me plot those arrows on the graph below. The vertical line shows the
+      current time. <i>Up</i> 👆 on the graph corresponds to an arrow pointing
+      <i>right</i> 👉 on the image.
+    </p>
+
+    <p class="phil-notes">The next three animations are still in progress.</p>
+
+    <div class="figure">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="-3.14159 -1.25 6.28318 2.5"
+        style="background-color: white"
+      >
+        <path
+          stroke="black"
+          fill="none"
+          d="M -4,0 4,0 M 0,2 0,-2"
+          stroke-width="0.028"
+        ></path>
+        <g id="threeSineWaves"></g>
+      </svg>
+      <div>
+        The <span style="color: blue">acceleration</span>,
+        <span style="color: magenta">velocity</span>, and
+        <span style="color: red">position</span> of the pendulum.
+      </div>
+    </div>
+
+    <p>
+      The graph shows that all three functions are actually sine waves. The
       difference is that they are offset from one another. In the proper
       terminology, they are <i>out of phase</i> from each other.
     </p>
+
+    <p>Let’s turn that physics experiment on its side.</p>
 
     <div class="figure">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
@@ -1765,7 +1791,7 @@
       I should remind you that these are simple approximations. This is as far
       as you will get in highschool calculus. If you want to learn about
       friction and resistance you’ll need to wait for differential equations
-      class. Until then you live in a safe an magical world with perpetual
+      class. Until then you live in a safe and magical world with perpetual
       motion.
     </p>
     <h2><a id="Interest_Rates">Interest Rates</a></h2>

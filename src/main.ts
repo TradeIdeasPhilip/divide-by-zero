@@ -1077,15 +1077,10 @@ function sineWavePath(options: SineWaveOptions) {
 /**
  * Where to draw the sine wave.
  *
- * This is temporary! TODO move this to a new image.
- * I put this here for a quick test.
+ * This is temporary! Replace this proof of concept animation
+ * with the animation described in the text.
  */
-const parent = assertClass(
-  document.querySelector(
-    'a[href="https://www.desmos.com/calculator/rwgnkajodz"] svg g'
-  ),
-  SVGGElement
-);
+const parent = getById("threeSineWaves", SVGGElement);
 
 /**
  * The test element.  Turn this into a sine wave.
@@ -1102,11 +1097,11 @@ path.style.strokeLinecap = "round";
 new AnimationLoop((time) => {
   // A sine wave moving to the right at a rate of one unit per second.
   const options: SineWaveOptions = {
-    left: 0,
+    left: -4,
     amplitude: 1,
     yCenter: 0,
-    right: 5,
-    x0: time / 1000,
+    right: 4,
+    x0: -time / 1000,
     frequencyMultiplier: 1,
   };
   const d = sineWavePath(options);
