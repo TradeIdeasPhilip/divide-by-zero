@@ -25,7 +25,27 @@ type DerivativePoint = {
 function quadraticControlPoint(
   p1: DerivativePoint,
   p2: DerivativePoint
-): { x: number; y: number } | undefined {
+): { x: number; y: number } {
+  /**
+   * In case of any trouble, return this.  This will draw a straight line between the
+   * two points.  That's a quick and dirty solution.  It's probably good enough in
+   * the examples where I've seen trouble.  The trouble's always in the flat part of
+   * a sine wave.
+   *
+   * There are more general solutions.  Maybe return undefined and the caller breaks
+   * the segment into two smaller segments.  This is good enough for now.
+   */
+  const error = { x: (p1.x + p2.x) / 2, y: (p1.y + p2.y) / 2 };
+  {
+    const directLineSlope = (p2.y - p1.y) / (p2.x - p1.x);
+    if (
+      (p1.yPrime > directLineSlope && p2.yPrime > directLineSlope) ||
+      (p1.yPrime < directLineSlope && p2.yPrime < directLineSlope)
+    ) {
+      //console.log({directLineSlope, p1, p2});
+      return error;
+    }
+  }
   // (y - p1.y) / (x - p1.x) = p1.yPrime      First tangent line
   // y - p1.y = (x - p1.x) ⨉ p1.yPrime
   // y = (x - p1.x) ⨉ p1.yPrime + p1.y
@@ -41,15 +61,18 @@ function quadraticControlPoint(
     (p1.x * p1.yPrime - p1.y - p2.x * p2.yPrime + p2.y) /
     (p1.yPrime - p2.yPrime);
   if (!isFinite(x)) {
-    return undefined;
+    console.log({ x, p1, p2 });
+    return error;
   }
   const y = (x - p1.x) * p1.yPrime + p1.y;
   if (!isFinite(y)) {
-    return undefined;
+    console.log({ y, x, p1, p2 });
+    return error;
   }
   //console.log({p1, p2, x, y});
   return { x, y };
 }
+(window as any).quadraticControlPoint = quadraticControlPoint;
 
 /**
  * Given inputs like ['a', 'b', 'c', 'd', 'e', 'f'] and 3, yield
@@ -86,12 +109,7 @@ function functionToPath(input: readonly DerivativePoint[]): string {
       result = `M ${start.x},${start.y}`;
     }
     const controlPoint = quadraticControlPoint(start, end);
-    if (!controlPoint) {
-      result += ` M`;
-    } else {
-      result += ` Q ${controlPoint.x},${controlPoint.y}`;
-    }
-    result += ` ${end.x},${end.y}`;
+    result += ` Q ${controlPoint.x},${controlPoint.y} ${end.x},${end.y}`;
   }
   return result;
 }
@@ -193,17 +211,11 @@ function getXs({
    * Each time we show an entire sine wave we should break it into
    * this many equal segments.
    *
-   * 14 seems to work well.  100 isn't noticeably different.
+   * 10 seems to work well.  100 isn't noticeably different.
    *
-   * I start to see problems around 13.  It's sporadic at that point.  It
-   * gets worse as you make this even smaller.  Sometimes it just looks a
-   * little distorted.  More often it jumps to some crazy curves.  Each
-   * segment is a piece of a parabola, so you have no chance of using fewer
-   * than 2 per cycle!
-   *
-   * See TODO at the bottom of this file.  Even 30 isn't always good enough.
+   * I start to see problems around 5.  6 is probably usable but I want to be safe.
    */
-  const SEGMENTS_PER_CYCLE = 30;
+  const SEGMENTS_PER_CYCLE = 10;
   /**
    * More cycles means we need more detail and therefore more segments.
    */
@@ -229,17 +241,8 @@ function getXs({
   return result;
   // I originally tried to line these things up a specific way.  I wanted each point
   // of inflection (second derivative = 0) to be the end of a segment.  But it was
-  // a pain to do.  And as long as I have enough segments, the result is very
-  // accurate.
-
-  // TODO TRY AGAIN.  When I make the number higher I see fewer problems.
-  // But the flickering never goes away.  The animation will keep hitting
-  // bad points.  Also, I think the animation might look better if I could
-  // eliminate any jiggling, no matter how small.  Maybe make this function
-  // smarter, like I described above.  Or maybe more brute force, like
-  // always plotting N full sine waves, but also having a clipping path!
-  // Or find the bug.  I think maybe an arctangent might be getting
-  // confused around slope = ±1.
+  // a pain to do.  Instead I fixed my model for creating bezier curves.  It does
+  // a good job unless you have way too few points.
 }
 
 /**
