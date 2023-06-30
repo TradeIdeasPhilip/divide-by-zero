@@ -673,18 +673,9 @@ class Pointer {
 (window as any).Pointer = Pointer;
 
 {
-  /**
-   *
-   * @param t
-   * @returns A triple of numbers between -1 and 1.
-   */
-  function timeToRange(t: DOMHighResTimeStamp) {
-    const speed = 1000;
-    const position = Math.sin(t / speed);
-    const velocity = Math.cos(t / speed);
-    const acceleration = -Math.sin(t / speed);
-    return { position, velocity, acceleration };
-  }
+  //
+  // Pendulum one time setup.
+  //
 
   const pendulumContainer = getById("pendulumContainer", SVGSVGElement);
 
@@ -722,6 +713,30 @@ class Pointer {
     center.setAttribute("transform", `translate(${50 + moveRight},98)`);
   }
 
+  //
+  // 3 sine waves one time setup.
+  //
+
+  const sinWaves = (
+    [
+      ["red", 0],
+      ["magenta", Math.PI / 2],
+      ["blue", Math.PI],
+    ] as const
+  ).map(([color, offset]) => {
+    const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+    const parent = getById("threeSineWaves", SVGGElement);
+    parent.appendChild(path);
+    path.style.strokeWidth = "0.056";
+    path.style.fill = "none";
+    path.style.stroke = color;
+    return { path, offset };
+  });
+
+  //
+  // Spring one time setup.
+  //
+
   const springPath = getById("springPath", SVGPathElement);
   const springWeight = getById("springWeight", SVGCircleElement);
   const springLeftHeight = makeLinear(-1, 10, 1, 15);
@@ -729,8 +744,13 @@ class Pointer {
   const getSpringLoopWidth = makeLinear(-1, 22, 1, 18);
 
   function updatePhysics(t: DOMHighResTimeStamp) {
-    const { position, velocity, acceleration } = timeToRange(t);
+    const functionX = t / 1000;
+    const position = Math.sin(functionX);
+    const velocity = Math.cos(functionX);
+    const acceleration = -Math.sin(functionX);
+
     {
+      // Pendulum
       const unscaledPendulumX = position / 2; //const maxPendulumDegrees = 30;  I should make the connection between these two things more obvious.
       /**
        * pendulumX and pendulumY are the center of the weight at the end of the pendulum.
@@ -763,6 +783,21 @@ class Pointer {
         }) rotate(90)`
       );
       accelerationPointer.length = acceleration * 35;
+    }
+    {
+      // Three sine waves.
+      sinWaves.forEach(({ path, offset }) => {
+        const options: SineWaveOptions = {
+          left: -4,
+          amplitude: -1,
+          yCenter: 0,
+          right: 4,
+          x0: -functionX - offset,
+          frequencyMultiplier: 1,
+        };
+        const d = sineWavePath(options);
+        path.setAttribute("d", d);
+      });
     }
     {
       // Spring
@@ -806,40 +841,6 @@ class Pointer {
     updatePhysics(time);
   });
 }
-
-/**
- * Where to draw the sine wave.
- *
- * This is temporary! Replace this proof of concept animation
- * with the animation described in the text.
- */
-const parent = getById("threeSineWaves", SVGGElement);
-
-/**
- * The test element.  Turn this into a sine wave.
- */
-const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
-// This should be the first derivative graph.  A bunch of blue horizontal line segments.
-parent.appendChild(path);
-path.style.strokeWidth = "0.056";
-path.style.fill = "none";
-path.style.stroke = "black";
-path.style.strokeLinecap = "round";
-//path.style.strokeDasharray = " 0.027 0.075";
-
-new AnimationLoop((time) => {
-  // A sine wave moving to the right at a rate of one unit per second.
-  const options: SineWaveOptions = {
-    left: -4,
-    amplitude: 1,
-    yCenter: 0,
-    right: 4,
-    x0: -time / 1000,
-    frequencyMultiplier: 1,
-  };
-  const d = sineWavePath(options);
-  path.setAttribute("d", d);
-});
 
 const testPath = getById("sineWaveTest", SVGPathElement);
 const testOptions: SineWaveOptions = {

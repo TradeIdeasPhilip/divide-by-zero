@@ -1549,6 +1549,20 @@
       related.
     </p>
 
+    <p>
+      Velocity is the derivative of position. The velocity arrow points in the
+      direction that the pendulum is moving. The velocity arrow disappears, and
+      the velocity becomes 0, each time the pendulum changes direction. The
+      position of the pendulum is changing fastest when the pendulum is in the
+      middle, so the velocity arrow is the biggest at that time.
+    </p>
+    <p>
+      Acceleration is the derivative of velocity. Notice how the acceleration
+      arrow acts similar to the velocity arrow, but the acceleration arrow is
+      slightly in the lead. And notice how the velocity arrow is similar to the
+      position arrow, but the velocity arrow is slightly in the lead.
+    </p>
+
     <div class="figure">
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -1590,19 +1604,6 @@
       </svg>
       <div>The motion of a pendulum.</div>
     </div>
-    <p>
-      Velocity is the derivative of position. The velocity arrow points in the
-      direction that the pendulum is moving. The velocity arrow disappears, and
-      the velocity becomes 0, each time the pendulum changes direction. The
-      position of the pendulum is changing fastest when the pendulum is in the
-      middle, so the velocity arrow is the biggest at that time.
-    </p>
-    <p>
-      Acceleration is the derivative of velocity. Notice how the acceleration
-      arrow acts similar to the velocity arrow, but the acceleration arrow is
-      slightly in the lead. And notice how the velocity arrow is similar to the
-      position arrow, but the velocity arrow is slightly in the lead.
-    </p>
 
     <p>
       Let me plot those arrows on the graph below. The vertical line shows the
@@ -1622,11 +1623,17 @@
           d="M -4,0 4,0 M 0,2 0,-2"
           stroke-width="0.028"
         ></path>
-        <g style="font-size: 0.36pt; text-anchor: middle">
+        <g id="threeSineWaves"></g>
+        <g style="font-size: 0.36pt; text-anchor: middle; user-select: none">
+          <text x="-1.570795" y="-0.8" stroke="white" stroke-width="0.035">
+            Past
+          </text>
           <text x="-1.570795" y="-0.8">Past</text>
+          <text x="1.570795" y="-0.8" stroke="white" stroke-width="0.035">
+            Future
+          </text>
           <text x="1.570795" y="-0.8">Future</text>
         </g>
-        <g id="threeSineWaves"></g>
       </svg>
       <div>
         The <span style="color: blue">acceleration</span>,
@@ -1670,7 +1677,7 @@
       terminology, they are <i>out of phase</i> from each other.
     </p>
 
-    <p>Let’s turn that physics experiment on its side.</p>
+    <p>Let’s turn that last physics experiment on its side.</p>
 
     <div class="figure">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
