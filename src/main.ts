@@ -842,37 +842,3 @@ class Pointer {
   });
 }
 
-const testPath = getById("sineWaveTest", SVGPathElement);
-const testOptions: SineWaveOptions = {
-  left: -3,
-  amplitude: 1,
-  yCenter: 0,
-  right: 3.0,
-  x0: 0,
-  frequencyMultiplier: 1,
-};
-sineWavePath;
-const d = sineWavePath(testOptions);
-testPath.setAttribute("d", d);
-
-/**
- * We are failing when we try to cross the point of inflection.
- * At that point it's possible that the two end of the segment will
- * be parallel.  In that case my code is smart enough to just
- * skip the segment and draw the others.  But it can also be past
- * parallel.  A parabola can't get to parallel, much less past it!
- * So we get the strange arcs that go way out of of the area they
- * should be.
- *
- * One option is to try to force the segments to line up with the
- * points of inflection.  That shouldn't be hard, but the code was
- * buggy so I took it out.  I'm tempted to try again.  That seems
- * like the clean solution.  But what about round off errors?  Do
- * I have to be perfect or just close?
- *
- * The other option is to try to recognize the bad segments and
- * replace them with straight lines.  We already know how to
- * find some bad segments.  We can also look for any control
- * point that is far away from the two end points.  That's tough
- * because how far is "too" far?
- */
