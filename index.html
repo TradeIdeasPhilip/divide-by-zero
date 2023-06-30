@@ -99,6 +99,7 @@
       <li><a class="toc-1" href="#Final_Thoughts">Final Thoughts</a></li>
       <ul>
         <li><a class="toc-2" href="#TL_DR">TL;DR</a></li>
+        <li><a class="toc-2" href="#For_the_Judges">For the Judges</a></li>
       </ul>
     </ul>
 
@@ -1611,7 +1612,7 @@
       <i>right</i> 👉 on the image.
     </p>
 
-    <div class="figure">
+    <a class="figure" href="https://www.desmos.com/calculator/wbjcwa5xhf">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="-3.14159 -1.25 6.28318 2.5"
@@ -1640,12 +1641,12 @@
         <span style="color: magenta">velocity</span>, and
         <span style="color: red">position</span> of the pendulum.
       </div>
-    </div>
+    </a>
 
     <p>
-      The graph shows that all three functions are actually sine waves. The
-      difference is that they are offset from one another. In the proper
-      terminology, they are <i>out of phase</i> from each other.
+      The graph shows that all three functions are actually sine waves. The only
+      difference between them is that they are offset from one another. In the
+      proper terminology, they are <i>out of phase</i> from each other.
     </p>
 
     <p>Let’s turn that last physics experiment on its side.</p>
@@ -1680,13 +1681,14 @@
     <p>
       The red line shows the position of the mass. Notice how the mass moves up
       when the slope of that graph is positive. When the mass changes direction,
-      the slope of that graph is 0. When the mass is moving down, the slope is negative.
+      the slope of that graph is 0. When the mass is moving down, the slope is
+      negative.
       <i>Rate of change = slope of graph</i>.
     </p>
     <p>
-      Pay attention when your teacher explains the calculus of sine waves. They
-      are important and they come up a lot in math and physics. Here's one more
-      example.
+      Pay attention when your teacher explains the calculus of sine waves. This
+      subject is important and it comes up a lot in math and physics. Here's one
+      more example.
     </p>
 
     <a
@@ -1697,12 +1699,11 @@
       <svg
         heightx="220"
         widthx="300"
-        viewBox="25 0 220 300"
+        viewBox="20 0 255 300"
         xmlns="http://www.w3.org/2000/svg"
         version="1.1"
       >
         <!-- wires -->
-        <circle cx="70" cy="50" r="10" fill="blue"></circle>
 
         <polyline
           points="70,70 70,30 230,30 230,70"
@@ -1713,6 +1714,112 @@
           points="70,150 70,190 230,190 230,150"
           style="fill: none; stroke: black; stroke-width: 2"
         />
+
+        <circle cx="80" cy="190" r="8" fill="blue"></circle>
+        <circle cx="88" cy="190" r="8" fill="rgb(20% 20% 100% / 90%)"></circle>
+        <circle cx="96" cy="190" r="8" fill="rgb(40% 40% 100% / 80%)"></circle>
+        <circle cx="104" cy="190" r="8" fill="rgb(60% 60% 100%/ 70%)"></circle>
+        <circle cx="112" cy="190" r="8" fill="rgb(80% 80% 100% / 60%)"></circle>
+
+        <filter id="blur">
+          <feGaussianBlur stdDeviation="2" />
+        </filter>
+
+        <g transform="translate(50)">
+          <circle cx="80" cy="190" r="8" fill="blue"></circle>
+          <circle
+            cx="88"
+            cy="190"
+            r="8"
+            fill="rgb(0% 0% 100%)"
+            style="filter: blur(3px); opacity: 50%"
+          ></circle>
+          <circle
+            cx="96"
+            cy="190"
+            r="8"
+            fill="rgb(0% 0% 100%)"
+            style="filter: blur(4px); opacity: 40%"
+          ></circle>
+          <circle
+            cx="104"
+            cy="190"
+            r="8"
+            fill="rgb(0% 0% 100%)"
+            style="filter: blur(5px); opacity: 30%"
+          ></circle>
+          <circle
+            cx="112"
+            cy="190"
+            r="8"
+            fill="rgb(0% 0% 100%)"
+            style="filter: blur(6px); opacity: 20%"
+          ></circle>
+        </g>
+
+        <g transform="translate(100)">
+          <circle cx="80" cy="190" r="8" fill="blue"></circle>
+          <circle
+            cx="84"
+            cy="190"
+            r="8"
+            fill="rgb(0% 0% 100%)"
+            style="filter: blur(3px); opacity: 50%"
+          ></circle>
+          <circle
+            cx="88"
+            cy="190"
+            r="8"
+            fill="rgb(0% 0% 100%)"
+            style="filter: blur(4px); opacity: 40%"
+          ></circle>
+          <circle
+            cx="92"
+            cy="190"
+            r="8"
+            fill="rgb(0% 0% 100%)"
+            style="filter: blur(5px); opacity: 30%"
+          ></circle>
+          <circle
+            cx="96"
+            cy="190"
+            r="8"
+            fill="rgb(0% 0% 100%)"
+            style="filter: blur(6px); opacity: 20%"
+          ></circle>
+        </g>
+
+        <g transform="translate(130)">
+          <circle cx="80" cy="190" r="8" fill="blue"></circle>
+          <circle
+            cx="80"
+            cy="190"
+            r="8"
+            fill="rgb(0% 0% 100%)"
+            style="filter: blur(3px); opacity: 50%"
+          ></circle>
+          <circle
+            cx="80"
+            cy="190"
+            r="8"
+            fill="rgb(0% 0% 100%)"
+            style="filter: blur(4px); opacity: 40%"
+          ></circle>
+          <circle
+            cx="80"
+            cy="190"
+            r="8"
+            fill="rgb(0% 0% 100%)"
+            style="filter: blur(5px); opacity: 30%"
+          ></circle>
+          <circle
+            cx="80"
+            cy="190"
+            r="8"
+            fill="rgb(0% 0% 100%)"
+            style="filter: blur(5.5px); opacity: 20%"
+          ></circle>
+        </g>
 
         <!-- Electric current arrow and label -->
 
@@ -1936,6 +2043,28 @@
       what we did in <a href="#Really_Small_Pieces">the derivative examples</a>,
       above.
     </p>
+    <div class="phil-notes">
+      ‼️ Draw a chart of distance vs time. See the paragraph below for the basic
+      idea. Label the axes. Make a lot of individual lines, approximating the
+      underlying curve. The error should start at 0 and grow a little with each
+      segment going to the right. See the following paragraph for a description
+      of the animation. The error should get smaller as the animation
+      progresses.
+      <br />
+      <br />
+      Consider a function like <code>a⨉sin(bx) + c⨉sin(dx) + ex</code>. We can
+      make that look interesting, while still generally aiming upward. It will
+      be easy to compute f(x) and f'(x) at any x. Use that to display the actual
+      function, just like in the sine wave / physics example. And also use that
+      data to compute and draw a series of triangles for the estimates. The
+      error is the difference between the smooth line and the approximation. The
+      error should be highlighted somehow.
+    </div>
+    <p>
+      The x axis represents time. The y axis represents distance. Slope
+      represents speed. If you know the speed and time, you can easily compute
+      the distance.
+    </p>
     <p>
       The more often they measured their speed, the more accurate their estimate
       would be. If they could measure their speed constantly, they would know
@@ -2111,14 +2240,17 @@
       Enjoy your studies. I’m just scratching the surface of what you will learn
       in class. I am
       <a href="https://github.com/TradeIdeasPhilip">Philip Smolen</a>
-      writing
-      <a href="https://github.com/TradeIdeasPhilip/divide-by-zero">this</a>
-      for the
+      writing this for the
       <a href="https://3blue1brown.substack.com/p/some3-begins"
         >Summer of Math Exposition 3</a
       >
-      contest.
-      <a href="https://www.youtube.com/hashtag/some3">#SoME3</a>
+      contest. Check
+      <a href="https://www.youtube.com/hashtag/some3">#SoME3</a> for other
+      entries. Check
+      <a href="https://github.com/TradeIdeasPhilip/divide-by-zero"
+        >behind the scenes</a
+      >
+      for even more interesting math.
     </p>
     <p>Click on the images for attribution and other details.</p>
     <h2><a id="TL_DR">TL;DR</a></h2>
@@ -2156,5 +2288,21 @@
         >.
       </li>
     </ul>
+    <h2><a id="For_the_Judges">For the Judges</a></h2>
+    <p>
+      As you decide who is worthy of receiving a
+      <a
+        href="https://pbs.twimg.com/media/FVPYUWRVIAAcjO_?format=jpg&name=large"
+        >golden pi creature</a
+      >, you should know that I have experience in the care, display, and
+      maintenance of soft, math-related sundries.
+    </p>
+    <p>
+      I taught myself to crochet for the sole purpose of
+      <a href="https://www.youtube.com/watch?v=w1TBZhd-sN0"
+        >touching the hyperbolic plane</a
+      >. I've also made Möbius strips and other interesting shapes from crochet.
+      I can provide a loving and nurturing home for a golden pi creature.
+    </p>
   </body>
 </html>
