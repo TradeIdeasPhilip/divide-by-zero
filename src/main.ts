@@ -737,11 +737,52 @@ class Pointer {
   // Spring one time setup.
   //
 
+  /**
+   * The spring itself.  Everything in a black line of the same width.
+   */
   const springPath = getById("springPath", SVGPathElement);
+  /**
+   * The weight hanging on the end of the spring.
+   */
   const springWeight = getById("springWeight", SVGCircleElement);
-  const springLeftHeight = makeLinear(-1, 10, 1, 15);
-  const springRightHeight = makeLinear(-1, 7.5, 1, 10);
+  /**
+   * The sine wave showing what the weight's position looks like over
+   * time.
+   */
+  const springSineWave = getById("springSineWave", SVGPathElement);
+  const springMinLeftHeight = 10;
+  const springMaxLeftHeight = 15;
+  const springLeftHeight = makeLinear(
+    -1,
+    springMinLeftHeight,
+    1,
+    springMaxLeftHeight
+  );
+  const springMinRightHeight = 7.5;
+  const springMaxRightHeight = 10;
+  const springRightHeight = makeLinear(
+    -1,
+    springMinRightHeight,
+    1,
+    springMaxRightHeight
+  );
   const getSpringLoopWidth = makeLinear(-1, 22, 1, 18);
+  const springTop = -17;
+  const springLoopCount = 7;
+  /**
+   * How far is it from the bottom of the springy part to the center of the weight.
+   */
+  const springFinalDrop = 21;
+  const minWeightYCenter =
+    springTop +
+    springLoopCount * 2 * (springMinLeftHeight - springMinRightHeight) +
+    springMinLeftHeight +
+    springFinalDrop;
+  const maxWeightYCenter =
+    springTop +
+    springLoopCount * 2 * (springMaxLeftHeight - springMaxRightHeight) +
+    springMaxLeftHeight +
+    springFinalDrop;
 
   function updatePhysics(t: DOMHighResTimeStamp) {
     const functionX = t / 1000;
@@ -805,35 +846,41 @@ class Pointer {
       /**
        * Half of the height of each ellipse used on the left side of the spring.
        */
-      const leftRadius = springLeftHeight(position);
+      const leftRadius = springLeftHeight(-position);
       /**
        * Half of the height of ellipse used on the right side of the spring.
        */
-      const rightRadius = springRightHeight(position);
+      const rightRadius = springRightHeight(-position);
       /**
        * Half of the width of the ellipses used in the spring.
        */
-      const horizontalRadius = getSpringLoopWidth(position);
-      const springTop = -17;
+      const horizontalRadius = getSpringLoopWidth(-position);
       let d = `M 50,${springTop}`;
-      const loopCount = 7;
-      for (let i = 0; i < loopCount; i++) {
+      for (let i = 0; i < springLoopCount; i++) {
         d += ` a ${horizontalRadius},${leftRadius},180,0,0,0,${2 * leftRadius}`;
         d += ` a ${horizontalRadius},${rightRadius},180,0,0,0,${
           -2 * rightRadius
         }`;
       }
-      /**
-       * How far is it from the bottom of the springy part to the center of the weight.
-       */
-      const finalDrop = 21;
-      d += ` a ${horizontalRadius},${leftRadius},180,0,0,${-horizontalRadius},${leftRadius} h ${horizontalRadius} v ${finalDrop}`;
+      d += ` a ${horizontalRadius},${leftRadius},180,0,0,${-horizontalRadius},${leftRadius} h ${horizontalRadius} v ${springFinalDrop}`;
       springPath.setAttribute("d", d);
-      springWeight.cy.baseVal.value =
+      const weightYCenter =
         springTop +
-        loopCount * 2 * (leftRadius - rightRadius) +
+        springLoopCount * 2 * (leftRadius - rightRadius) +
         leftRadius +
-        finalDrop;
+        springFinalDrop;
+      springWeight.cy.baseVal.value = weightYCenter;
+
+      const scale = (maxWeightYCenter - minWeightYCenter) / 2; //100 / 2 / 3.14159265358979;
+      const options: SineWaveOptions = {
+        left: -3.25 * scale,
+        amplitude: -1 * scale,
+        yCenter: (maxWeightYCenter + minWeightYCenter) / 2,//80,
+        right: +3.25 * scale,
+        x0: -functionX * scale,
+        frequencyMultiplier: 1 / scale,
+      };
+      springSineWave.setAttribute("d", sineWavePath(options));
     }
   }
 
@@ -841,4 +888,3 @@ class Pointer {
     updatePhysics(time);
   });
 }
-

@@ -8,7 +8,7 @@
     />
     <title>÷ 0</title>
     
-    <script type="module" crossorigin src="./assets/main-359cd27a.js"></script>
+    <script type="module" crossorigin src="./assets/main-66a991f7.js"></script>
     <link rel="stylesheet" href="./assets/index-4ab23754.css">
   </head>
   <body>
@@ -1644,35 +1644,6 @@
       </div>
     </div>
 
-    <div class="figure">
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="-3.14159 -1.25 6.28318 2.5"
-        style="background-color: white"
-      >
-        <path
-          stroke="black"
-          fill="none"
-          d="M -4,0 4,0 M 0,2 0,-2"
-          stroke-width="0.028"
-        ></path>
-        <g style="font-size: 0.36pt; text-anchor: middle">
-          <text x="-1.570795" y="-0.8">Past</text>
-          <text x="1.570795" y="-0.8">Future</text>
-        </g>
-        <g>
-          <path
-            stroke-width="0.056"
-            fill="none"
-            stroke="black"
-            id="sineWaveTest"
-            d="M 0,0 1,1"
-          ></path>
-        </g>
-      </svg>
-      <div>Test container. Temporary.</div>
-    </div>
-
     <p>
       The graph shows that all three functions are actually sine waves. The
       difference is that they are offset from one another. In the proper
@@ -1691,6 +1662,13 @@
           r="10"
           id="springWeight"
         ></circle>
+        <path
+          id="springSineWave"
+          stroke-width="0.891"
+          transform="translate(50)"
+          fill="none"
+          stroke="red"
+        ></path>
       </svg>
       <div>A spring and a bouncing mass.</div>
     </div>
@@ -1702,9 +1680,15 @@
       problem in disguise.
     </p>
     <p>
+      The red line shows the position of the mass. Notice how the mass moves up
+      when the slope of that graph is positive. When the mass changes direction,
+      the slope of that graph is 0. When the mass is moving down, the slope is negative.
+      <i>Rate of change = slope of graph</i>.
+    </p>
+    <p>
       Pay attention when your teacher explains the calculus of sine waves. They
-      are important and they come up a lot in physics and calculus. Here's one
-      more example.
+      are important and they come up a lot in math and physics. Here's one more
+      example.
     </p>
 
     <a
@@ -1715,7 +1699,7 @@
       <svg
         heightx="220"
         widthx="300"
-        viewBox="11 0 220 300"
+        viewBox="25 0 220 300"
         xmlns="http://www.w3.org/2000/svg"
         version="1.1"
       >
@@ -2007,8 +1991,9 @@
       >, etc., are all valid integrals of <code>x</code>.
     </p>
     <p>
-      This method is nice because it gives you an exact answer. However, this
-      method can be difficult in some cases and impossible in others.
+      This method is nice because it gives you a formula for an exact answer.
+      However, this method can be difficult in some cases and impossible in
+      others.
     </p>
     <h2>
       <a id="Definite_vs_Indefinite_Integrals"
@@ -2173,25 +2158,5 @@
         >.
       </li>
     </ul>
-    <h1>Thumbnail</h1>
-    <div style="text-align: center; color: #48f; background-color: black">
-      <br />
-      <div style="font-size: 250%; font-family: 'Carter One'">
-        You can’t divide by 0!
-      </div>
-      <br />
-      <br />
-      <div style="font-size: 600%">
-        x<span class="superscript">3</span> ÷ x = x<span class="superscript"
-          >2</span
-        >
-      </div>
-      <br />
-      <br />
-      <div style="font-size: 250%; font-family: 'Carter One'">
-        Not with that attitude.
-      </div>
-      <br />
-    </div>
   </body>
 </html>
