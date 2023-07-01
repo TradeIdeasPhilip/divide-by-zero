@@ -124,7 +124,7 @@ That will also allow me to add some simple animations, and possibly some user in
 
 # Sample Problem Solving
 
-These pictures show my progress solving a specific problem.  I'm trying to draw a sine wave in SVG.  Previously I've relied on Desmos to plot functions.
+These pictures show my progress solving a specific problem. I'm trying to draw a sine wave in SVG. Previously I've relied on Desmos to plot functions.
 
 I find it interesting to follow the progress as I worked on one problem after the next.
 This particular feature is a pretty random example.
@@ -194,3 +194,63 @@ I could do some work and try to flip between them.
 Or I could just say the first one is good enough.
 I will be showing multiple sine waves, and I will be updating each one once per animation frame.
 And I have other things to do.
+
+# More Fun Progress
+
+I was chasing down an interesting bug.
+I created some very simple test cases, shown here.
+
+This first picture shows what happens when you try to draw a sine wave with only two parabolas.
+
+![Decent approximation of a sine wave.](./readme-images/Sin1010.png)
+
+It actually does a halfway decent looking job, as long as you line up the parabolas right.
+
+Next is what happens when you try to draw the same curve with exactly three parabolas.
+
+![A sine wave with a huge hole in the middle.](./readme-images/Sin1020.png)
+
+First notice that curve goes a lot higher than last time.
+I'm pushing this algorithm to its limits in this test, so I won't vouch for its accuracy.
+
+And, of course, there's the big hole in the middle of this sine wave.
+
+The segment we're trying to draw is sort'a s-shaped, so it's not a good match for my algorithm.
+My code divided by zero.
+I skipped the segment and moved on.
+
+Then I finally did the right test.
+I asked the computer to shave 0.01 off the right side of the sine wave, and here's what it gave me.
+
+![Similar to the previous picture, but with a couple of random lines.](./readme-images/Sin1030.png)
+
+My adjustment was two small too see any changes on the two end pieces.
+But what's happening with those other two lines?
+Lines like this were popping up in my animations, causing flicker.
+**This** is the bug I've been looking for; I finally captured it!
+
+Notice how the two weird lines are almost parallel.
+Each time I create a new segment I start by getting the tangent lines for the endpoints of the segment.
+Then I compute the point where those two tangent lines cross.
+Those two spurious lines are the tangent lines.
+And they are almost parallel, so they meet way off the screen.
+
+When the two lines were exactly parallel, the formula divided by 0, as if trying to get to infinity and it was obvious that there was a problem.
+That's why the previous picture has a hole in it.
+
+But this time the computer tried to divide by something _close to_ 0, and that resulted in a point _close to_ infinity.
+So I drew crazy things on the screen.
+
+Notice how the longer line actually lines up with the previous curve perfectly.
+But the shorter line goes 180° in the wrong direction.
+That's the bug.
+My code asked where two _lines_ would cross.
+In fact I wanted to know where two _rays_ would cross.
+(Ray = ½ Line)
+In this case the correct answer should have been "nowhere."
+
+Now my code catches all of the bad cases like this.
+If it can't do anything better, the the code now just draws a straight line between the endpoints.
+
+Watch [this video](https://www.youtube.com/shorts/1-BKmXGkuEI) for more.
+After fixing the bug I show a moving sine wave with way too few segments.
