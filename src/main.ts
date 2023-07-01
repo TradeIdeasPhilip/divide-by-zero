@@ -670,9 +670,34 @@ class Pointer {
     this.originAtHead = !newValue;
   }
 }
-(window as any).Pointer = Pointer;
 
 {
+  type CurrentState = {
+    readonly functionX: number;
+    readonly position: number;
+    readonly velocity: number;
+    readonly acceleration: number;
+  };
+
+  class Electron {
+    private constructor() {
+      throw new Error("wtf");
+    }
+    static readonly #circles: readonly SVGCircleElement[] = Array.from(
+      getById("electron", SVGGElement).querySelectorAll("circle")
+    );
+    /**
+     * Takes the output of `sin()` and converts that into an svg x coordinate.
+     */
+    static readonly #toExternal = makeLinear(-1, 85, 1, 215);
+    static updateDisplay({ functionX }: CurrentState) {
+      this.#circles.forEach((circle, index) => {
+        const x = this.#toExternal(Math.sin(functionX - 0.1 * index));
+        circle.cx.baseVal.value = x;
+      });
+    }
+  }
+
   //
   // Pendulum one time setup.
   //
@@ -790,6 +815,13 @@ class Pointer {
     const velocity = Math.cos(functionX);
     const acceleration = -Math.sin(functionX);
 
+    const currentState: CurrentState = {
+      functionX,
+      position,
+      velocity,
+      acceleration,
+    };
+    Electron.updateDisplay(currentState);
     {
       // Pendulum
       const unscaledPendulumX = position / 2; //const maxPendulumDegrees = 30;  I should make the connection between these two things more obvious.
@@ -871,11 +903,11 @@ class Pointer {
         springFinalDrop;
       springWeight.cy.baseVal.value = weightYCenter;
 
-      const scale = (maxWeightYCenter - minWeightYCenter) / 2; //100 / 2 / 3.14159265358979;
+      const scale = (maxWeightYCenter - minWeightYCenter) / 2;
       const options: SineWaveOptions = {
         left: -3.25 * scale,
         amplitude: -1 * scale,
-        yCenter: (maxWeightYCenter + minWeightYCenter) / 2,//80,
+        yCenter: (maxWeightYCenter + minWeightYCenter) / 2,
         right: +3.25 * scale,
         x0: -functionX * scale,
         frequencyMultiplier: 1 / scale,
