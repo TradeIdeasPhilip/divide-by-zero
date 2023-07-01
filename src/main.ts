@@ -686,15 +686,22 @@ class Pointer {
     static readonly #circles: readonly SVGCircleElement[] = Array.from(
       getById("electron", SVGGElement).querySelectorAll("circle")
     );
+    static readonly #arrow = getById("electricCurrentArrow", SVGPolygonElement);
+    static readonly #initialArrowTransform =
+      this.#arrow.getAttribute("transform");
     /**
      * Takes the output of `sin()` and converts that into an svg x coordinate.
      */
     static readonly #toExternal = makeLinear(-1, 85, 1, 215);
-    static updateDisplay({ functionX }: CurrentState) {
+    static updateDisplay({ functionX, velocity }: CurrentState) {
       this.#circles.forEach((circle, index) => {
         const x = this.#toExternal(Math.sin(functionX - 0.1 * index));
         circle.cx.baseVal.value = x;
       });
+      this.#arrow.setAttribute(
+        "transform",
+        `${this.#initialArrowTransform} scale(${velocity} 1)`
+      );
     }
   }
 
