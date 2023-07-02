@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+  <!-- TODO Most of the <a>'s include target="_blank".  All of the external links probably should.  -->
   <head>
     <meta charset="UTF-8" />
     <meta
@@ -8,7 +9,7 @@
     />
     <title>÷ 0</title>
     
-    <script type="module" crossorigin src="./assets/main-dfedbf28.js"></script>
+    <script type="module" crossorigin src="./assets/main-8faaef25.js"></script>
     <link rel="stylesheet" href="./assets/index-4ab23754.css">
   </head>
   <body>
@@ -1979,9 +1980,10 @@
       class="figure"
       href="https://www.desmos.com/calculator/94pzd3jqjw"
       target="_blank"
+      style="overflow: hidden"
     >
       <svg
-        style="background-color: blanchedalmond"
+        style="background-color: blanchedalmond; overflow: visible"
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 1668 1272"
       >
@@ -2005,7 +2007,7 @@
         </g>
       </svg>
       <div>
-        Dead Reckoning: <span style="color: red">Actual position</span> and
+        Dead Reckoning: <span style="color: #ce5954">Actual position</span> and
         <span style="color: blue">estimated position</span> vs. time.
       </div>
     </a>
@@ -2015,9 +2017,30 @@
       the distance.
     </p>
     <p>
-      The more often they measured their speed, the more accurate their estimate
-      would be. If they could measure their speed constantly, they would know
-      exactly where they were.
+      Each <i>pair</i> of arrows represents one measurement. The position of the
+      pair represents the time the measurement was taken. The
+      <i>direction</i> each arrow points shows the result of the measurement,
+      i.e. the speed of the boat. Notice:
+    </p>
+    <ul>
+      <li>
+        The
+        <span style="color: #ce5954">red</span> line shows the position of the
+        boat, and the line’s slope or derivative shows the speed of the boat.
+      </li>
+      <li>
+        The two lines have identical slopes at the time of each measurement.
+      </li>
+      <li>
+        Our <span style="color: blue">estimate</span> generally gets closer to
+        the boat’s <span style="color: #ce5954">actual position</span> as we
+        take more measurements.
+      </li>
+    </ul>
+    <p>
+      The more often the sailors measured their speed, the more accurate their
+      estimate would be. If they could measure their speed constantly, they
+      would know exactly where they were.
     </p>
     <p>
       But that’s tricky. If they measure the speed constantly, they will have an
