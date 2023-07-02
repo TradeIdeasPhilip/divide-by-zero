@@ -3,10 +3,8 @@
 For #SoME3
 https://3blue1brown.substack.com/p/some3-begins
 
-I have some ideas I'd like to put into a document.
-
 [This document](https://tradeideasphilip.github.io/divide-by-zero/) will become my final presentation.
-It's not finished, but it's really taking shape.
+It's not finished, but it's getting pretty close.
 My notes to myself have a yellow background.
 ‼️ means that I plan to add a picture.
 

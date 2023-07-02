@@ -927,3 +927,84 @@ class Pointer {
     updatePhysics(time);
   });
 }
+
+class DeadReckoning {
+  private static f(x: number): number {
+    return (
+      0.5 * x +
+      0.5 * Math.sin(x) +
+      0.25 * Math.sin(2.3 * x + 0.7) +
+      0.05 * Math.cos(5.11 * x - 0.2)
+    );
+  }
+  private static fPrime(x: number): number {
+    return (
+      0.5 +
+      0.5 * Math.cos(x) +
+      2.3 * 0.25 * Math.cos(2.3 * x + 0.7) +
+      5.11 * 0.05 * -Math.sin(5.11 * x - 0.2)
+    );
+  }
+  static readonly #polyline = getById(
+    "deadReckoningEstimate",
+    SVGPolylineElement
+  );
+  static readonly #pointerGroup = getById("deadReckoningPointers", SVGGElement);
+  static readonly WIDTH = 8.2;
+  static update(segmentFraction: number) {
+    this.#pointerGroup.innerHTML = "";
+    const segmentCount = Math.ceil(1 / segmentFraction);
+    const sizeOfSegment = this.WIDTH * segmentFraction;
+    let points = "";
+    /**
+     * Our estimate is initialized with the correct value, but will
+     * drift over time.
+     */
+    let estimatedY = this.f(0);
+    for (let i = 0; i <= segmentCount; i++) {
+      const x = sizeOfSegment * i;
+      points += ` ${x}, ${estimatedY}`;
+      const yPrime = this.fPrime(x);
+      const dy = sizeOfSegment * yPrime;
+      if (i < segmentCount) {
+        const actualY = this.f(x);
+        const angleInDegrees = (Math.atan(yPrime) / Math.PI) * 180;
+        const pointerUp = new Pointer();
+        this.#pointerGroup.appendChild(pointerUp.element);
+        pointerUp.element.setAttribute(
+          "transform",
+          `translate(${x} ${actualY}) scale(0.05) rotate(${angleInDegrees + 180})`
+        );  
+        const pointerDown = new Pointer();
+        this.#pointerGroup.appendChild(pointerDown.element);
+        pointerDown.element.setAttribute(
+          "transform",
+          `translate(${x} ${estimatedY}) scale(0.05) rotate(${angleInDegrees})`
+        );  
+          if (i % 2) {
+            pointerUp.element.style.opacity = pointerDown.element.style.opacity = "0.333";
+          }
+      }
+      estimatedY += dy;
+    }
+    this.#polyline.setAttribute("points", points);
+  }
+  static startDemo() {
+    const initialPauseTime = 500;
+    const moveTime = 20000;
+    const finalPauseTime = 1500;
+    const period = initialPauseTime + moveTime + finalPauseTime;
+    const getSegmentFraction = makeBoundedLinear(
+      initialPauseTime,
+      1 / 2.5,
+      initialPauseTime + moveTime,
+      1 / 40
+    );
+    new AnimationLoop((time) => {
+      const localTime = time % period;
+      const segmentFraction = getSegmentFraction(localTime);
+      this.update(segmentFraction);
+    });
+  }
+}
+DeadReckoning.startDemo();

@@ -1968,28 +1968,45 @@
     <p>
       How did ships know their position before GPS was invented? One way is
       called dead reckoning. From time to time they would measure their speed.
-      They would multiply each speed measurement by the amount of time they were
-      going that speed, then add all the values together. That’s the inverse of
+      They would multiply each speed measurement by the amount of time until the
+      next measurement, then add all the values together. That’s the inverse of
       what we did in <a href="#Really_Small_Pieces">the derivative examples</a>,
       above.
     </p>
-    <div class="phil-notes">
-      ‼️ Draw a chart of distance vs time. See the paragraph below for the basic
-      idea. Label the axes. Make a lot of individual lines, approximating the
-      underlying curve. The error should start at 0 and grow a little with each
-      segment going to the right. See the following paragraph for a description
-      of the animation. The error should get smaller as the animation
-      progresses.
-      <br />
-      <br />
-      Consider a function like <code>a⨉sin(bx) + c⨉sin(dx) + ex</code>. We can
-      make that look interesting, while still generally aiming upward. It will
-      be easy to compute f(x) and f'(x) at any x. Use that to display the actual
-      function, just like in the sine wave / physics example. And also use that
-      data to compute and draw a series of triangles for the estimates. The
-      error is the difference between the smooth line and the approximation. The
-      error should be highlighted somehow.
-    </div>
+    <a
+      class="figure"
+      href="https://www.desmos.com/calculator/94pzd3jqjw"
+      target="_blank"
+    >
+      <svg
+        style="background-color: blanchedalmond"
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 1668 1272"
+      >
+        <image
+          x="0"
+          y="0"
+          width="1668"
+          height="1272"
+          href="./images/2100.png"
+          preserveAspectRatio="none"
+        ></image>
+        <g transform="scale(198.57, -198.75) translate(0.2, -6.2)">
+          <polyline
+            id="deadReckoningEstimate"
+            points="0,0.2 1,2 2,2.5"
+            stroke="blue"
+            fill="none"
+            stroke-width="0.02"
+          ></polyline>
+          <g id="deadReckoningPointers"></g>
+        </g>
+      </svg>
+      <div>
+        Dead Reckoning: <span style="color: red">Actual position</span> and
+        <span style="color: blue">estimated position</span> vs. time.
+      </div>
+    </a>
     <p>
       The x axis represents time. The y axis represents distance. Slope
       represents speed. If you know the speed and time, you can easily compute
