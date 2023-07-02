@@ -568,6 +568,10 @@ new AnimationLoop((time) =>
     ".000001",
     ".999997",
     ".3125",
+    ".3̅", // Unicode combining Overline
+    ".16̅",
+    ".1̅4̅2̅8̅5̅7̅",
+    ".0̅9̅",
     " ½", // Unicode THIN SPACE
     " ¼",
     " ¾",
@@ -591,7 +595,7 @@ new AnimationLoop((time) =>
   let lastSuffix = "";
   setInterval(() => {
     lastNumber++;
-    if (Math.random() > 0.5) {
+    if (Math.random() > 0.75) {
       // Change the suffix.
       if (Math.random() < 0.9) {
         // The common case.
