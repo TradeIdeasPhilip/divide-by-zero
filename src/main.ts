@@ -966,24 +966,23 @@ class DeadReckoning {
       points += ` ${x}, ${estimatedY}`;
       const yPrime = this.fPrime(x);
       const dy = sizeOfSegment * yPrime;
-      if (i < segmentCount) {
-        const actualY = this.f(x);
-        const angleInDegrees = (Math.atan(yPrime) / Math.PI) * 180;
-        const pointerUp = new Pointer();
-        this.#pointerGroup.appendChild(pointerUp.element);
-        pointerUp.element.setAttribute(
-          "transform",
-          `translate(${x} ${actualY}) scale(0.05) rotate(${angleInDegrees + 180})`
-        );  
-        const pointerDown = new Pointer();
-        this.#pointerGroup.appendChild(pointerDown.element);
-        pointerDown.element.setAttribute(
-          "transform",
-          `translate(${x} ${estimatedY}) scale(0.05) rotate(${angleInDegrees})`
-        );  
-          if (i % 2) {
-            pointerUp.element.style.opacity = pointerDown.element.style.opacity = "0.333";
-          }
+      const actualY = this.f(x);
+      const angleInDegrees = (Math.atan(yPrime) / Math.PI) * 180;
+      const pointerUp = new Pointer();
+      this.#pointerGroup.appendChild(pointerUp.element);
+      pointerUp.element.setAttribute(
+        "transform",
+        `translate(${x} ${actualY}) scale(0.05) rotate(${angleInDegrees + 180})`
+      );
+      const pointerDown = new Pointer();
+      this.#pointerGroup.appendChild(pointerDown.element);
+      pointerDown.element.setAttribute(
+        "transform",
+        `translate(${x} ${estimatedY}) scale(0.05) rotate(${angleInDegrees})`
+      );
+      if (i % 2) {
+        pointerUp.element.style.opacity = pointerDown.element.style.opacity =
+          "0.333";
       }
       estimatedY += dy;
     }
