@@ -2143,42 +2143,77 @@ make the sides extend without making this taller than it needs to be.   -->
     </p>
     <div class="figure">
       <svg
-        viewBox="0 0 300 82.5210393667221"
+        viewBox="0 0 300 150"
         xmlns="http://www.w3.org/2000/svg"
         version="1.1"
-        style="user-select: none;"
+        style="user-select: none"
+        id="defVsIndef"
       >
-        <text
-          x="75"
-          y="12"
-          font-size="12"
-          text-anchor="middle"
-          style="text-decoration-line: underline; text-decoration-style: solid"
-        >
-          Indefinite Integral
-        </text>
-        <text x="75" y="41" font-size="18" text-anchor="middle">
-          ∫ cos(x) dx
-        </text>
-        <text x="75" y="60" font-size="12" text-anchor="middle">
-          = sin(x) + C
-        </text>
-        <text
-          x="225"
-          y="12"
-          font-size="12"
-          text-anchor="middle"
-          style="text-decoration-line: underline; text-decoration-style: solid"
-        >
-          Definite Integral
-        </text>
-        <text x="225" y="41" font-size="18" text-anchor="middle">
-          ∫ cos(x) dx
-        </text>
-        <text x="225" y="60" font-size="12" text-anchor="middle">
-          = sin(4) - sin(1)
-        </text>
-        <text x="225" y="79" font-size="12" text-anchor="middle">≈ 0.0523</text>
+        <g>
+          <text
+            x="75"
+            y="17"
+            font-size="12"
+            text-anchor="middle"
+            style="
+              text-decoration-line: underline;
+              text-decoration-style: solid;
+            "
+          >
+            Indefinite Integral
+          </text>
+          <g transform="translate(0,55)">
+            <text
+              x="0"
+              y="0"
+              font-size="18"
+              text-anchor="middle"
+              transform="translate(37) scale(1, 1.5)"
+            >
+              ∫
+            </text>
+            <text x="79.5" y="-4" font-size="18" text-anchor="middle">
+              cos(x)&hairsp;dx
+            </text>
+          </g>
+          <text x="75" y="80" font-size="12" text-anchor="middle">
+            = sin(x) + C
+          </text>
+        </g>
+        <g transform="translate(150)">
+          <text
+            x="75"
+            y="17"
+            font-size="12"
+            text-anchor="middle"
+            style="
+              text-decoration-line: underline;
+              text-decoration-style: solid;
+            "
+          >
+            Definite Integral
+          </text>
+          <g transform="translate(0,55)">
+            <text
+              x="0"
+              y="0"
+              font-size="18"
+              text-anchor="middle"
+              transform="translate(37) scale(1, 1.5)"
+            >
+              ∫
+            </text>
+            <text x="79.5" y="-4" font-size="18" text-anchor="middle">
+              cos(x)&hairsp;dx
+            </text>
+          </g>
+          <text x="75" y="80" font-size="12" text-anchor="middle">
+            = sin(4) - sin(1)
+          </text>
+          <text x="75" y="103" font-size="12" text-anchor="middle">
+            ≈ 0.0523
+          </text>
+        </g>
       </svg>
       <div>Definite vs indefinite integrals.</div>
     </div>
