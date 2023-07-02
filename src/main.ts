@@ -4,6 +4,7 @@ import {
   initializedArray,
   makeBoundedLinear,
   makeLinear,
+  pick,
   zip,
 } from "phil-lib/misc";
 import "./style.css";
@@ -563,23 +564,48 @@ new AnimationLoop((time) =>
 
 {
   const anyNumberSpan = getById("anyNumber", HTMLSpanElement);
-  const current = Array.from("34,567.89");
+  const suffixes = [
+    ".000001",
+    ".999997",
+    ".3125",
+    " ½", // Unicode THIN SPACE
+    " ¼",
+    " ¾",
+    " ⅐",
+    " ⅑",
+    " ⅒",
+    " ⅓",
+    " ⅔",
+    " ⅕",
+    " ⅖",
+    " ⅗",
+    " ⅘",
+    " ⅙",
+    " ⅚",
+    " ⅛",
+    " ⅜",
+    " ⅝",
+    " ⅞",
+  ];
+  let lastNumber = 1001;
+  let lastSuffix = "";
   setInterval(() => {
-    let index = (Math.random() * 7) | 0;
-    if (index == 2) {
-      index = 7;
-    } else if (index == 6) {
-      index = 8;
+    lastNumber++;
+    if (Math.random() > 0.5) {
+      // Change the suffix.
+      if (Math.random() < 0.9) {
+        // The common case.
+        lastSuffix = "";
+      } else {
+        lastSuffix = pick(suffixes);
+      }
     }
-    let newValue: number;
-    if (index == 0) {
-      newValue = ((Math.random() * 9) | 0) + 1;
-    } else {
-      newValue = (Math.random() * 10) | 0;
-    }
-    current[index] = newValue.toString();
-    anyNumberSpan.innerText = current.join("");
-  }, 500);
+    // This is not perfect.  For some locales this might use periods for
+    // thousands separators.  But the code will always use a period as
+    // as decimal point in the suffix.  I'm going to call this a bug
+    // but a very, very low priority one.
+    anyNumberSpan.innerText = lastNumber.toLocaleString() + lastSuffix;
+  }, 1500);
 }
 
 Array.from(document.querySelectorAll("a:not([href])[id]")).forEach(
