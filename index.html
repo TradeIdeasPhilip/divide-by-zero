@@ -6,6 +6,7 @@
 different places.  Add some small version of the mass and spring.  Also add an arrow pointing "normal" to the
 sine wave.  And a zoom in.  The size can be constant.  And the box highlighting what's zoomed in will move up
 and down with the sine wave.  The box with the zoomed in version will be right next to it and will stay in one place.
+And an electron, x is frozen, y moves up and down with the wave, leaving a fuzzy trail!
 And a tangent line; it will go up and down and rock, just like the arrow; it will not have to move side to 
 side because the wave is already moving.  IF there is extra space, make the sides into low quality sine waves; 
 make the sides extend without making this taller than it needs to be.   -->
@@ -2140,8 +2141,46 @@ make the sides extend without making this taller than it needs to be.   -->
       integral of <code>2x</code> between <code>x = 3</code> and
       <code>x = 7</code>. Those problems are both <i>definite</i> integrals.
     </p>
-    <div class="phil-notes">
-      ‼️ Show examples of the symbol for a <i>definite</i> integral.
+    <div class="figure">
+      <svg
+        viewBox="0 0 300 82.5210393667221"
+        xmlns="http://www.w3.org/2000/svg"
+        version="1.1"
+        style="user-select: none;"
+      >
+        <text
+          x="75"
+          y="12"
+          font-size="12"
+          text-anchor="middle"
+          style="text-decoration-line: underline; text-decoration-style: solid"
+        >
+          Indefinite Integral
+        </text>
+        <text x="75" y="41" font-size="18" text-anchor="middle">
+          ∫ cos(x) dx
+        </text>
+        <text x="75" y="60" font-size="12" text-anchor="middle">
+          = sin(x) + C
+        </text>
+        <text
+          x="225"
+          y="12"
+          font-size="12"
+          text-anchor="middle"
+          style="text-decoration-line: underline; text-decoration-style: solid"
+        >
+          Definite Integral
+        </text>
+        <text x="225" y="41" font-size="18" text-anchor="middle">
+          ∫ cos(x) dx
+        </text>
+        <text x="225" y="60" font-size="12" text-anchor="middle">
+          = sin(4) - sin(1)
+        </text>
+        <text x="225" y="79" font-size="12" text-anchor="middle">≈ 0.0523</text>
+      </svg>
+      <div>Definite vs indefinite integrals.</div>
     </div>
     <p>
       If you know the <i>indefinite</i> integral of a function, then it is
