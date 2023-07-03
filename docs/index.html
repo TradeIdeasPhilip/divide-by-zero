@@ -1,6 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
-  <!-- TODO Most of the <a>'s include target="_blank".  All of the external links probably should.  -->
+  <!-- TODO Add a sample animation near the top.  It should be a combination of some of the more
+  interesting animations below. Start with a sine wave moving to the right, as we have in
+different places.  Add some small version of the mass and spring.  Also add an arrow pointing "normal" to the
+sine wave.  And a zoom in.  The size can be constant.  And the box highlighting what's zoomed in will move up
+and down with the sine wave.  The box with the zoomed in version will be right next to it and will stay in one place.
+And an electron, x is frozen, y moves up and down with the wave, leaving a fuzzy trail!
+And a tangent line; it will go up and down and rock, just like the arrow; it will not have to move side to 
+side because the wave is already moving.  IF there is extra space, make the sides into low quality sine waves; 
+make the sides extend without making this taller than it needs to be.   -->
   <head>
     <meta charset="UTF-8" />
     <meta
@@ -9,7 +17,7 @@
     />
     <title>÷ 0</title>
     
-    <script type="module" crossorigin src="./assets/main-8faaef25.js"></script>
+    <script type="module" crossorigin src="./assets/main-3d338b66.js"></script>
     <link rel="stylesheet" href="./assets/index-4ab23754.css">
   </head>
   <body>
@@ -1615,7 +1623,11 @@
       <i>right</i> 👉 on the image.
     </p>
 
-    <a class="figure" href="https://www.desmos.com/calculator/wbjcwa5xhf">
+    <a
+      class="figure"
+      href="https://www.desmos.com/calculator/wbjcwa5xhf"
+      target="_blank"
+    >
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="-3.14159 -1.25 6.28318 2.5"
@@ -2134,8 +2146,83 @@
       integral of <code>2x</code> between <code>x = 3</code> and
       <code>x = 7</code>. Those problems are both <i>definite</i> integrals.
     </p>
-    <div class="phil-notes">
-      ‼️ Show examples of the symbol for a <i>definite</i> integral.
+    <div class="figure">
+      <svg
+        viewBox="0 0 250 111"
+        xmlns="http://www.w3.org/2000/svg"
+        version="1.1"
+        style="user-select: none"
+        id="defVsIndef"
+      >
+        <g transform="translate(59)">
+          <text
+            x="0"
+            y="17"
+            font-size="12"
+            text-anchor="middle"
+            style="
+              text-decoration-line: underline;
+              text-decoration-style: solid;
+            "
+          >
+            Indefinite Integral
+          </text>
+          <g transform="translate(0,55)">
+            <text
+              x="0"
+              y="0"
+              font-size="18"
+              text-anchor="middle"
+              transform="translate(-38) scale(1, 1.5)"
+            >
+              ∫
+            </text>
+            <text x="4.5" y="-2" font-size="18" text-anchor="middle">
+              cos(x)&hairsp;dx
+            </text>
+          </g>
+          <text x="0" y="80" font-size="12" text-anchor="middle">
+            = sin(x) + C
+          </text>
+        </g>
+        <g transform="translate(190)">
+          <text
+            x="0"
+            y="17"
+            font-size="12"
+            text-anchor="middle"
+            style="
+              text-decoration-line: underline;
+              text-decoration-style: solid;
+            "
+          >
+            Definite Integral
+          </text>
+          <g transform="translate(0,55)">
+            <text
+              x="0"
+              y="0"
+              font-size="18"
+              text-anchor="middle"
+              transform="translate(-41) scale(1, 1.5)"
+            >
+              ∫
+            </text>
+            <text x="-31" y="-15" font-size="10" text-anchor="middle">4</text>
+            <text x="-32" y="8" font-size="10" text-anchor="middle">1</text>
+            <text x="7.5" y="-2" font-size="18" text-anchor="middle">
+              cos(x)&hairsp;dx
+            </text>
+          </g>
+          <text x="0" y="80" font-size="12" text-anchor="middle">
+            = sin(4) - sin(1)
+          </text>
+          <text x="0" y="103" font-size="12" text-anchor="middle">
+            ≈ 0.0523
+          </text>
+        </g>
+      </svg>
+      <div>Definite vs indefinite integrals.</div>
     </div>
     <p>
       If you know the <i>indefinite</i> integral of a function, then it is
@@ -2211,15 +2298,19 @@
     <p>
       Enjoy your studies. I’m just scratching the surface of what you will learn
       in class. I am
-      <a href="https://github.com/TradeIdeasPhilip">Philip Smolen</a>
+      <a href="https://github.com/TradeIdeasPhilip" target="_blank"
+        >Philip Smolen</a
+      >
       writing this for the
-      <a href="https://3blue1brown.substack.com/p/some3-begins"
+      <a href="https://3blue1brown.substack.com/p/some3-begins" target="_blank"
         >Summer of Math Exposition 3</a
       >
       contest. Check
-      <a href="https://www.youtube.com/hashtag/some3">#SoME3</a> for other
-      entries. Check
-      <a href="https://github.com/TradeIdeasPhilip/divide-by-zero"
+      <a href="https://www.youtube.com/hashtag/some3" target="_blank">#SoME3</a>
+      for other entries. Check
+      <a
+        href="https://github.com/TradeIdeasPhilip/divide-by-zero"
+        target="_blank"
         >behind the scenes</a
       >
       of my project for even more interesting math.
@@ -2265,6 +2356,7 @@
       As you decide who is worthy of receiving a
       <a
         href="https://pbs.twimg.com/media/FVPYUWRVIAAcjO_?format=jpg&name=large"
+        target="_blank"
         >golden pi creature</a
       >, you should know that I have experience in the care, display, and
       maintenance of soft, math-related sundries.
@@ -2275,7 +2367,7 @@
     </div>
     <p>
       I taught myself to crochet for the sole purpose of
-      <a href="https://www.youtube.com/watch?v=w1TBZhd-sN0"
+      <a href="https://www.youtube.com/watch?v=w1TBZhd-sN0" target="_blank"
         >touching the hyperbolic plane</a
       >. I've also made Möbius strips and other interesting shapes from crochet.
       I can provide a loving and nurturing home for a golden pi creature.
