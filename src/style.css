@@ -155,16 +155,15 @@ ul.toc-top > ul > li {
   margin-bottom: 0.1em;
 }
 
-/* from 2 small grid cells to the left to to big grid cells to the right.  Maybe a small pause at 0.  linear. */
-#negativeSlope {
-  animation: negativeSlope 8s linear infinite;
+#negativeSlopeContainer {
+  animation: negativeSlope 15s linear infinite;
 }
 
 @keyframes negativeSlope {
   0% {
-    transform: translate(-0.4px, 0.266666666666667px);
+    transform: translate(-3.8px, 2.533333333333333px);
   }
   100% {
-    transform: translate(2px, -1.333333px);
+    transform: translate(2.2px, -1.466666667px);
   }
 }

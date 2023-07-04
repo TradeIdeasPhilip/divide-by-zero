@@ -20,8 +20,8 @@ make the sides extend without making this taller than it needs to be.   -->
     />
     <title>÷ 0</title>
     
-    <script type="module" crossorigin src="./assets/main-b33fe598.js"></script>
-    <link rel="stylesheet" href="./assets/index-4ab23754.css">
+    <script type="module" crossorigin src="./assets/main-865b27e4.js"></script>
+    <link rel="stylesheet" href="./assets/index-f3d9bd15.css">
   </head>
   <body>
     <h1 class="title">
@@ -464,31 +464,34 @@ make the sides extend without making this taller than it needs to be.   -->
           preserveAspectRatio="none"
         ></image>
         <g transform="scale(198.57, -199.13) translate(3.8, -2.8)">
-          <g fill="none" stroke-width="0.025">
-            <g stroke="red">
-              <path
-                d="M 0,0 q 0.5,0.289 1,0 m -0.2,0 L 1,0 0.9,0.1732 "
-                transform="translate(-3, 0)"
-              ></path>
-              <path
-                d="M 0,0 q 0.5,0.289 1,0 m -0.2,0 L 1,0 0.9,0.1732 "
-                transform="translate(-2, 0)"
-              ></path>
-              <path
-                d="M 0,0 q 0.5,0.289 1,0 m -0.2,0 L 1,0 0.9,0.1732 "
-                transform="translate(-1, 0)"
-              ></path>
-            </g>
-            <g stroke="pink">
-              <path
-                d="M 0,0 q 0.5,0.289 1,0 m -0.2,0 L 1,0 0.9,0.1732 "
-                transform="translate(-3, 1) scale(-1,1) rotate(-90) translate(-1, 0)"
-              ></path>
-              <path
-                d="M 0,0 q 0.5,0.289 1,0 m -0.2,0 L 1,0 0.9,0.1732 "
-                transform="translate(-3, 0) scale(-1,1) rotate(-90) translate(-1, 0)"
-              ></path>
-            </g>
+          <g id="negativeSlopeContainer">
+            <g fill="none" stroke-width="0.025" id="negativeSlope">
+              <g stroke="red">
+                <path
+                  d="M 0,0 q 0.5,0.289 1,0 m -0.2,0 L 1,0 0.9,0.1732 "
+                  transform="translate(-3, 0)"
+                ></path>
+                <path
+                  d="M 0,0 q 0.5,0.289 1,0 m -0.2,0 L 1,0 0.9,0.1732 "
+                  transform="translate(-2, 0)"
+                ></path>
+                <path
+                  d="M 0,0 q 0.5,0.289 1,0 m -0.2,0 L 1,0 0.9,0.1732 "
+                  transform="translate(-1, 0)"
+                ></path>
+              </g>
+              <g stroke="pink">
+                <path
+                  d="M 0,0 q 0.5,0.289 1,0 m -0.2,0 L 1,0 0.9,0.1732 "
+                  transform="translate(-3, 1) scale(-1,1) rotate(-90) translate(-1, 0)"
+                ></path>
+                <path
+                  d="M 0,0 q 0.5,0.289 1,0 m -0.2,0 L 1,0 0.9,0.1732 "
+                  transform="translate(-3, 0) scale(-1,1) rotate(-90) translate(-1, 0)"
+                ></path>
+              </g>
+            </g>  
+            <use href="#negativeSlope" transform="translate(6 -4)"></use>
           </g>
         </g>
       </svg>
