@@ -167,3 +167,16 @@ ul.toc-top > ul > li {
     transform: translate(2.2px, -1.466666667px);
   }
 }
+
+#sameSlope {
+  animation: sameSlope 10s alternate infinite linear;
+}
+
+@keyframes sameSlope {
+  0% {
+    transform: translateY(4.75px);
+  }
+  100% {
+    transform: translateY(-3px);
+  }
+}
