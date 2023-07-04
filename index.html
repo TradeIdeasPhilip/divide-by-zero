@@ -2,12 +2,15 @@
 <html lang="en">
   <!-- TODO Add a sample animation near the top.  It should be a combination of some of the more
   interesting animations below. Start with a sine wave moving to the right, as we have in
-different places.  Add some small version of the mass and spring.  Also add an arrow pointing "normal" to the
-sine wave.  And a zoom in.  The size can be constant.  And the box highlighting what's zoomed in will move up
+different places.  
+1) Add some small version of the mass and spring.
+2) Also add an arrow pointing "normal" to the sine wave. 
+3) And a zoom in.  The size can be constant.  And the box highlighting what's zoomed in will move up
 and down with the sine wave.  The box with the zoomed in version will be right next to it and will stay in one place.
-And an electron, x is frozen, y moves up and down with the wave, leaving a fuzzy trail!
-And a tangent line; it will go up and down and rock, just like the arrow; it will not have to move side to 
-side because the wave is already moving.  IF there is extra space, make the sides into low quality sine waves; 
+4) And an electron, x is frozen, y moves up and down with the wave, leaving a fuzzy trail!
+5) And a tangent line; it will go up and down and rock, just like the arrow; it will not have to move side to 
+side because the wave is already moving.  
+6) IF there is extra space, make the sides into low quality sine waves; 
 make the sides extend without making this taller than it needs to be.   -->
   <head>
     <meta charset="UTF-8" />
@@ -639,13 +642,6 @@ make the sides extend without making this taller than it needs to be.   -->
                 ></path>
               </g>
             </g>
-            <polygon
-              style="display: none"
-              id="mousePointer"
-              points="0,0 0.24,0.6 0.06,0.44 0.06,1 -0.06,1 -0.06,0.44 -0.24,0.6 0,0"
-              fill="rgb(0,0,255,50%)"
-              stroke="none"
-            ></polygon>
           </g>
           <g transform="translate(2.4, 2.3)">
             <g transform="scale(1, -1)">
@@ -670,23 +666,9 @@ make the sides extend without making this taller than it needs to be.   -->
               </g>
             </g>
           </g>
-          <rect
-            id="mouseListener"
-            x="-2.5"
-            y="-3.2"
-            width="5"
-            height="6.4"
-            fill="brown"
-            opacity="0"
-          ></rect>
         </g>
       </svg>
-      <div>Click to zoom in on a point.</div>
-    </div>
-
-    <div class="phil-notes">
-      <b>TODO</b>: Clicking works with a mouse, but it does not yet work on a
-      touch device.
+      <div>Zooming in on various points.</div>
     </div>
 
     <div class="phil-notes">
@@ -2258,7 +2240,7 @@ make the sides extend without making this taller than it needs to be.   -->
     <p>
       Let’s start by graphing <code>2x</code> and marking <code>x = 3</code> and
       <code>x = 7</code> on the same graph. The area I’ve highlighted in green
-      is the answer we want. You could measure that with a ruler! Or you could
+      is the answer we want. You could measure that with a ruler! You could
       notice that it’s a trapezoid, and Google “area of a trapezoid” if you
       don’t remember that formula. Or break it into a triangle and a rectangle
       if that’s easier.

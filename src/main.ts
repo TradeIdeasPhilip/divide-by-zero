@@ -12,9 +12,7 @@ import "./style.css";
 import { getById } from "phil-lib/client-misc";
 import { SineWaveOptions, sineWavePath } from "./svg-sine-wave";
 
-const zoomInSvg = getById("zoomIn", SVGSVGElement);
-const mouseListenerElement = getById("mouseListener", SVGRectElement);
-const mousePointerElement = getById("mousePointer", SVGGeometryElement);
+//const zoomInSvg = getById("zoomIn", SVGSVGElement);
 const currentlyCenteredPointerElement = getById(
   "currentlyCenteredPointer",
   SVGGeometryElement
@@ -29,35 +27,6 @@ const currentlyCenteredZoomGroup = getById(
 );
 const zoomedInParabolaPath = getById("zoomedInParabola", SVGPathElement);
 
-function showMousePointer() {
-  mousePointerElement.style.display = "";
-}
-
-function hideMousePointer() {
-  mousePointerElement.style.display = "none";
-}
-
-(["mouseenter", "mousemove", "mousedown"] as const).forEach((eventName) =>
-  mouseListenerElement.addEventListener(eventName, () => {
-    showMousePointer();
-  })
-);
-
-mouseListenerElement.addEventListener("mouseleave", () => {
-  hideMousePointer();
-});
-
-function mouseToCircle({ screenX, screenY }: MouseEvent) {
-  const mousePoint = zoomInSvg.createSVGPoint();
-  mousePoint.x = screenX;
-  mousePoint.y = screenY;
-  const svgPoint = mousePoint.matrixTransform(
-    mouseListenerElement.getScreenCTM()!.inverse()
-  );
-  const y = 2 - svgPoint.x * svgPoint.x;
-  return { x: svgPoint.x, y };
-}
-
 function setArrowPosition(
   arrow: SVGGeometryElement,
   { x, y }: { x: number; y: number }
@@ -69,12 +38,6 @@ function setArrowPosition(
     `translate(${x}, ${y}) rotate(${angleInDegrees})`
   );
 }
-
-(["mousemove", "mouseenter"] as const).forEach((eventName) =>
-  mouseListenerElement.addEventListener(eventName, (mouseEvent) => {
-    setArrowPosition(mousePointerElement, mouseToCircle(mouseEvent));
-  })
-);
 
 class Zoom {
   private static centerX = 0;
@@ -132,14 +95,14 @@ class Zoom {
       0.75
     );
     /**
-     * The animation runs for 10 seconds then is idle for 5 more.
+     * The animation runs for 10 seconds then is idle for 3 more.
      * Then we restart in a random position.
      *
      * If we restart this way there is an extra pause.  We reset to show the initial zoom of 1x.
      * Then we pause for 1/2 second.  Then we continue the animation as always.  If the user clicks, then we skip this pause.
      * Also, when this program first initializes we skip this pause.
      */
-    const restartTime = startTime + 15000;
+    const restartTime = startTime + 13000;
     this.#animate = (time: number) => {
       if (time > restartTime) {
         /**
@@ -161,7 +124,6 @@ class Zoom {
         currentlyCenteredPointerElement.style.opacity = newOpacity.toString();
       }
     };
-    hideMousePointer();
     this.setNewZoom(1);
     if (!this.#animationHasBeenInitialized) {
       this.#animationHasBeenInitialized = true;
@@ -233,40 +195,6 @@ class Zoom {
     this.updateGUI();
   }
 }
-
-function updateMouseCursor(mouseEvent: MouseEvent) {
-  mouseListenerElement.style.cursor = mouseEvent.buttons
-    ? /* Something was pressed.  Releasing the button will zoom in to the current point. */
-      "zoom-in"
-    : /* Nothing is pressed.  Move the mouse to select a new point.  Only the X matters. */
-      "ew-resize";
-}
-(["mouseup", "mousedown", "mouseenter"] as const).forEach((eventName) => {
-  mouseListenerElement.addEventListener(eventName, updateMouseCursor);
-});
-
-(["mouseenter", "mousemove", "mousedown"] as const).forEach((eventName) => {
-  mouseListenerElement.addEventListener(eventName, (mouseEvent) => {
-    if (mouseEvent.buttons) {
-      Zoom.selectNewTarget(mouseToCircle(mouseEvent));
-    }
-  });
-});
-
-mouseListenerElement.addEventListener("mouseleave", () => {
-  Zoom.startAnimation();
-});
-
-(["mouseenter", "mouseup", "mousedown"] as const).forEach((eventName) => {
-  mouseListenerElement.addEventListener(eventName, (mouseEvent) => {
-    const shouldAutoZoom = mouseEvent.buttons == 0;
-    if (shouldAutoZoom) {
-      Zoom.startAnimation();
-    } else {
-      Zoom.stopAnimation();
-    }
-  });
-});
 
 // Put it into a valid state.
 Zoom.selectNewTarget({ x: 0, y: 2 });
