@@ -965,3 +965,20 @@ class DeadReckoning {
   }
 }
 DeadReckoning.startDemo();
+
+class SampleGraph {
+  static #group = getById("sampleGraph", SVGGElement);
+  private constructor() {
+    throw new Error("wtf");
+  }
+  static #pointer = new Pointer();
+  static startDemo() {
+    const pointerElement = this.#pointer.element;
+    this.#group.appendChild(pointerElement);
+    pointerElement.setAttribute("transform", "translate(0, 2) scale(0.075)");
+    pointerElement.style.fill = "gold";
+    pointerElement.style.strokeWidth = "0.5px";
+    pointerElement.style.stroke = "rgb(149, 69, 53)";
+  }
+}
+SampleGraph.startDemo();
