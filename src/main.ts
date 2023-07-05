@@ -5,6 +5,7 @@ import {
   makeBoundedLinear,
   makeLinear,
   pick,
+  sleep,
   zip,
 } from "phil-lib/misc";
 import "./style.css";
@@ -967,18 +968,129 @@ class DeadReckoning {
 DeadReckoning.startDemo();
 
 class SampleGraph {
-  static #group = getById("sampleGraph", SVGGElement);
   private constructor() {
     throw new Error("wtf");
   }
+  /**
+   * These are the x values where we stop.
+   */
+  static readonly #destinations: readonly number[] = [
+    ...[-3, -2, -1, 0, 1].map((y) => -Math.sqrt(2 - y)),
+    ...[2, 1, 0, -1, -2, -3].map((y) => Math.sqrt(2 - y)),
+  ];
+  /**
+   * Index into `#destinations`.
+   */
+  static #currentDestinationIndex = 0;
+  /**
+   *
+   * @returns Where to place the arrow.
+   */
+  static #timeToX: LinearFunction = () =>
+    this.#destinations[this.#currentDestinationIndex];
+  /**
+   * Start a new animation.  Move the arrow from the current position to a randomly selected new position.
+   * @returns How long in milliseconds the animation will run.
+   */
+  private static pickNewDestination() {
+    let newIndex = Math.floor(Math.random() * (this.#destinations.length - 1));
+    if (newIndex == this.#currentDestinationIndex) {
+      // We always move to a different destination.
+      // You can't "move" to the current location.
+      newIndex = this.#destinations.length - 1;
+    }
+    const startTime = performance.now();
+    /**
+     * How long will this animation take?
+     *
+     * It depends on how far the arrow needs to move.
+     * The top speed is about the same in all cases.
+     */
+    const duration =
+      250 * (Math.abs(this.#currentDestinationIndex - newIndex) + 1);
+    const endTime = startTime + duration;
+    this.#timeToX = makeEaseInOut(
+      startTime,
+      this.#destinations[this.#currentDestinationIndex],
+      endTime,
+      this.#destinations[newIndex]
+    );
+    // The next animation will start where this one will end.
+    this.#currentDestinationIndex = newIndex;
+    return duration;
+  }
+  /**
+   * Where to add things.
+   */
+  static #group = getById("sampleGraph", SVGGElement);
+  static #inputText = getById("sampleGraphInput", SVGTextElement);
+  static #outputText = getById("sampleGraphOutput", SVGTextElement);
   static #pointer = new Pointer();
+  static #formatter = new Intl.NumberFormat("en-US", {
+    minimumFractionDigits: 3,
+  });
+  /**
+   * One time initialization.
+   *
+   * I wish JavaScript had a static class initializer like Java and C#.
+   */
   static startDemo() {
     const pointerElement = this.#pointer.element;
     this.#group.appendChild(pointerElement);
-    pointerElement.setAttribute("transform", "translate(0, 2) scale(0.075)");
+    this.setX(this.#destinations[this.#currentDestinationIndex]);
     pointerElement.style.fill = "gold";
     pointerElement.style.strokeWidth = "0.5px";
     pointerElement.style.stroke = "rgb(149, 69, 53)";
+    new AnimationLoop((time) => this.setX(this.#timeToX(time)));
+    (async () => {
+      while (true) {
+        const animationDuration = this.pickNewDestination();
+        const pauseDuration = 2000;
+        await sleep(animationDuration + pauseDuration);
+      }
+    })();
+  }
+  private static setX(x: number) {
+    const formatNumber = (x: number) => {
+      const full = this.#formatter.format(x);
+      const match = /^(.*)\.000$/.exec(full);
+      if (!match) {
+        switch (full) {
+          case "-2.236": {
+            return "=-√5\u0305";
+          }
+          case "2.236": {
+            return "=√5\u0305";
+          }
+          case "-1.732": {
+            return "=-√3\u0305";
+          }
+          case "1.732": {
+            return "=√3\u0305";
+          }
+          case "-1.414": {
+            return "=-√2\u0305";
+          }
+          case "1.414": {
+            return "=√2\u0305";
+          }
+        }
+        return `≈${full}`;
+      } else if (match[1] == "-0") {
+        return "=0";
+      } else {
+        return `=${match[1]}`;
+      }
+    };
+    this.#inputText.innerHTML = "x" + formatNumber(x);
+    const y = 2 - x * x;
+    this.#outputText.innerHTML = "y" + formatNumber(y);
+    const slope = -2 * x; // It seems like I compute y, y', and angle in multiple places.  Should be reused, not copied!
+    const angleInDegrees = (Math.atan(slope) / Math.PI) * 180;
+    this.#pointer.element.setAttribute(
+      "transform",
+      `translate(${x}, ${y}) scale(0.075) rotate(${angleInDegrees})`
+    );
   }
 }
 SampleGraph.startDemo();
