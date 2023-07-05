@@ -556,8 +556,13 @@ Array.from(document.querySelectorAll("a:not([href])[id]")).forEach(
  */
 class Pointer {
   /**
-   * This class uses this.element.points.
+   * This class uses this.element.points and this.element.style.strokeWidth.
    * Otherwise you can do anything you want with the element.
+   * 
+   * You may stroke the arrow.  Just use this.setStrokeWidth, rather than
+   * setting the element's stroke-width directly.  That way this class
+   * can leave extra space for the stroke.  So the edge of the visible part
+   * of the Pointer will be exactly at the origin.
    */
   readonly element: SVGPolygonElement;
   /**
@@ -569,9 +574,14 @@ class Pointer {
    * If you fill the polygon and set the stroke to none, i.e. keep the defaults, this will be the width of the shaft
    * of the arrow.  If you want to stroke a path that is consistent with this arrow, use this for the stroke-width.
    */
-  static STROKE_WIDTH = 1.6;
+  static COMPATIBLE_STROKE_WIDTH = 1.6;
+  /**
+   * If you choose to stroke this arrow, this is a reasonable size.
+   */
+  static RECOMMENDED_STROKE_WIDTH = 0.25;
   #length: number;
   #originAtHead = true;
+  #strokeWidth = 0;
   constructor(initialLength = Pointer.DEFAULT_LENGTH) {
     this.element = document.createElementNS(
       "http://www.w3.org/2000/svg",
@@ -579,12 +589,15 @@ class Pointer {
     );
     this.#length = initialLength;
     this.redraw();
-    this.element.setAttribute("stroke-width", "0.25");
+    this.element.setAttribute("stroke-width", "0");
     this.element.setAttribute("stroke-miterlimit", "10");
   }
   private redraw() {
     const length = this.#length;
-    const offset = this.#originAtHead ? 0 : length;
+    // 27/20 was measured quickly on my screen.  I'm sure I could make it a little more accurate with a better test.
+    // Or do the math but that would be a pain.
+    // I think it's off by a hair, but it looks good enough for the current application.
+    const offset = this.#originAtHead ? (-this.#strokeWidth*27/20) : (length + this.#strokeWidth/2);
     if (!isFinite(length)) {
       this.element.setAttribute("points", "");
       return;
@@ -606,6 +619,9 @@ class Pointer {
     return this.#length;
   }
   set length(newValue) {
+    // Warning.  This value is only accurate is if the stroke-width is 0.
+    // I could fix that, but this is good enough for this project.
+    // If I ever move this class to a library I should fix that. 
     this.#length = newValue;
     this.redraw();
   }
@@ -628,7 +644,14 @@ class Pointer {
   set originAtTail(newValue) {
     this.originAtHead = !newValue;
   }
+  setStrokeWidth(strokeWidth = Pointer.RECOMMENDED_STROKE_WIDTH) {
+    this.#strokeWidth = strokeWidth;
+    this.element.setAttribute("stroke-width", strokeWidth.toString());
+    this.redraw();
+  }
+  removeStroke() {this.setStrokeWidth(0);}
 }
+(window as any).Pointer = Pointer;
 
 {
   type CurrentState = {
@@ -818,7 +841,7 @@ class Pointer {
       accelerationPointer.element.setAttribute(
         "transform",
         `translate(${pendulumX},${
-          pendulumY - 10 + Pointer.STROKE_WIDTH / 2
+          pendulumY - 10 + Pointer.COMPATIBLE_STROKE_WIDTH / 2
         }) rotate(90)`
       );
       accelerationPointer.length = acceleration * 35;
@@ -967,6 +990,12 @@ class DeadReckoning {
 }
 DeadReckoning.startDemo();
 
+/**
+ * An arrow highlights a random(-ish) point on the the graph.
+ * This code moves the arrow and updates the description of the arrow, in the center of the graph.
+ * The arrow moves in a fun, random-ish way.
+ * The speeds were all set up so the user could read some numbers, while still seeing a lot of animation.
+ */
 class SampleGraph {
   private constructor() {
     throw new Error("wtf");
@@ -1039,7 +1068,7 @@ class SampleGraph {
     this.#group.appendChild(pointerElement);
     this.setX(this.#destinations[this.#currentDestinationIndex]);
     pointerElement.style.fill = "gold";
-    pointerElement.style.strokeWidth = "0.5px";
+    this.#pointer.setStrokeWidth(0.5);
     pointerElement.style.stroke = "rgb(149, 69, 53)";
     new AnimationLoop((time) => this.setX(this.#timeToX(time)));
     (async () => {
@@ -1057,6 +1086,8 @@ class SampleGraph {
       if (!match) {
         switch (full) {
           case "-2.236": {
+            // Overline combining character.  TODO move this to phil-lib.
+            // The result looks great!
             return "=-√5\u0305";
           }
           case "2.236": {
