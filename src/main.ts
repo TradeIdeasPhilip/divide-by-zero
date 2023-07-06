@@ -449,10 +449,10 @@ new DerivativeApproximation(6, "sampleParabola", "sampleDerivative", 1);
   const loopPeriodMS = 7000;
   const activePeriodMS = 5000;
   const size = //makeBoundedLinear(0, 1, activePeriodMS, 6 / 48);
-    makeEaseInOut(0, 1, activePeriodMS, 6 / 48);
+    makeEaseInOut(0, 1, activePeriodMS, 6 / 110);
 
   const graphics = new DerivativeApproximation(
-    48,
+    150,
     undefined,
     "animatedDerivative3"
   );
@@ -730,6 +730,10 @@ class Pointer {
   //
   // 3 sine waves one time setup.
   //
+
+// TODO for this and at least one other demo, make the sine waves go all the way to the edge of the allocated
+// space, even if we have to shrink other things to deal with the max width or max height.
+
 
   const sinWaves = (
     [

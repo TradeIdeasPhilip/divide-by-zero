@@ -20,8 +20,8 @@ make the sides extend without making this taller than it needs to be.   -->
     />
     <title>÷ 0</title>
     
-    <script type="module" crossorigin src="./assets/main-ffb358ab.js"></script>
-    <link rel="stylesheet" href="./assets/index-b4061ec3.css">
+    <script type="module" crossorigin src="./assets/main-6fc5f937.js"></script>
+    <link rel="stylesheet" href="./assets/index-0dd5bdd7.css">
   </head>
   <body>
     <h1 class="title">
@@ -891,8 +891,9 @@ make the sides extend without making this taller than it needs to be.   -->
     </p>
     <h2><a id="Limits_Terminology">Terminology</a></h2>
     <p>
-      If you see delta and epsilon in a problem, it is probably talking about
-      limits. These are written with lowercase Greek letters: 𝛿 and 𝜺.
+      If you see <i>delta</i> and <i>epsilon</i> in a problem, it is probably
+      talking about limits. These are written with lowercase Greek letters: 𝛿
+      and 𝜺.
     </p>
 
     <a
@@ -1102,10 +1103,11 @@ make the sides extend without making this taller than it needs to be.   -->
     <h2><a id="Smaller_Pieces">Smaller Pieces</a></h2>
     <p>
       The following example is a little more complicated. Instead of a single
-      line, this function is made of several different line segments. You could
-      say that the
-      <i>average</i> rate of change for the first 5 minutes is -1, just like the
-      previous graph. That’s correct, but it’s leaving out a lot of details.
+      line, <span style="color: #4f985b">this function</span> is made of
+      <span style="color: #4f985b">several different line segments</span>. You
+      could say that the <i style="color: #cf5b58">average</i> rate of change
+      for the first 5 minutes is -1, just like the previous graph. That’s
+      correct, but it’s leaving out a lot of details.
     </p>
     <a
       class="figure"
@@ -1328,8 +1330,10 @@ make the sides extend without making this taller than it needs to be.   -->
       </div></a
     >
     <p>
-      I’ll start by drawing some line segments to create a simple approximation
-      of this parabola. I’ll draw one point at each integer value of x.
+      I’ll start by drawing some
+      <span style="color: #4f985b">line segments</span> to create a simple
+      approximation of this parabola. I’ll draw one point at each integer value
+      of x.
     </p>
     <a
       class="figure"
@@ -1368,7 +1372,7 @@ make the sides extend without making this taller than it needs to be.   -->
     >
 
     <p>
-      You know how to take the derivate of a series of line segments. Just like
+      You know how to take the derivate of a series of line segments! Just like
       in the <a href="#Smaller_Pieces">previous section</a>, you need to plot
       the slope of each line segment, and draw an empty circle anywhere the
       slope changes suddenly. That will give you a graph like this for the
@@ -1577,10 +1581,10 @@ make the sides extend without making this taller than it needs to be.   -->
     >
     <p>
       <a id="remove_infinities"></a> As the line segments get smaller and
-      smaller, our results get more and more precise. What if we asked about a
-      change of <i>exactly</i> 0? Every time x moves 0 units to the right,
-      x<span class="superscript">2</span> ÷ 2 moves 0 units up. And
-      <code>0 ÷ 0</code> = <i>what?</i>
+      smaller, our results get more and more precise. What if set the length of
+      the <span style="color: blue">blue lines</span> to <i>zero</i>? Every time
+      x moves 0 units to the right, x<span class="superscript">2</span> ÷ 2
+      moves 0 units up. And <code>0 ÷ 0</code> = <i>what?</i>
     </p>
 
     <a
@@ -1609,7 +1613,7 @@ make the sides extend without making this taller than it needs to be.   -->
             id="animatedDerivative3"
           >
             <line x1="-3" y1="-1.25" x2="-2" y2="-1.25"></line>
-            <circle cx="-3" cy="-1.25" r="0.0125"></circle>
+            <circle cx="-3" cy="-1.25" r="0.025"></circle>
           </g>
         </g>
       </svg>
@@ -1617,16 +1621,19 @@ make the sides extend without making this taller than it needs to be.   -->
     >
 
     <p>
-      The orange line, above, shows the actual derivative of the function, and
-      the blue lines show our approximation of the derivative. No surprise: our
-      approximations were getting closer and closer to the right answer. Also
-      notice that we have more open circles (unknown values) as the
-      approximations get more precise.
+      The <span style="color: #fc8b3a">orange line</span>, above, shows the
+      actual derivative of the function, and the
+      <span style="color: #0000ff">blue lines</span> show our approximation of
+      the derivative. No surprise: our approximations were getting closer and
+      closer to the right answer. Also notice that we have more
+      <span style="color: blue">open circles</span>
+      (unknown values) as the approximations get more precise.
     </p>
 
     <p>
-      Can we really jump from an infinite number of open circles to a solid
-      line?
+      Can we really jump from an
+      <span style="color: blue">infinite number of open circles</span> to a
+      <span style="color: #fc8b3a">solid line</span>?
       <b>Yes.</b>
       That may look intimidating now, but by the time you get to this you will
       already be a <i>master</i> of limits. When you work out the problem in
@@ -1640,23 +1647,31 @@ make the sides extend without making this taller than it needs to be.   -->
     <h2><a id="Physics_Examples">Physics Examples</a></h2>
 
     <p>
-      This first example highlights the <i>position</i>, <i>velocity</i>, and
-      <i>acceleration</i> of a pendulum. As you can see, they are clearly
-      related.
+      This first example highlights the <i style="color: red">position</i>,
+      <i style="color: magenta">velocity</i>, and
+      <i style="color: blue">acceleration</i> of a pendulum. As you can see,
+      they are clearly related.
     </p>
 
     <p>
-      Velocity is the derivative of position. The velocity arrow points in the
-      direction that the pendulum is moving. The velocity arrow disappears, and
-      the velocity becomes 0, each time the pendulum changes direction. The
-      position of the pendulum is changing fastest when the pendulum is in the
-      middle, so the velocity arrow is the biggest at that time.
+      <span style="color: magenta">Velocity</span> is the derivative of
+      <span style="color: red">position</span>. The
+      <span style="color: magenta">velocity arrow</span> points in the direction
+      that the pendulum is moving. That arrow disappears, and the velocity
+      becomes 0, each time the pendulum changes direction. The position of the
+      pendulum is changing fastest when the pendulum is in the middle, so the
+      velocity arrow is the biggest at that time.
+      <i>That's the definition of a derivative!</i>
     </p>
     <p>
-      Acceleration is the derivative of velocity. Notice how the acceleration
-      arrow acts similar to the velocity arrow, but the acceleration arrow is
-      slightly in the lead. And notice how the velocity arrow is similar to the
-      position arrow, but the velocity arrow is slightly in the lead.
+      <span style="color: blue">Acceleration</span> is the derivative of
+      <span style="color: magenta">velocity</span>. Notice how the
+      <span style="color: blue">acceleration arrow</span> acts similar to the
+      <span style="color: magenta">velocity arrow</span>, but the acceleration
+      arrow is slightly in the lead. And notice how the
+      <span style="color: magenta">velocity arrow</span> is similar to the
+      <span style="color: red">position arrow</span>, but the velocity arrow is
+      slightly in the lead.
     </p>
 
     <div class="figure">
@@ -1665,6 +1680,7 @@ make the sides extend without making this taller than it needs to be.   -->
         viewBox="0 0 100 100"
         font-size="5"
         id="pendulumContainer"
+        style="--preferred-width: 75em"
       >
         <g transform="translate(50,10)">
           <g transform="rotate(30)" id="pendulum">
@@ -1745,13 +1761,18 @@ make the sides extend without making this taller than it needs to be.   -->
     <p>
       The graph shows that all three functions are actually sine waves. The only
       difference between them is that they are offset from one another. In the
-      proper terminology, they are <i>out of phase</i> from each other.
+      proper terminology, they are <i>out of phase</i> from each other. Or, as I
+      said above, they act similar but each is in the lead of the next.
     </p>
 
     <p>Let’s turn that last physics experiment on its side.</p>
 
     <div class="figure">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 100 100"
+        style="--preferred-width: 25em"
+      >
         <path stroke="black" fill="none" id="springPath"></path>
         <circle
           stroke="none"
