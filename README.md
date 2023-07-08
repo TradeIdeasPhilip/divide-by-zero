@@ -251,3 +251,11 @@ If it can't do anything better, the the code now just draws a straight line betw
 
 Watch [this video](https://www.youtube.com/shorts/1-BKmXGkuEI) for more.
 After fixing the bug I show a moving sine wave with way too few segments.
+
+# How to build
+
+The deliverable is [my animated document](https://tradeideasphilip.github.io/divide-by-zero/), which has already been built for you. The rest of this git repository is available for people who want to know more, and maybe try something similar themselves.
+
+I wrote some [instructions](https://github.com/TradeIdeasPhilip/bounce-3d#starting-from-scratch) for reproducing my build environment.
+
+Most of the time I'm running in VS Code and the Vite extension automatically starts the dev mode script for me. I hit ⌘S to save my changes and my browser automatically refreshes. I type `npm run build` before I push to github.
