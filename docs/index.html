@@ -20,7 +20,7 @@ make the sides extend without making this taller than it needs to be.   -->
     />
     <title>÷ 0</title>
     
-    <script type="module" crossorigin src="./assets/main-d9e8f6ed.js"></script>
+    <script type="module" crossorigin src="./assets/main-6da53f17.js"></script>
     <link rel="stylesheet" href="./assets/index-557647aa.css">
   </head>
   <body>
@@ -1731,24 +1731,33 @@ make the sides extend without making this taller than it needs to be.   -->
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="-3.14159 -1.25 6.28318 2.5"
-        style="background-color: white"
+        style="
+          background-color: white;
+          max-height: calc(min(80vmin, 8.125em));
+          align-self: stretch;
+        "
+        id="threeSineWavesContainer"
       >
         <path
+          id="threeSineWavesGrid"
           stroke="black"
           fill="none"
           d="M -4,0 4,0 M 0,2 0,-2"
           stroke-width="0.028"
         ></path>
         <g id="threeSineWaves"></g>
-        <g style="font-size: 0.36pt; text-anchor: middle; user-select: none">
-          <text x="-1.570795" y="-0.8" stroke="white" stroke-width="0.035">
-            Past
-          </text>
-          <text x="-1.570795" y="-0.8">Past</text>
-          <text x="1.570795" y="-0.8" stroke="white" stroke-width="0.035">
-            Future
-          </text>
-          <text x="1.570795" y="-0.8">Future</text>
+        <g
+          transform="translate(0,-0.8)"
+          style="font-size: 0.36pt; text-anchor: middle; user-select: none"
+        >
+          <g id="threeSineWavesPast" transform="translate(-1.570795)">
+            <text stroke="white" stroke-width="0.035">Past</text>
+            <text>Past</text>
+          </g>
+          <g id="threeSineWavesFuture" transform="translate(1.570795)">
+            <text stroke="white" stroke-width="0.035">Future</text>
+            <text>Future</text>
+          </g>
         </g>
       </svg>
       <div>

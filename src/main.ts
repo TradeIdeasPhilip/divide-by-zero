@@ -558,7 +558,7 @@ class Pointer {
   /**
    * This class uses this.element.points and this.element.style.strokeWidth.
    * Otherwise you can do anything you want with the element.
-   * 
+   *
    * You may stroke the arrow.  Just use this.setStrokeWidth, rather than
    * setting the element's stroke-width directly.  That way this class
    * can leave extra space for the stroke.  So the edge of the visible part
@@ -597,7 +597,9 @@ class Pointer {
     // 27/20 was measured quickly on my screen.  I'm sure I could make it a little more accurate with a better test.
     // Or do the math but that would be a pain.
     // I think it's off by a hair, but it looks good enough for the current application.
-    const offset = this.#originAtHead ? (-this.#strokeWidth*27/20) : (length + this.#strokeWidth/2);
+    const offset = this.#originAtHead
+      ? (-this.#strokeWidth * 27) / 20
+      : length + this.#strokeWidth / 2;
     if (!isFinite(length)) {
       this.element.setAttribute("points", "");
       return;
@@ -621,7 +623,7 @@ class Pointer {
   set length(newValue) {
     // Warning.  This value is only accurate is if the stroke-width is 0.
     // I could fix that, but this is good enough for this project.
-    // If I ever move this class to a library I should fix that. 
+    // If I ever move this class to a library I should fix that.
     this.#length = newValue;
     this.redraw();
   }
@@ -649,18 +651,50 @@ class Pointer {
     this.element.setAttribute("stroke-width", strokeWidth.toString());
     this.redraw();
   }
-  removeStroke() {this.setStrokeWidth(0);}
+  removeStroke() {
+    this.setStrokeWidth(0);
+  }
 }
 (window as any).Pointer = Pointer;
 
+// Physics stuff:
 {
+  /**
+   * We share the environment between several animations.
+   * They all oscillate in time with each other.
+   */
   type CurrentState = {
+    /**
+     * The x value to put into the function.
+     * 
+     * If you are only going to apply the function at this input,
+     * consider using `position` instead.
+     * 
+     * In practice the X that we give to the function is usually the same as the X that we give to SVG elements.
+     * Most of the time I use a transform on the top level group to make the SVG's coordinates match the function's coordinates.
+     */
     readonly functionX: number;
+    /**
+     * Where the item is.
+     * That might be the weight on a spring on the weight on a pendulum or an electron in a wire.
+     * 0 is the center or average point.  1 and -1 are the extremes.
+     */
     readonly position: number;
+    /**
+     * How fast the position is changing.
+     * Scaled the same as position, 0 at the center, 1 and -1 at the extremes.
+     */
     readonly velocity: number;
+    /**
+     * The second derivative of position.
+     * Scaled the same as position, 0 at the center, 1 and -1 at the extremes.
+     */
     readonly acceleration: number;
   };
 
+  /**
+   * This controls the animation of the electron in the LC circuit.
+   */
   class Electron {
     private constructor() {
       throw new Error("wtf");
@@ -684,6 +718,99 @@ class Pointer {
         "transform",
         `${this.#initialArrowTransform} scale(${velocity} 1)`
       );
+    }
+  }
+
+  /**
+   * This class controls the animation with three sine waves in the physics section.
+   */
+  class SineWaves {
+    /**
+     * We need access to the entire SVG to know it's size and shape.
+     * It can change aspect ratio.
+     */
+    static readonly #container = getById(
+      "threeSineWavesContainer",
+      SVGSVGElement
+    );
+    /**
+     * The text shown on the left, including some minor special effects.
+     */
+    static readonly #pastTextG = getById("threeSineWavesPast", SVGGElement);
+    /**
+     * The text shown on the right, including some minor special effects.
+     */
+    static readonly #futureTextG = getById("threeSineWavesFuture", SVGGElement);
+    /**
+     * The three sine waves we are plotting.
+     */
+    static readonly #waves = (
+      [
+        ["red", 0],
+        ["magenta", Math.PI / 2],
+        ["blue", Math.PI],
+      ] as const
+    ).map(([color, offset]) => {
+      const path = document.createElementNS(
+        "http://www.w3.org/2000/svg",
+        "path"
+      );
+      const parent = getById("threeSineWaves", SVGGElement);
+      parent.appendChild(path);
+      path.style.strokeWidth = "0.056";
+      path.style.fill = "none";
+      path.style.stroke = color;
+      return { path, offset };
+    });
+    /**
+     * Update this to make sure it always goes to the edges of the available space.
+     */
+    static readonly #grid = getById("threeSineWavesGrid", SVGPathElement);
+    /**
+     * Call this once per animation frame.
+     */
+    static updateDisplay({ functionX }: CurrentState) {
+      // Figure out the size and shape of the container.
+      const rect = this.#container.getBoundingClientRect();
+      const currentAspectRatio = rect.width / rect.height;
+      const REQUESTED_WIDTH = 6.28318; // Consider changing this to 5 to minimize roundoff error and simplify the math.
+      const REQUESTED_HEIGHT = 2.5;
+      const REQUESTED_ASPECT_RATIO = REQUESTED_WIDTH / REQUESTED_HEIGHT;
+      const extraOnTop = REQUESTED_ASPECT_RATIO > currentAspectRatio;
+      const [width, height] = extraOnTop
+        ? [
+            REQUESTED_WIDTH,
+            (REQUESTED_HEIGHT * REQUESTED_ASPECT_RATIO) / currentAspectRatio,
+          ]
+        : [
+            (REQUESTED_WIDTH * currentAspectRatio) / REQUESTED_ASPECT_RATIO,
+            REQUESTED_HEIGHT,
+          ];
+      const right = width / 2;
+      const left = -right;
+      const bottom = height / 2;
+      const top = -bottom;
+
+      this.#pastTextG.setAttribute("transform", `translate(${left / 2})`);
+      this.#futureTextG.setAttribute("transform", `translate(${right / 2})`);
+
+      this.#grid.setAttribute(
+        "d",
+        `M ${left},0 ${right},0 M 0,${top} 0,${bottom}`
+      );
+
+      this.#waves.forEach(({ path, offset }) => {
+        const options: SineWaveOptions = {
+          left,
+          amplitude: -1,
+          yCenter: 0,
+          right,
+          x0: -functionX - offset,
+          frequencyMultiplier: 1,
+        };
+        const d = sineWavePath(options);
+        path.setAttribute("d", d);
+      });
     }
   }
 
@@ -726,30 +853,6 @@ class Pointer {
     const moveRight = (left.getBBox().width - right.getBBox().width) / 2;
     center.setAttribute("transform", `translate(${50 + moveRight},98)`);
   }
-
-  //
-  // 3 sine waves one time setup.
-  //
-
-// TODO for this and at least one other demo, make the sine waves go all the way to the edge of the allocated
-// space, even if we have to shrink other things to deal with the max width or max height.
-
-
-  const sinWaves = (
-    [
-      ["red", 0],
-      ["magenta", Math.PI / 2],
-      ["blue", Math.PI],
-    ] as const
-  ).map(([color, offset]) => {
-    const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
-    const parent = getById("threeSineWaves", SVGGElement);
-    parent.appendChild(path);
-    path.style.strokeWidth = "0.056";
-    path.style.fill = "none";
-    path.style.stroke = color;
-    return { path, offset };
-  });
 
   //
   // Spring one time setup.
@@ -850,21 +953,7 @@ class Pointer {
       );
       accelerationPointer.length = acceleration * 35;
     }
-    {
-      // Three sine waves.
-      sinWaves.forEach(({ path, offset }) => {
-        const options: SineWaveOptions = {
-          left: -4,
-          amplitude: -1,
-          yCenter: 0,
-          right: 4,
-          x0: -functionX - offset,
-          frequencyMultiplier: 1,
-        };
-        const d = sineWavePath(options);
-        path.setAttribute("d", d);
-      });
-    }
+    SineWaves.updateDisplay(currentState); // Three sine waves.
     {
       // Spring
       //  d="M 50,10 a 20,10,180,0,0,0,20 a 20,7.5,180,0,0,0,-15 a 20,10,180,0,0,0,20 a 20,7.5,180,0,0,0,-15 a 20,10,180,0,0,0,20 a 20,7.5,180,0,0,0,-15 a 20,10,180,0,0,0,20 a 20,7.5,180,0,0,0,-15 a 20,10,180,0,0,0,20"

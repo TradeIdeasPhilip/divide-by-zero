@@ -14,6 +14,8 @@ These help document the status of this project.
 - [Bribing ALL of the #SoME3 judges — How much would it cost?](https://www.youtube.com/watch?v=VnLQNXIJ1l4)
 - [#some3 status update - interactive demo](https://www.youtube.com/shorts/RDkrc9fiNtw)
 - [How to Divide by Infinity #SoME3 progress and behind the scenes](https://youtu.be/h_LclJS3_Nw)
+- [How many parabolas does it take to draw a sine wave? #SoME3](https://www.youtube.com/shorts/1-BKmXGkuEI)
+- [Everything you need to know about calculus in 18 seconds #SoME3](https://www.youtube.com/shorts/CENmCTSuOb4)
 
 Newest ones are on the bottom.
 
@@ -249,7 +251,7 @@ In this case the correct answer should have been "nowhere."
 Now my code catches all of the bad cases like this.
 If it can't do anything better, the the code now just draws a straight line between the endpoints.
 
-Watch [this video](https://www.youtube.com/shorts/1-BKmXGkuEI) for more.
+Watch [How many parabolas does it take to draw a sine wave?](https://www.youtube.com/shorts/1-BKmXGkuEI) for more.
 After fixing the bug I show a moving sine wave with way too few segments.
 
 # How to build
