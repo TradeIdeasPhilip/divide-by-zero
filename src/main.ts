@@ -666,10 +666,10 @@ class Pointer {
   type CurrentState = {
     /**
      * The x value to put into the function.
-     * 
+     *
      * If you are only going to apply the function at this input,
      * consider using `position` instead.
-     * 
+     *
      * In practice the X that we give to the function is usually the same as the X that we give to SVG elements.
      * Most of the time I use a transform on the top level group to make the SVG's coordinates match the function's coordinates.
      */
@@ -773,7 +773,7 @@ class Pointer {
       // Figure out the size and shape of the container.
       const rect = this.#container.getBoundingClientRect();
       const currentAspectRatio = rect.width / rect.height;
-      const REQUESTED_WIDTH = 6.28318; // Consider changing this to 5 to minimize roundoff error and simplify the math.
+      const REQUESTED_WIDTH = 6.28318; // Consider changing this to 5 to minimize round off error and simplify the math.
       const REQUESTED_HEIGHT = 2.5;
       const REQUESTED_ASPECT_RATIO = REQUESTED_WIDTH / REQUESTED_HEIGHT;
       const extraOnTop = REQUESTED_ASPECT_RATIO > currentAspectRatio;
@@ -854,56 +854,97 @@ class Pointer {
     center.setAttribute("transform", `translate(${50 + moveRight},98)`);
   }
 
-  //
-  // Spring one time setup.
-  //
+  class Spring {
+    static updateDisplay({ position, functionX }: CurrentState) {
+      //  d="M 50,10 a 20,10,180,0,0,0,20 a 20,7.5,180,0,0,0,-15 a 20,10,180,0,0,0,20 a 20,7.5,180,0,0,0,-15 a 20,10,180,0,0,0,20 a 20,7.5,180,0,0,0,-15 a 20,10,180,0,0,0,20 a 20,7.5,180,0,0,0,-15 a 20,10,180,0,0,0,20"
+      /**
+       * Half of the height of each ellipse used on the left side of the spring.
+       */
+      const leftRadius = this.#leftHeight(-position);
+      /**
+       * Half of the height of ellipse used on the right side of the spring.
+       */
+      const rightRadius = this.#rightHeight(-position);
+      /**
+       * Half of the width of the ellipses used in the spring.
+       */
+      const horizontalRadius = this.#getLoopWidth(-position);
+      let d = `M 50,${this.#TOP}`;
+      for (let i = 0; i < this.#LOOP_COUNT; i++) {
+        d += ` a ${horizontalRadius},${leftRadius},180,0,0,0,${2 * leftRadius}`;
+        d += ` a ${horizontalRadius},${rightRadius},180,0,0,0,${
+          -2 * rightRadius
+        }`;
+      }
+      d += ` a ${horizontalRadius},${leftRadius},180,0,0,${-horizontalRadius},${leftRadius} h ${horizontalRadius} v ${
+        this.#FINAL_DROP
+      }`;
+      this.#path.setAttribute("d", d);
+      const weightYCenter =
+        this.#TOP +
+        this.#LOOP_COUNT * 2 * (leftRadius - rightRadius) +
+        leftRadius +
+        this.#FINAL_DROP;
+      this.#weight.cy.baseVal.value = weightYCenter;
 
-  /**
-   * The spring itself.  Everything in a black line of the same width.
-   */
-  const springPath = getById("springPath", SVGPathElement);
-  /**
-   * The weight hanging on the end of the spring.
-   */
-  const springWeight = getById("springWeight", SVGCircleElement);
-  /**
-   * The sine wave showing what the weight's position looks like over
-   * time.
-   */
-  const springSineWave = getById("springSineWave", SVGPathElement);
-  const springMinLeftHeight = 10;
-  const springMaxLeftHeight = 15;
-  const springLeftHeight = makeLinear(
-    -1,
-    springMinLeftHeight,
-    1,
-    springMaxLeftHeight
-  );
-  const springMinRightHeight = 7.5;
-  const springMaxRightHeight = 10;
-  const springRightHeight = makeLinear(
-    -1,
-    springMinRightHeight,
-    1,
-    springMaxRightHeight
-  );
-  const getSpringLoopWidth = makeLinear(-1, 22, 1, 18);
-  const springTop = -17;
-  const springLoopCount = 7;
-  /**
-   * How far is it from the bottom of the springy part to the center of the weight.
-   */
-  const springFinalDrop = 21;
-  const minWeightYCenter =
-    springTop +
-    springLoopCount * 2 * (springMinLeftHeight - springMinRightHeight) +
-    springMinLeftHeight +
-    springFinalDrop;
-  const maxWeightYCenter =
-    springTop +
-    springLoopCount * 2 * (springMaxLeftHeight - springMaxRightHeight) +
-    springMaxLeftHeight +
-    springFinalDrop;
+      const scale = (this.#MAX_WEIGHT_Y_CENTER - this.#MIN_WEIGHT_Y_CENTER) / 2;
+      const options: SineWaveOptions = {
+        left: -3.25 * scale,
+        amplitude: -1 * scale,
+        yCenter: (this.#MAX_WEIGHT_Y_CENTER + this.#MIN_WEIGHT_Y_CENTER) / 2,
+        right: +3.25 * scale,
+        x0: -functionX * scale,
+        frequencyMultiplier: 1 / scale,
+      };
+      this.#wave.setAttribute("d", sineWavePath(options));
+    }
+    /**
+     * The spring itself.  Everything in a black line of the same width.
+     */
+    static readonly #path = getById("springPath", SVGPathElement);
+    /**
+     * The weight hanging on the end of the spring.
+     */
+    static readonly #weight = getById("springWeight", SVGCircleElement);
+    /**
+     * The sine wave showing what the weight's position looks like over
+     * time.
+     */
+    static readonly #wave = getById("springSineWave", SVGPathElement);
+    static readonly #MIN_LEFT_HEIGHT = 10;
+    static readonly #MAX_LEFT_HEIGHT = 15;
+    static readonly #leftHeight = makeLinear(
+      -1,
+      this.#MIN_LEFT_HEIGHT,
+      1,
+      this.#MAX_LEFT_HEIGHT
+    );
+    static readonly #MIN_RIGHT_HEIGHT = 7.5;
+    static readonly #MAX_RIGHT_HEIGHT = 10;
+    static readonly #rightHeight = makeLinear(
+      -1,
+      this.#MIN_RIGHT_HEIGHT,
+      1,
+      this.#MAX_RIGHT_HEIGHT
+    );
+    static readonly #getLoopWidth = makeLinear(-1, 22, 1, 18);
+    static readonly #TOP = -17;
+    static readonly #LOOP_COUNT = 7;
+    /**
+     * How far is it from the bottom of the springy part to the center of the weight.
+     */
+    static readonly #FINAL_DROP = 21;
+    static readonly #MIN_WEIGHT_Y_CENTER =
+      this.#TOP +
+      this.#LOOP_COUNT * 2 * (this.#MIN_LEFT_HEIGHT - this.#MIN_RIGHT_HEIGHT) +
+      this.#MIN_LEFT_HEIGHT +
+      this.#FINAL_DROP;
+    static readonly #MAX_WEIGHT_Y_CENTER =
+      this.#TOP +
+      this.#LOOP_COUNT * 2 * (this.#MAX_LEFT_HEIGHT - this.#MAX_RIGHT_HEIGHT) +
+      this.#MAX_LEFT_HEIGHT +
+      this.#FINAL_DROP;
+  }
 
   function updatePhysics(t: DOMHighResTimeStamp) {
     const functionX = t / 1000;
@@ -954,48 +995,7 @@ class Pointer {
       accelerationPointer.length = acceleration * 35;
     }
     SineWaves.updateDisplay(currentState); // Three sine waves.
-    {
-      // Spring
-      //  d="M 50,10 a 20,10,180,0,0,0,20 a 20,7.5,180,0,0,0,-15 a 20,10,180,0,0,0,20 a 20,7.5,180,0,0,0,-15 a 20,10,180,0,0,0,20 a 20,7.5,180,0,0,0,-15 a 20,10,180,0,0,0,20 a 20,7.5,180,0,0,0,-15 a 20,10,180,0,0,0,20"
-      /**
-       * Half of the height of each ellipse used on the left side of the spring.
-       */
-      const leftRadius = springLeftHeight(-position);
-      /**
-       * Half of the height of ellipse used on the right side of the spring.
-       */
-      const rightRadius = springRightHeight(-position);
-      /**
-       * Half of the width of the ellipses used in the spring.
-       */
-      const horizontalRadius = getSpringLoopWidth(-position);
-      let d = `M 50,${springTop}`;
-      for (let i = 0; i < springLoopCount; i++) {
-        d += ` a ${horizontalRadius},${leftRadius},180,0,0,0,${2 * leftRadius}`;
-        d += ` a ${horizontalRadius},${rightRadius},180,0,0,0,${
-          -2 * rightRadius
-        }`;
-      }
-      d += ` a ${horizontalRadius},${leftRadius},180,0,0,${-horizontalRadius},${leftRadius} h ${horizontalRadius} v ${springFinalDrop}`;
-      springPath.setAttribute("d", d);
-      const weightYCenter =
-        springTop +
-        springLoopCount * 2 * (leftRadius - rightRadius) +
-        leftRadius +
-        springFinalDrop;
-      springWeight.cy.baseVal.value = weightYCenter;
-
-      const scale = (maxWeightYCenter - minWeightYCenter) / 2;
-      const options: SineWaveOptions = {
-        left: -3.25 * scale,
-        amplitude: -1 * scale,
-        yCenter: (maxWeightYCenter + minWeightYCenter) / 2,
-        right: +3.25 * scale,
-        x0: -functionX * scale,
-        frequencyMultiplier: 1 / scale,
-      };
-      springSineWave.setAttribute("d", sineWavePath(options));
-    }
+    Spring.updateDisplay(currentState);
   }
 
   new AnimationLoop((time) => {
