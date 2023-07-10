@@ -16,6 +16,7 @@ These help document the status of this project.
 - [How to Divide by Infinity #SoME3 progress and behind the scenes](https://youtu.be/h_LclJS3_Nw)
 - [How many parabolas does it take to draw a sine wave? #SoME3](https://www.youtube.com/shorts/1-BKmXGkuEI)
 - [Everything you need to know about calculus in 18 seconds #SoME3](https://www.youtube.com/shorts/CENmCTSuOb4)
+- [Responsive Design — Perfecting my #SoME3 paper](https://youtube.com/shorts/EJIehm0q5YI)
 
 Newest ones are on the bottom.
 
