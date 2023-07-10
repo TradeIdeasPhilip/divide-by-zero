@@ -20,7 +20,7 @@ make the sides extend without making this taller than it needs to be.   -->
     />
     <title>÷ 0</title>
     
-    <script type="module" crossorigin src="./assets/main-353cd774.js"></script>
+    <script type="module" crossorigin src="./assets/main-c05ca7c6.js"></script>
     <link rel="stylesheet" href="./assets/index-31a6e882.css">
   </head>
   <body>
@@ -1780,8 +1780,13 @@ make the sides extend without making this taller than it needs to be.   -->
     <div class="figure">
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 100 100"
-        style="max-width: 25em"
+        viewBox="25 0 50 100"
+        style="
+          max-height: calc(min(80vmin, 17em));
+          max-width: none;
+          align-self: stretch;
+        "
+        id="springContainer"
       >
         <path stroke="black" fill="none" id="springPath"></path>
         <circle
@@ -1830,6 +1835,7 @@ make the sides extend without making this taller than it needs to be.   -->
         viewBox="0 0 300 220"
         xmlns="http://www.w3.org/2000/svg"
         version="1.1"
+        style="max-width: calc(min(17em,var(--default-width)));"
       >
         <!-- wires -->
 

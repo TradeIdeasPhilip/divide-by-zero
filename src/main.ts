@@ -722,6 +722,59 @@ class Pointer {
   }
 
   /**
+   * Get the size and shape of your SVG element in SVG units.
+   * @param svg The element to measure.
+   * @param coordinatesRelativeTo Which coordinate system to use for the result.
+   * Defaults to `svg`.
+   * @returns A description of the svg in svg units.
+   *
+   * In the simplest case this will be exactly what you requested with viewBox.
+   *
+   * However, with the default preserveAspectRatio setting, the system might
+   * add additional space to the edges of your SVG just to fit into the layout.
+   */
+  function getSizeInSvgCoordinates(
+    svg: SVGSVGElement,
+    coordinatesRelativeTo: SVGGraphicsElement = svg
+  ) {
+    /**
+     * Convert **from** screen coordinates.
+     */
+    const svgMatrix = coordinatesRelativeTo.getScreenCTM()!;
+    /**
+     * Convert the SVGMatrix to a DomMatrix.
+     * According to TypeScript and the MDN docs this should not be necessary.
+     * When I tried with Chrome the svgMatrix did not have a getScreenCTM() method.
+     */
+    const domMatrix = new DOMMatrix([
+      svgMatrix.a,
+      svgMatrix.b,
+      svgMatrix.c,
+      svgMatrix.d,
+      svgMatrix.e,
+      svgMatrix.f,
+    ]);
+    /**
+     * Convert **to** screen coordinates.
+     */
+    const screenToSvg = domMatrix.inverse();
+    /**
+     * The space reserved for the SVG element.
+     * This is in screen coordinates.
+     */
+    const rect = svg.getBoundingClientRect();
+    const { x, y } = screenToSvg.transformPoint(rect);
+    const { x: x1, y: y1 } = screenToSvg.transformPoint({
+      x: rect.right,
+      y: rect.bottom,
+    });
+    const height = y1 - y;
+    const width = x1 - x;
+    const result = new DOMRectReadOnly(x, y, width, height);
+    return result;
+  }
+
+  /**
    * This class controls the animation with three sine waves in the physics section.
    */
   class SineWaves {
@@ -770,26 +823,9 @@ class Pointer {
      * Call this once per animation frame.
      */
     static updateDisplay({ functionX }: CurrentState) {
-      // Figure out the size and shape of the container.
-      const rect = this.#container.getBoundingClientRect();
-      const currentAspectRatio = rect.width / rect.height;
-      const REQUESTED_WIDTH = 6.28318; // Consider changing this to 5 to minimize round off error and simplify the math.
-      const REQUESTED_HEIGHT = 2.5;
-      const REQUESTED_ASPECT_RATIO = REQUESTED_WIDTH / REQUESTED_HEIGHT;
-      const extraOnTop = REQUESTED_ASPECT_RATIO > currentAspectRatio;
-      const [width, height] = extraOnTop
-        ? [
-            REQUESTED_WIDTH,
-            (REQUESTED_HEIGHT * REQUESTED_ASPECT_RATIO) / currentAspectRatio,
-          ]
-        : [
-            (REQUESTED_WIDTH * currentAspectRatio) / REQUESTED_ASPECT_RATIO,
-            REQUESTED_HEIGHT,
-          ];
-      const right = width / 2;
-      const left = -right;
-      const bottom = height / 2;
-      const top = -bottom;
+      const { top, left, bottom, right } = getSizeInSvgCoordinates(
+        this.#container
+      );
 
       this.#pastTextG.setAttribute("transform", `translate(${left / 2})`);
       this.#futureTextG.setAttribute("transform", `translate(${right / 2})`);
@@ -887,17 +923,22 @@ class Pointer {
         this.#FINAL_DROP;
       this.#weight.cy.baseVal.value = weightYCenter;
 
+      const { left, right } = getSizeInSvgCoordinates(
+        this.#container,
+        this.#wave
+      );
       const scale = (this.#MAX_WEIGHT_Y_CENTER - this.#MIN_WEIGHT_Y_CENTER) / 2;
       const options: SineWaveOptions = {
-        left: -3.25 * scale,
+        left,
         amplitude: -1 * scale,
         yCenter: (this.#MAX_WEIGHT_Y_CENTER + this.#MIN_WEIGHT_Y_CENTER) / 2,
-        right: +3.25 * scale,
+        right,
         x0: -functionX * scale,
         frequencyMultiplier: 1 / scale,
       };
       this.#wave.setAttribute("d", sineWavePath(options));
     }
+    static readonly #container = getById("springContainer", SVGSVGElement);
     /**
      * The spring itself.  Everything in a black line of the same width.
      */
@@ -927,7 +968,7 @@ class Pointer {
       1,
       this.#MAX_RIGHT_HEIGHT
     );
-    static readonly #getLoopWidth = makeLinear(-1, 22, 1, 18);
+    static readonly #getLoopWidth = makeLinear(-1, 19, 1, 15);
     static readonly #TOP = -17;
     static readonly #LOOP_COUNT = 7;
     /**
