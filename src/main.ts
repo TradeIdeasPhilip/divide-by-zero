@@ -1,6 +1,7 @@
 import {
   LinearFunction,
   assertClass,
+  count,
   initializedArray,
   makeBoundedLinear,
   makeLinear,
@@ -723,6 +724,9 @@ class Pointer {
 
   /**
    * Get the size and shape of your SVG element in SVG units.
+   *
+   * To go the other way, to see the size and shape of an SVG element
+   * in screen coordinates, consider using element.getBoundingClientRect().
    * @param svg The element to measure.
    * @param coordinatesRelativeTo Which coordinate system to use for the result.
    * Defaults to `svg`.
@@ -773,6 +777,7 @@ class Pointer {
     const result = new DOMRectReadOnly(x, y, width, height);
     return result;
   }
+  (window as any).getSizeInSvgCoordinates;
 
   /**
    * This class controls the animation with three sine waves in the physics section.
@@ -1259,3 +1264,19 @@ class SampleGraph {
   }
 }
 SampleGraph.startDemo();
+
+(async () => {
+  const numbers = Array.from(
+    getById("integralSquares", SVGGElement).children
+  ).map((element) => assertClass(element, SVGTextElement));
+  const delay = makeBoundedLinear(0, 1000, numbers.length, 100);
+  while (true) {
+    numbers.forEach((text) => (text.style.display = "none"));
+    await sleep(2000);
+    for (const [text, index] of zip(numbers, count())) {
+      text.style.display = "";
+      await sleep(delay(index));
+    }
+    await sleep(3000);
+  }
+})();

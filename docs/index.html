@@ -20,7 +20,7 @@ make the sides extend without making this taller than it needs to be.   -->
     />
     <title>÷ 0</title>
     
-    <script type="module" crossorigin src="./assets/main-35b6eb6e.js"></script>
+    <script type="module" crossorigin src="./assets/main-cbc5a3b2.js"></script>
     <link rel="stylesheet" href="./assets/index-31a6e882.css">
   </head>
   <body>
@@ -2477,6 +2477,62 @@ make the sides extend without making this taller than it needs to be.   -->
             stroke="none"
             fill="rgb(255 0 255 / 50%)"
           ></polygon>
+          <g
+            id="integralSquares"
+            transform="scale(1,-1)"
+            font-size="0.75"
+            fill="darkmagenta"
+            text-anchor="middle"
+          >
+            <text x="6.5" y="-0.25">1</text>
+            <text x="5.5" y="-0.25">2</text>
+            <text x="4.5" y="-0.25">3</text>
+            <text x="3.5" y="-0.25">4</text>
+            <text x="3.5" y="-1.25">5</text>
+            <text x="4.5" y="-1.25">6</text>
+            <text x="5.5" y="-1.25">7</text>
+            <text x="6.5" y="-1.25">8</text>
+            <text x="6.5" y="-2.25">9</text>
+            <text x="5.5" y="-2.25" font-size="0.625">10</text>
+            <text x="4.5" y="-2.25" font-size="0.625">11</text>
+            <text x="3.5" y="-2.25" font-size="0.625">12</text>
+            <text x="3.5" y="-3.25" font-size="0.625">13</text>
+            <text x="4.5" y="-3.25" font-size="0.625">14</text>
+            <text x="5.5" y="-3.25" font-size="0.625">15</text>
+            <text x="6.5" y="-3.25" font-size="0.625">16</text>
+            <text x="6.5" y="-4.25" font-size="0.625">17</text>
+            <text x="5.5" y="-4.25" font-size="0.625">18</text>
+            <text x="4.5" y="-4.25" font-size="0.625">19</text>
+            <text x="3.5" y="-4.25" font-size="0.625">20</text>
+            <text x="3.5" y="-5.25" font-size="0.625">21</text>
+            <text x="4.5" y="-5.25" font-size="0.625">22</text>
+            <text x="5.5" y="-5.25" font-size="0.625">23</text>
+            <text x="6.5" y="-5.25" font-size="0.625">24</text>
+            <text x="6.5" y="-6.25" font-size="0.625">25</text>
+            <text x="5.5" y="-6.25" font-size="0.625">26</text>
+            <text x="4.5" y="-6.25" font-size="0.625">27</text>
+            <text x="3.5" y="-6.25" font-size="0.625">27¾</text>
+            <text x="3.5" y="-7.25" font-size="0.625">28</text>
+            <text x="4.5" y="-7.25" font-size="0.625">29</text>
+            <text x="5.5" y="-7.25" font-size="0.625">30</text>
+            <text x="6.5" y="-7.25" font-size="0.625">31</text>
+            <text x="6.5" y="-8.25" font-size="0.625">32</text>
+            <text x="5.5" y="-8.25" font-size="0.625">33</text>
+            <text x="4.5" y="-8.25" font-size="0.625">33¾</text>
+            <text x="4.5" y="-9.25" font-size="0.625">34</text>
+            <text x="5.5" y="-9.25" font-size="0.625">35</text>
+            <text x="6.5" y="-9.25" font-size="0.625">36</text>
+            <text x="6.5" y="-10.25" font-size="0.625">37</text>
+            <text x="5.5" y="-10.25" font-size="0.625">37¾</text>
+            <text x="5.5" y="-11.25" font-size="0.625">38</text>
+            <text x="6.5" y="-11.25" font-size="0.625">39</text>
+            <text x="6.5" y="-12.25" font-size="0.625">39¾</text>
+            <text x="6.5" y="-13.25" font-size="0.625">40</text>
+            <!--
+              <text x="3.678257197141647" y ="-7" text-anchor="right" font-size="0.4">¼</text>
+              <circle cx="0" cy="0" r="1" fill="olive" stroke="blue" stroke-width="0.1"></circle>
+            -->
+          </g>
         </g>
         <div>
           <code class="with-border" style="border-color: blue">2x</code>
@@ -2496,11 +2552,13 @@ make the sides extend without making this taller than it needs to be.   -->
       <code class="with-border" style="border-color: #4f985b">x = 3</code> and
       <code class="with-border" style="border-color: #cf5b58">x = 7</code> on
       the graph. The <i>area</i> I’ve highlighted in
-      <span style="color: #ff80ff">purple</span>
+      <span style="color: darkmagenta; background-color: #ff80ff">purple</span>
       is the answer we want. You could notice that it’s a trapezoid, and Google
       “area of a trapezoid” if you don’t remember that formula. Or break it into
-      a triangle and a rectangle if that’s easier. You’ll get <code>40</code>,
-      just like in the previous section.
+      a triangle and a rectangle if that’s easier. Or
+      <span style="color: darkmagenta">count the number of squares</span>. (Each
+      <i>little</i> square has area of ¼.) In each case you’ll get
+      <code>40</code>, just like in the previous section.
     </p>
     <p>
       What if the function we are integrating is more complicated than a line?
