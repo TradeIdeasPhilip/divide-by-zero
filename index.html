@@ -2183,7 +2183,11 @@ make the sides extend without making this taller than it needs to be.   -->
       style="overflow: hidden"
     >
       <svg
-        style="background-color: blanchedalmond; overflow: visible"
+        style="
+          background-color: blanchedalmond;
+          overflow: visible;
+          max-width: calc(min(37.8em, var(--default-width)));
+        "
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 1668 1272"
       >
@@ -2565,19 +2569,111 @@ make the sides extend without making this taller than it needs to be.   -->
     </p>
     <p>
       What if the function we are trying to integrate is a curve, not a set of
-      line segments? Break it into small pieces then add them up. How small? It
-      depends how accurate you want your estimate to be.
+      line segments? Break it into small pieces then add them up. How many
+      pieces? How small? It depends how accurate you want your estimate to be.
     </p>
     <p>
       But this method is not just for estimates. If you take the <i>limit</i> as
       the pieces get infinitely small, that will be the exact answer.
     </p>
+
+    <p>
+      Let’s take another look at the
+      <a href="#The_Anti_Derivative">dead reckoning example</a>. I cheated the
+      first time I presented that problem. I <i>started</i> by plotting
+      <i>the answer</i> in <span style="color: #ce5a54">red</span>! It was
+      satisfying to watch the estimate approach the final answer. But this time
+      let’s solve the problem honestly.
+    </p>
+    <p>
+      Let’s call that original <span style="color: #ce5a54">red</span> function
+      <code>f(x)</code>.
+    </p>
+    <p>
+      Those <b>black</b> and
+      <span style="color: #aaa; font-weight: bold">silver</span> arrows show the
+      slope of <code>f(x)</code> at various values of <code>x</code>. When you
+      take an infinite number of these measurements, we call this
+      <code>f′(x)</code>, the the derivate of <code>f(x)</code>. The next
+      animation graphs <code>f′(x)</code> in
+      <span style="color: #ce5a54">red</span> just like any other function.
+    </p>
+    <a
+      href="https://www.desmos.com/calculator/qownlbbowu"
+      class="figure"
+      target="_blank"
+    >
+      <svg
+        style="
+          background-color: blanchedalmond;
+          max-width: calc(min(37.8em, var(--default-width)));
+        "
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 1668 676"
+      >
+        <image
+          width="1668"
+          height="676"
+          href="./images/2300.png"
+          preserveAspectRatio="none"
+        ></image>
+        <g transform="scale(198.33333, -198.23529) translate(0.2, -2.2)">
+          <g
+            id="positiveUnderTheCurve"
+            fill="rgb(100% 0% 100% / 25%)"
+            stroke="rgb(100% 0% 100% / 50%)"
+            stroke-width="0.025"
+          >
+            <polygon points="0,0 0,1.5 4,1.5, 4,0"></polygon>
+            <polygon points="8,0 8,0.93 9,0.93, 9,0"></polygon>
+          </g>
+          <g
+            id="negativeUnderTheCurve"
+            fill="rgb(100% 100% 0% / 25%)"
+            stroke="rgb(50% 50% 0% / 50%)"
+            stroke-width="0.025"
+          >
+            <polygon points="4,0 4,-0.58 8,-0.58, 8,0"></polygon>
+          </g>
+        </g>
+      </svg>
+      <div>Better and better approximations of the area under the curve.</div>
+    </a>
+    <p>
+      Notice that these two animations show the same data. In the previous
+      animation I plotted <code>f(x)</code> as a
+      <span style="color: #ce5a54">red</span> line, and I showed
+      <code>f′(x)</code> as a series of <b>black</b> and
+      <span style="color: #aaa; font-weight: bold">silver</span> arrows. In this
+      animation I plotted <code>f′(x)</code> as a
+      <span style="color: #ce5a54">red</span> line, and the
+      <span style="color: magenta">area under the curve</span> shows the value
+      of <code>f(x)</code>. The
+      <span style="color: #8f8f00; background-color: #ffffbf">yellow</span>
+      rectangles represents negative numbers.
+    </p>
+    <p>
+      When we solve an integral we start with <code>f′(x)</code> and use that to
+      recreate the original <code>f(x)</code>. We use the area under the curve
+      to show <code>f(x)</code>. We use a series of thinner and thinner
+      rectangles to approximate the area under the curve. The limit as we
+      approach an infinite number of zero-width rectangles will be
+      <code>f(x) + C</code>.
+    </p>
+
     <p>
       The formal definition of an integral involves an infinite sum. And that’s
-      exactly what we did with the dead reckoning example, and with the area
-      under the curve.
+      exactly what we did with both versions of this dead reckoning example. You
+      can also use a finite sum as an approximation.
     </p>
-    <div class="phil-notes">‼️ Need some images here.</div>
+    <p>
+      You will learn other ways to solve an integral. Some of them will look a
+      bit mysterious. Remember that those are just different ways of approaching
+      the same problem I demonstrated here. Any time you have to solve an
+      integral, or your teacher says “the anti-derivative exists,” think about
+      this dead reckoning example with these two animations. You are calculating
+      the area under the curve. And that is the inverse of a derivative.
+    </p>
     <h1><a id="Final_Thoughts">Final Thoughts</a></h1>
     <p>
       That was a quick tour though <i>a full year’s worth</i> of calculus!

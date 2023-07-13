@@ -3,9 +3,7 @@
 For #SoME3
 https://3blue1brown.substack.com/p/some3-begins
 
-[This document](https://tradeideasphilip.github.io/divide-by-zero/) will become my final presentation.
-It's not finished, but it's getting pretty close.
-My notes to myself have a yellow background.
+[This document](https://tradeideasphilip.github.io/divide-by-zero/) is my final presentation.
 
 # Video
 
@@ -262,3 +260,18 @@ The deliverable is [my animated document](https://tradeideasphilip.github.io/div
 I wrote some [instructions](https://github.com/TradeIdeasPhilip/bounce-3d#starting-from-scratch) for reproducing my build environment.
 
 Most of the time I'm running in VS Code and the Vite extension automatically starts the dev mode script for me. I hit ⌘S to save my changes and my browser automatically refreshes. I type `npm run build` before I push to github.
+
+# Document vs. Video
+
+I like my decision to make a document.
+
+Last year I made a [video](https://www.youtube.com/watch?v=aZTTa00VEcQ).
+I like the result.
+But I think I get more results for my effort in the document.
+
+With the document I can fret over every detail.
+I can easily make small changes.
+With the video I was often afraid to make some small changes because I'd have to redo so much work.
+
+Also, with the video I was never sure of the right pace.
+With a document people can reread one a tough section, and skim past the stuff they already know.

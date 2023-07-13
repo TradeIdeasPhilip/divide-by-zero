@@ -1058,7 +1058,7 @@ class DeadReckoning {
       0.05 * Math.cos(5.11 * x - 0.2)
     );
   }
-  private static fPrime(x: number): number {
+  static fPrime(x: number): number {
     return (
       0.5 +
       0.5 * Math.cos(x) +
@@ -1280,3 +1280,75 @@ SampleGraph.startDemo();
     await sleep(3000);
   }
 })();
+
+/**
+ * Heavily inspired by class DeadReckoning.
+ * Meant to run in sync.
+ */
+class AreaUnderTheCurve {
+  static readonly #positiveGroup = getById(
+    "positiveUnderTheCurve",
+    SVGGElement
+  );
+  static readonly #negativeGroup = getById(
+    "negativeUnderTheCurve",
+    SVGGElement
+  );
+  static update(segmentCount: number) {
+    this.#positiveGroup.innerHTML = "";
+    this.#negativeGroup.innerHTML = "";
+    const segmentFraction = 1 / segmentCount;
+    const sizeOfSegment = DeadReckoning.WIDTH * segmentFraction;
+    segmentCount = Math.ceil(segmentCount);
+    for (let i = 0; i <= segmentCount; i++) {
+      const x = sizeOfSegment * i;
+      const y = DeadReckoning.fPrime(x);
+      if (y != 0) {
+        const x1 = sizeOfSegment * (i + 1);
+        const area = document.createElementNS(
+          "http://www.w3.org/2000/svg",
+          "polygon"
+        );
+        area.setAttribute("points", `${x},0 ${x},${y} ${x1},${y} ${x1},0`);
+        (y > 0 ? this.#positiveGroup : this.#negativeGroup).appendChild(area);
+      }
+    }
+  }
+  static startDemo() {
+    const initialPauseTime = 500;
+    const moveTime = 30000;
+    const finalPauseTime = 3500;
+    const period = initialPauseTime + moveTime + finalPauseTime;
+    /**
+     * Take care of the initial and final pauses.  All outputs will be in the range of 0 to 1.
+     */
+    const getProgress = makeBoundedLinear(
+      initialPauseTime,
+      0,
+      initialPauseTime + moveTime,
+      1
+    );
+    /**
+     * It's like breaking an animation into n equal pieces, then adding an ease-in and an ease-out to each one.
+     * @param x A value between 0 and 1.
+     * @returns A value between 0 and 1.
+     */
+    const insertPauses = (x: number) => {
+      const frequency = 4;
+      const coefficient = 2 * Math.PI * frequency;
+      return x - Math.sin(x * coefficient) / coefficient;
+    };
+    /**
+     * Convert from the internal 0-1 scale to the actual number of segments to display.
+     */
+    const getSegmentCount = makeLinear(0, 2.5, 1, 164);
+    new AnimationLoop((time) => {
+      const localTime = time % period;
+      const segmentCount = getSegmentCount(
+        insertPauses(getProgress(localTime))
+      );
+      this.update(segmentCount);
+    });
+  }
+}
+AreaUnderTheCurve.startDemo();
