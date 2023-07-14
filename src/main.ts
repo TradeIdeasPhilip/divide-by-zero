@@ -1066,28 +1066,32 @@ class DeadReckoning {
       5.11 * 0.05 * -Math.sin(5.11 * x - 0.2)
     );
   }
-  static readonly #polyline = getById(
-    "deadReckoningEstimate",
-    SVGPolylineElement
-  );
-  static readonly #pointerGroup = getById("deadReckoningPointers", SVGGElement);
+  readonly #polyline : SVGPolylineElement;
+  readonly #pointerGroup : SVGGElement;
+  constructor(suffix: string) {
+    this.#polyline = getById(
+      "deadReckoningEstimate" + suffix, 
+      SVGPolylineElement
+    );
+    this.#pointerGroup = getById("deadReckoningPointers" + suffix, SVGGElement);
+  }
   static readonly WIDTH = 8.2;
-  static update(segmentFraction: number) {
+  update(segmentFraction: number) {
     this.#pointerGroup.innerHTML = "";
     const segmentCount = Math.ceil(1 / segmentFraction);
-    const sizeOfSegment = this.WIDTH * segmentFraction;
+    const sizeOfSegment = DeadReckoning.WIDTH * segmentFraction;
     let points = "";
     /**
      * Our estimate is initialized with the correct value, but will
      * drift over time.
      */
-    let estimatedY = this.f(0);
+    let estimatedY = DeadReckoning.f(0);
     for (let i = 0; i <= segmentCount; i++) {
       const x = sizeOfSegment * i;
       points += ` ${x}, ${estimatedY}`;
-      const yPrime = this.fPrime(x);
+      const yPrime = DeadReckoning.fPrime(x);
       const dy = sizeOfSegment * yPrime;
-      const actualY = this.f(x);
+      const actualY = DeadReckoning.f(x);
       const angleInDegrees = (Math.atan(yPrime) / Math.PI) * 180;
       const pointerUp = new Pointer();
       this.#pointerGroup.appendChild(pointerUp.element);
@@ -1120,10 +1124,11 @@ class DeadReckoning {
       initialPauseTime + moveTime,
       1 / 40
     );
+    const instance = new this("")
     new AnimationLoop((time) => {
       const localTime = time % period;
       const segmentFraction = getSegmentFraction(localTime);
-      this.update(segmentFraction);
+      instance.update(segmentFraction);
     });
   }
 }
@@ -1330,6 +1335,7 @@ class AreaUnderTheCurve {
     );
     /**
      * It's like breaking an animation into n equal pieces, then adding an ease-in and an ease-out to each one.
+     * See https://www.desmos.com/calculator/r0exglohix for the shame of this timing function.
      * @param x A value between 0 and 1.
      * @returns A value between 0 and 1.
      */
@@ -1342,12 +1348,14 @@ class AreaUnderTheCurve {
      * Convert from the internal 0-1 scale to the actual number of segments to display.
      */
     const getSegmentCount = makeLinear(0, 2.5, 1, 164);
+    const deadReckoning = new DeadReckoning("1");
     new AnimationLoop((time) => {
       const localTime = time % period;
       const segmentCount = getSegmentCount(
         insertPauses(getProgress(localTime))
       );
       this.update(segmentCount);
+      deadReckoning.update(1/segmentCount);
     });
   }
 }
