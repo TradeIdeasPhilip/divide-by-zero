@@ -13,6 +13,7 @@ These help document the status of this project.
 - [How many parabolas does it take to draw a sine wave? #SoME3](https://www.youtube.com/shorts/1-BKmXGkuEI)
 - [Everything you need to know about calculus in 18 seconds #SoME3](https://www.youtube.com/shorts/CENmCTSuOb4)
 - [Responsive Design — Perfecting my #SoME3 paper](https://youtube.com/shorts/EJIehm0q5YI)
+- [#some3 submission: How to Divide by Zero and Other Things You Will Learn in High School Calculus](https://youtu.be/4_YTVm9S-DQ)
 
 Newest ones are on the bottom.
 
