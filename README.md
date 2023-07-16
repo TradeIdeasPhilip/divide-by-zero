@@ -13,7 +13,7 @@ These help document the status of this project.
 - [How many parabolas does it take to draw a sine wave? #SoME3](https://www.youtube.com/shorts/1-BKmXGkuEI)
 - [Everything you need to know about calculus in 18 seconds #SoME3](https://www.youtube.com/shorts/CENmCTSuOb4)
 - [Responsive Design — Perfecting my #SoME3 paper](https://youtube.com/shorts/EJIehm0q5YI)
-- [#some3 submission: How to Divide by Zero and Other Things You Will Learn in High School Calculus](https://youtu.be/4_YTVm9S-DQ)
+- [#some3 submission: How to Divide by Zero and Other Spells You Will Learn in High School Calculus](https://youtu.be/4_YTVm9S-DQ)
 
 Newest ones are on the bottom.
 
@@ -274,3 +274,12 @@ With the video I was often afraid to make some small changes because I'd have to
 
 Also, with the video I was never sure of the right pace.
 With a document people can reread a tough section, and skim past the stuff they already know.
+
+# How to Make Animations Like This
+
+I really liked the results of this project.
+You can see how I made these animations, and you can see my previous projects, all on GitHub.
+
+But I really wish I'd seen this much sooner.
+https://developer.mozilla.org/en-US/docs/Web/API/Web_Animations_API
+If you know JavaScript, and you want anything more than the simplest animation, consider this over CSS.

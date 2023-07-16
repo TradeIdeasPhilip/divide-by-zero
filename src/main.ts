@@ -527,7 +527,7 @@ new AnimationLoop((time) =>
     lastNumber++;
     if (Math.random() > 0.75) {
       // Change the suffix.
-      if (Math.random() < 0.8) {
+      if (Math.random() < 0.7) {
         // The common case.
         lastSuffix = "";
       } else {
