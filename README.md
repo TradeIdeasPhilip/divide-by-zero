@@ -9,20 +9,20 @@ These help document the status of this project.
 
 - [Bribing ALL of the #SoME3 judges — How much would it cost?](https://www.youtube.com/watch?v=VnLQNXIJ1l4)
 - [#some3 status update - interactive demo](https://www.youtube.com/shorts/RDkrc9fiNtw)
-- [How to Divide by Infinity #SoME3 progress and behind the scenes](https://youtu.be/h_LclJS3_Nw)
+- [How to Divide by Zero #SoME3 progress and behind the scenes](https://youtu.be/h_LclJS3_Nw)
 - [How many parabolas does it take to draw a sine wave? #SoME3](https://www.youtube.com/shorts/1-BKmXGkuEI)
 - [Everything you need to know about calculus in 18 seconds #SoME3](https://www.youtube.com/shorts/CENmCTSuOb4)
 - [Responsive Design — Perfecting my #SoME3 paper](https://youtube.com/shorts/EJIehm0q5YI)
 - [#some3 submission: How to Divide by Zero and Other Spells You Will Learn in High School Calculus](https://youtu.be/4_YTVm9S-DQ)
-- Visualizing the Fundamental Theorem of Calculus —[Coming Soon](https://www.youtube.com/@PhilipSmolen/shorts)
-- Visualizing the Derivative —[Coming Soon](https://www.youtube.com/@PhilipSmolen/shorts)
-- Integration — Visualizing The Area Under the Curve —[Coming Soon](https://www.youtube.com/@PhilipSmolen/shorts)
+- Visualizing the Fundamental Theorem of Calculus — [Coming Soon](https://www.youtube.com/@PhilipSmolen/shorts)
+- Visualizing the Derivative — [Coming Soon](https://www.youtube.com/@PhilipSmolen/shorts)
+- Integration — Visualizing The Area Under the Curve — [Coming Soon](https://www.youtube.com/@PhilipSmolen/shorts)
 
 Newest ones are on the bottom.
 
 # The pictures
 
-The backgrounds for my pictures come from Desmos.
+The backgrounds for most of my pictures come from Desmos.
 This was the quickest, easiest way to graph a function.
 And most of the pictures include a hyperlink back to the original Desmos graph, so the user can explore further without me.
 
@@ -49,7 +49,7 @@ I've tried a few things and nothing has worked well in Desmos.
 
 I wasn't having much luck with other approaches, so I decided to draw some things in SVG.
 SVG gives high quality results.
-And it knows how to draw parabolas.
+And it knows how to draw parabolas!
 
 The problem is that SVG uses a different format for specifying parabolas than we use in algebra and calculus.
 I couldn't find a good reference on the subject, so here's what I discovered by trial and error.
@@ -286,3 +286,11 @@ You can see how I made these animations, and you can see my previous projects, a
 But I really wish I'd seen this much sooner.
 https://developer.mozilla.org/en-US/docs/Web/API/Web_Animations_API
 If you know JavaScript, and you want anything more than the simplest animation, consider this over CSS.
+
+# Other People's Work
+
+The monitor that I use in some thumbnails comes from https://en.wikipedia.org/wiki/Computer_monitor#/media/File:MonitorLCDlcd.svg. Attribution: Михајло Анђелковић (original picture), modification: Mielon, CC BY-SA 3.0 <https://creativecommons.org/licenses/by-sa/3.0>, via Wikimedia Commons
+
+Click on pictures of the Mandelbrot set, “How long in the coast of Britain,” and the formal definition of a limit to see where they come from and to learn more about those subjects.
+
+My animation of an LC circuit is based on a drawing from Wikipedia. Click on that circuit to find the original and to learn more about LC circuits.
