@@ -1066,11 +1066,11 @@ class DeadReckoning {
       5.11 * 0.05 * -Math.sin(5.11 * x - 0.2)
     );
   }
-  readonly #polyline : SVGPolylineElement;
-  readonly #pointerGroup : SVGGElement;
+  readonly #polyline: SVGPolylineElement;
+  readonly #pointerGroup: SVGGElement;
   constructor(suffix: string) {
     this.#polyline = getById(
-      "deadReckoningEstimate" + suffix, 
+      "deadReckoningEstimate" + suffix,
       SVGPolylineElement
     );
     this.#pointerGroup = getById("deadReckoningPointers" + suffix, SVGGElement);
@@ -1124,7 +1124,7 @@ class DeadReckoning {
       initialPauseTime + moveTime,
       1 / 40
     );
-    const instance = new this("")
+    const instance = new this("");
     new AnimationLoop((time) => {
       const localTime = time % period;
       const segmentFraction = getSegmentFraction(localTime);
@@ -1355,8 +1355,116 @@ class AreaUnderTheCurve {
         insertPauses(getProgress(localTime))
       );
       this.update(segmentCount);
-      deadReckoning.update(1/segmentCount);
+      deadReckoning.update(1 / segmentCount);
     });
   }
 }
 AreaUnderTheCurve.startDemo();
+
+{
+  const deadReckoningPointers1 = getById(
+    "deadReckoningPointers1",
+    SVGGraphicsElement
+  );
+  const deadReckoningEstimate1 = getById(
+    "deadReckoningEstimate1",
+    SVGGraphicsElement
+  );
+  const negativeUnderTheCurve = getById(
+    "negativeUnderTheCurve",
+    SVGGraphicsElement
+  );
+  const positiveUnderTheCurve = getById(
+    "positiveUnderTheCurve",
+    SVGGraphicsElement
+  );
+
+  /**
+   * Step 1 for my fundamental theorem of calculus video.
+   */
+  function FToC1() {
+    [
+      deadReckoningPointers1,
+      deadReckoningEstimate1,
+      negativeUnderTheCurve,
+      positiveUnderTheCurve,
+    ].forEach((element) => (element.style.opacity = ""));
+  }
+
+  /**
+   * Step 2 for my fundamental theorem of calculus video.
+   */
+  function FToC2() {
+    [
+      deadReckoningEstimate1,
+      negativeUnderTheCurve,
+      positiveUnderTheCurve,
+    ].forEach((element) => (element.style.opacity = "0.2"));
+    deadReckoningPointers1.style.opacity = "0.1";
+  }
+
+  /**
+   * Visualizing the Derivative
+   */
+  function VtD1() {
+    [
+      deadReckoningEstimate1,
+      negativeUnderTheCurve,
+      positiveUnderTheCurve,
+    ].forEach((element) => (element.style.opacity = "0.2"));
+    deadReckoningPointers1.style.opacity = "0.1";
+  }
+
+  function VtD2() {
+    [
+      deadReckoningEstimate1,
+      negativeUnderTheCurve,
+      positiveUnderTheCurve,
+    ].forEach((element) => (element.style.opacity = "0.2"));
+    deadReckoningPointers1.style.opacity = "";
+  }
+
+  function VtD3() {
+    [deadReckoningEstimate1, positiveUnderTheCurve].forEach(
+      (element) => (element.style.opacity = "0.2")
+    );
+    deadReckoningPointers1.style.opacity = "";
+    negativeUnderTheCurve.style.opacity = "";
+  }
+
+  /**
+   * Integration — Visualizing The Area Under the Curve
+   */
+  function IVtAutC1() {
+    [deadReckoningEstimate1].forEach(
+      (element) => (element.style.opacity = "0.2")
+    );
+    deadReckoningPointers1.style.opacity = "0.1";
+    [negativeUnderTheCurve, positiveUnderTheCurve].forEach(
+      (element) => (element.style.opacity = "")
+    );
+  }
+
+  function IVtAutC2() {
+    deadReckoningPointers1.style.opacity = "0.1";
+    [negativeUnderTheCurve, positiveUnderTheCurve, deadReckoningEstimate1].forEach(
+      (element) => (element.style.opacity = "")
+    );
+  }
+
+  console.log("forVideo.…");
+
+  (window as any).forVideo = {
+    deadReckoningPointers1,
+    deadReckoningEstimate1,
+    negativeUnderTheCurve,
+    positiveUnderTheCurve,
+    FToC1,
+    FToC2,
+    VtD1,
+    VtD2,
+    VtD3,
+    IVtAutC1,
+    IVtAutC2,
+  };
+}
