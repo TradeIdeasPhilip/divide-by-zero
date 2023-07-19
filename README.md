@@ -14,7 +14,7 @@ These help document the status of this project.
 - [Everything you need to know about calculus in 18 seconds #SoME3](https://www.youtube.com/shorts/CENmCTSuOb4)
 - [Responsive Design — Perfecting my #SoME3 paper](https://youtube.com/shorts/EJIehm0q5YI)
 - [#some3 submission: How to Divide by Zero and Other Spells You Will Learn in High School Calculus](https://youtu.be/4_YTVm9S-DQ)
-- Visualizing the Fundamental Theorem of Calculus — [Coming Soon](https://www.youtube.com/@PhilipSmolen/shorts)
+- [Visualizing the Fundamental Theorem of Calculus](https://www.youtube.com/shorts/1j_tSvBpaBQ) ~~Coming Soon~~
 - Visualizing the Derivative — [Coming Soon](https://www.youtube.com/@PhilipSmolen/shorts)
 - Integration — Visualizing The Area Under the Curve — [Coming Soon](https://www.youtube.com/@PhilipSmolen/shorts)
 
