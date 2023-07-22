@@ -677,7 +677,7 @@ class Pointer {
     readonly functionX: number;
     /**
      * Where the item is.
-     * That might be the weight on a spring on the weight on a pendulum or an electron in a wire.
+     * That might be the weight on a spring or the weight on a pendulum or an electron in a wire.
      * 0 is the center or average point.  1 and -1 are the extremes.
      */
     readonly position: number;
@@ -897,7 +897,6 @@ class Pointer {
 
   class Spring {
     static updateDisplay({ position, functionX }: CurrentState) {
-      //  d="M 50,10 a 20,10,180,0,0,0,20 a 20,7.5,180,0,0,0,-15 a 20,10,180,0,0,0,20 a 20,7.5,180,0,0,0,-15 a 20,10,180,0,0,0,20 a 20,7.5,180,0,0,0,-15 a 20,10,180,0,0,0,20 a 20,7.5,180,0,0,0,-15 a 20,10,180,0,0,0,20"
       /**
        * Half of the height of each ellipse used on the left side of the spring.
        */
@@ -921,9 +920,20 @@ class Pointer {
         this.#FINAL_DROP
       }`;
       this.#path.setAttribute("d", d);
+
+      // Overlay.  The white parts that cover the black lines in the back.
+      const heightPerLoop = 2 * (leftRadius - rightRadius);
+      d = `M ${50 - horizontalRadius},${this.#TOP + leftRadius}`;
+      for (let i = 0; i < this.#LOOP_COUNT; i++) {
+        d += ` a ${leftRadius} ${horizontalRadius} 90 0 0 ${horizontalRadius} ${leftRadius}`;
+        d += ` a ${rightRadius},${horizontalRadius},90,0,0,${horizontalRadius},${-rightRadius}`;
+        d += ` m ${-horizontalRadius * 2},${heightPerLoop / 2}`;
+      }
+      this.#overlayPath.setAttribute("d", d);
+
       const weightYCenter =
         this.#TOP +
-        this.#LOOP_COUNT * 2 * (leftRadius - rightRadius) +
+        this.#LOOP_COUNT * heightPerLoop +
         leftRadius +
         this.#FINAL_DROP;
       this.#weight.cy.baseVal.value = weightYCenter;
@@ -948,6 +958,12 @@ class Pointer {
      * The spring itself.  Everything in a black line of the same width.
      */
     static readonly #path = getById("springPath", SVGPathElement);
+    /**
+     * Parts of the spring will be drawn a second and third time, on top of `this.#path`.
+     * This is the part of the spring that is closer to the viewer.
+     * That part of the spring has a border around it so you can distinguish it from the back part of the spring.
+     */
+    static readonly #overlayPath = getById("springOverlay", SVGPathElement);
     /**
      * The weight hanging on the end of the spring.
      */
@@ -1447,9 +1463,11 @@ AreaUnderTheCurve.startDemo();
 
   function IVtAutC2() {
     deadReckoningPointers1.style.opacity = "0.1";
-    [negativeUnderTheCurve, positiveUnderTheCurve, deadReckoningEstimate1].forEach(
-      (element) => (element.style.opacity = "")
-    );
+    [
+      negativeUnderTheCurve,
+      positiveUnderTheCurve,
+      deadReckoningEstimate1,
+    ].forEach((element) => (element.style.opacity = ""));
   }
 
   console.log("forVideo.…");

@@ -15,8 +15,8 @@ These help document the status of this project.
 - [Responsive Design — Perfecting my #SoME3 paper](https://youtube.com/shorts/EJIehm0q5YI)
 - [#some3 submission: How to Divide by Zero and Other Spells You Will Learn in High School Calculus](https://youtu.be/4_YTVm9S-DQ)
 - [Visualizing the Fundamental Theorem of Calculus](https://www.youtube.com/shorts/1j_tSvBpaBQ) ~~Coming Soon~~
-- Visualizing the Derivative — [Coming Soon](https://www.youtube.com/@PhilipSmolen/shorts)
-- Integration — Visualizing The Area Under the Curve — [Coming Soon](https://www.youtube.com/@PhilipSmolen/shorts)
+- [Another #SoME3 Snippet — Derivatives in 60 seconds](https://youtube.com/shorts/azXsLKD6DZQ)  ~~Coming Soon~~
+- Integration — Two Ways to Visualize — [Coming Soon](https://www.youtube.com/@PhilipSmolen/shorts)
 
 Newest ones are on the bottom.
 
@@ -294,3 +294,6 @@ The monitor that I use in some thumbnails comes from https://en.wikipedia.org/wi
 Click on pictures of the Mandelbrot set, “How long in the coast of Britain,” and the formal definition of a limit to see where they come from and to learn more about those subjects.
 
 My animation of an LC circuit is based on a drawing from Wikipedia. Click on that circuit to find the original and to learn more about LC circuits.
+
+I did _not_ invent any math.
+I have collected tidbits that I have found useful or important into this anthology.
