@@ -362,7 +362,7 @@ class DerivativeApproximation {
 }
 
 class AnimationLoop {
-  constructor(private readonly toDo: (time: DOMHighResTimeStamp) => void) {
+  constructor(private readonly onWake: (time: DOMHighResTimeStamp) => void) {
     this.callback = this.callback.bind(this);
     this.callback(performance.now());
   }
@@ -373,7 +373,7 @@ class AnimationLoop {
   private callback(time: DOMHighResTimeStamp) {
     if (!this.#cancelled) {
       requestAnimationFrame(this.callback);
-      this.toDo(time);
+      this.onWake(time);
     }
   }
 }
@@ -1375,3 +1375,15 @@ class AreaUnderTheCurve {
   }
 }
 AreaUnderTheCurve.startDemo();
+
+// The GUI to change the font size.
+document
+  .querySelectorAll('input[type="radio"][name="fontChoice"]')
+  .forEach((element) => {
+    const input = assertClass(element, HTMLInputElement);
+    const label = assertClass(input.nextElementSibling, HTMLLabelElement);
+    input.addEventListener("click", () => {
+      document.body.style.fontSize = label.style.fontSize;
+    });
+  });
+getById("font12", HTMLInputElement).click();

@@ -182,3 +182,24 @@ ul.toc-top > ul > li {
     transform: translateY(-3px);
   }
 }
+
+#fontChoices {
+  display: flex;
+  flex-direction: row;
+  gap: 1em;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 1em;
+}
+
+#fontChoices > div {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+#fontChoices > div > label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
