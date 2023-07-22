@@ -777,7 +777,6 @@ class Pointer {
     const result = new DOMRectReadOnly(x, y, width, height);
     return result;
   }
-  (window as any).getSizeInSvgCoordinates;
 
   /**
    * This class controls the animation with three sine waves in the physics section.
@@ -909,27 +908,27 @@ class Pointer {
        * Half of the width of the ellipses used in the spring.
        */
       const horizontalRadius = this.#getLoopWidth(-position);
-      let d = `M 50,${this.#TOP}`;
-      for (let i = 0; i < this.#LOOP_COUNT; i++) {
-        d += ` a ${horizontalRadius},${leftRadius},180,0,0,0,${2 * leftRadius}`;
-        d += ` a ${horizontalRadius},${rightRadius},180,0,0,0,${
-          -2 * rightRadius
+      const d =
+        `M 50,${this.#TOP}` +
+        (
+          ` a ${horizontalRadius},${leftRadius},180,0,0,0,${2 * leftRadius}` +
+          ` a ${horizontalRadius},${rightRadius},180,0,0,0,${-2 * rightRadius}`
+        ).repeat(this.#LOOP_COUNT) +
+        ` a ${horizontalRadius},${leftRadius},180,0,0,${-horizontalRadius},${leftRadius} h ${horizontalRadius} v ${
+          this.#FINAL_DROP
         }`;
-      }
-      d += ` a ${horizontalRadius},${leftRadius},180,0,0,${-horizontalRadius},${leftRadius} h ${horizontalRadius} v ${
-        this.#FINAL_DROP
-      }`;
       this.#path.setAttribute("d", d);
 
       // Overlay.  The white parts that cover the black lines in the back.
       const heightPerLoop = 2 * (leftRadius - rightRadius);
-      d = `M ${50 - horizontalRadius},${this.#TOP + leftRadius}`;
-      for (let i = 0; i < this.#LOOP_COUNT; i++) {
-        d += ` a ${leftRadius} ${horizontalRadius} 90 0 0 ${horizontalRadius} ${leftRadius}`;
-        d += ` a ${rightRadius},${horizontalRadius},90,0,0,${horizontalRadius},${-rightRadius}`;
-        d += ` m ${-horizontalRadius * 2},${heightPerLoop / 2}`;
-      }
-      this.#overlayPath.setAttribute("d", d);
+      const d1 =
+        `M ${50 - horizontalRadius},${this.#TOP + leftRadius - heightPerLoop}` +
+        (
+          ` a ${leftRadius} ${horizontalRadius} 90 0 0 ${horizontalRadius} ${leftRadius}` +
+          ` a ${rightRadius},${horizontalRadius},90,0,0,${horizontalRadius},${-rightRadius}` +
+          ` m ${-horizontalRadius * 2},${heightPerLoop / 2}`
+        ).repeat(this.#LOOP_COUNT + 1);
+      this.#overlayPath.setAttribute("d", d1);
 
       const weightYCenter =
         this.#TOP +
@@ -1376,113 +1375,3 @@ class AreaUnderTheCurve {
   }
 }
 AreaUnderTheCurve.startDemo();
-
-{
-  const deadReckoningPointers1 = getById(
-    "deadReckoningPointers1",
-    SVGGraphicsElement
-  );
-  const deadReckoningEstimate1 = getById(
-    "deadReckoningEstimate1",
-    SVGGraphicsElement
-  );
-  const negativeUnderTheCurve = getById(
-    "negativeUnderTheCurve",
-    SVGGraphicsElement
-  );
-  const positiveUnderTheCurve = getById(
-    "positiveUnderTheCurve",
-    SVGGraphicsElement
-  );
-
-  /**
-   * Step 1 for my fundamental theorem of calculus video.
-   */
-  function FToC1() {
-    [
-      deadReckoningPointers1,
-      deadReckoningEstimate1,
-      negativeUnderTheCurve,
-      positiveUnderTheCurve,
-    ].forEach((element) => (element.style.opacity = ""));
-  }
-
-  /**
-   * Step 2 for my fundamental theorem of calculus video.
-   */
-  function FToC2() {
-    [
-      deadReckoningEstimate1,
-      negativeUnderTheCurve,
-      positiveUnderTheCurve,
-    ].forEach((element) => (element.style.opacity = "0.2"));
-    deadReckoningPointers1.style.opacity = "0.1";
-  }
-
-  /**
-   * Visualizing the Derivative
-   */
-  function VtD1() {
-    [
-      deadReckoningEstimate1,
-      negativeUnderTheCurve,
-      positiveUnderTheCurve,
-    ].forEach((element) => (element.style.opacity = "0.2"));
-    deadReckoningPointers1.style.opacity = "0.1";
-  }
-
-  function VtD2() {
-    [
-      deadReckoningEstimate1,
-      negativeUnderTheCurve,
-      positiveUnderTheCurve,
-    ].forEach((element) => (element.style.opacity = "0.2"));
-    deadReckoningPointers1.style.opacity = "";
-  }
-
-  function VtD3() {
-    [deadReckoningEstimate1, positiveUnderTheCurve].forEach(
-      (element) => (element.style.opacity = "0.2")
-    );
-    deadReckoningPointers1.style.opacity = "";
-    negativeUnderTheCurve.style.opacity = "";
-  }
-
-  /**
-   * Integration — Visualizing The Area Under the Curve
-   */
-  function IVtAutC1() {
-    [deadReckoningEstimate1].forEach(
-      (element) => (element.style.opacity = "0.2")
-    );
-    deadReckoningPointers1.style.opacity = "0.1";
-    [negativeUnderTheCurve, positiveUnderTheCurve].forEach(
-      (element) => (element.style.opacity = "")
-    );
-  }
-
-  function IVtAutC2() {
-    deadReckoningPointers1.style.opacity = "0.1";
-    [
-      negativeUnderTheCurve,
-      positiveUnderTheCurve,
-      deadReckoningEstimate1,
-    ].forEach((element) => (element.style.opacity = ""));
-  }
-
-  console.log("forVideo.…");
-
-  (window as any).forVideo = {
-    deadReckoningPointers1,
-    deadReckoningEstimate1,
-    negativeUnderTheCurve,
-    positiveUnderTheCurve,
-    FToC1,
-    FToC2,
-    VtD1,
-    VtD2,
-    VtD3,
-    IVtAutC1,
-    IVtAutC2,
-  };
-}
