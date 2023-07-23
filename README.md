@@ -10,12 +10,12 @@ These help document the status of this project.
 - [Bribing ALL of the #SoME3 judges — How much would it cost?](https://www.youtube.com/watch?v=VnLQNXIJ1l4)
 - [#some3 status update - interactive demo](https://www.youtube.com/shorts/RDkrc9fiNtw)
 - [How to Divide by Zero #SoME3 progress and behind the scenes](https://youtu.be/h_LclJS3_Nw)
-- [How many parabolas does it take to draw a sine wave? #SoME3](https://www.youtube.com/shorts/1-BKmXGkuEI)
+- [How many parabolas does it take to draw a sine wave? #SoME3](https://www.youtube.com/shorts/1-BKmXGkuEI) — This explains the animation at the very top of the paper.
 - [Everything you need to know about calculus in 18 seconds #SoME3](https://www.youtube.com/shorts/CENmCTSuOb4)
 - [Responsive Design — Perfecting my #SoME3 paper](https://youtube.com/shorts/EJIehm0q5YI)
 - [#some3 submission: How to Divide by Zero and Other Spells You Will Learn in High School Calculus](https://youtu.be/4_YTVm9S-DQ)
 - [Visualizing the Fundamental Theorem of Calculus](https://www.youtube.com/shorts/1j_tSvBpaBQ) ~~Coming Soon~~
-- [Another #SoME3 Snippet — Derivatives in 60 seconds](https://youtube.com/shorts/azXsLKD6DZQ)  ~~Coming Soon~~
+- [Another #SoME3 Snippet — Derivatives in 60 seconds](https://youtube.com/shorts/azXsLKD6DZQ) ~~Coming Soon~~
 - Integration — Two Ways to Visualize — [Coming Soon](https://www.youtube.com/@PhilipSmolen/shorts)
 
 Newest ones are on the bottom.
@@ -269,7 +269,7 @@ I like my decision to make a document.
 
 Last year I made a [video](https://www.youtube.com/watch?v=aZTTa00VEcQ).
 I like the result.
-But I think I get more results for my effort in the document.
+But I get more results for my effort in the document.
 
 With the document I can fret over every detail.
 I can easily make small changes.

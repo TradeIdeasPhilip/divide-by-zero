@@ -1428,8 +1428,8 @@ getById("font12", HTMLInputElement).click();
       frequencyMultiplier: 1,
     };
     waves.forEach((path, index) => {
-      options.segmentsPerCycle = index + 2;
-      const d = sineWavePath(options); // TODO number of steps.
+      options.segmentsPerCycle = index / 2 + 2; // 2, 2.5, and 3.
+      const d = sineWavePath(options);
       path.setAttribute("d", d);
     });
   });
