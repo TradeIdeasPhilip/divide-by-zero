@@ -658,6 +658,62 @@ class Pointer {
 }
 (window as any).Pointer = Pointer;
 
+/**
+ * Get the size and shape of your SVG element in SVG units.
+ *
+ * To go the other way, to see the size and shape of an SVG element
+ * in screen coordinates, consider using element.getBoundingClientRect().
+ * @param svg The element to measure.
+ * @param coordinatesRelativeTo Which coordinate system to use for the result.
+ * Defaults to `svg`.
+ * @returns A description of the svg in svg units.
+ *
+ * In the simplest case this will be exactly what you requested with viewBox.
+ *
+ * However, with the default preserveAspectRatio setting, the system might
+ * add additional space to the edges of your SVG just to fit into the layout.
+ */
+function getSizeInSvgCoordinates(
+  svg: SVGSVGElement,
+  coordinatesRelativeTo: SVGGraphicsElement = svg
+) {
+  /**
+   * Convert **from** screen coordinates.
+   */
+  const svgMatrix = coordinatesRelativeTo.getScreenCTM()!;
+  /**
+   * Convert the SVGMatrix to a DomMatrix.
+   * According to TypeScript and the MDN docs this should not be necessary.
+   * When I tried with Chrome the svgMatrix did not have a getScreenCTM() method.
+   */
+  const domMatrix = new DOMMatrix([
+    svgMatrix.a,
+    svgMatrix.b,
+    svgMatrix.c,
+    svgMatrix.d,
+    svgMatrix.e,
+    svgMatrix.f,
+  ]);
+  /**
+   * Convert **to** screen coordinates.
+   */
+  const screenToSvg = domMatrix.inverse();
+  /**
+   * The space reserved for the SVG element.
+   * This is in screen coordinates.
+   */
+  const rect = svg.getBoundingClientRect();
+  const { x, y } = screenToSvg.transformPoint(rect);
+  const { x: x1, y: y1 } = screenToSvg.transformPoint({
+    x: rect.right,
+    y: rect.bottom,
+  });
+  const height = y1 - y;
+  const width = x1 - x;
+  const result = new DOMRectReadOnly(x, y, width, height);
+  return result;
+}
+
 // Physics stuff:
 {
   /**
@@ -720,62 +776,6 @@ class Pointer {
         `${this.#initialArrowTransform} scale(${velocity} 1)`
       );
     }
-  }
-
-  /**
-   * Get the size and shape of your SVG element in SVG units.
-   *
-   * To go the other way, to see the size and shape of an SVG element
-   * in screen coordinates, consider using element.getBoundingClientRect().
-   * @param svg The element to measure.
-   * @param coordinatesRelativeTo Which coordinate system to use for the result.
-   * Defaults to `svg`.
-   * @returns A description of the svg in svg units.
-   *
-   * In the simplest case this will be exactly what you requested with viewBox.
-   *
-   * However, with the default preserveAspectRatio setting, the system might
-   * add additional space to the edges of your SVG just to fit into the layout.
-   */
-  function getSizeInSvgCoordinates(
-    svg: SVGSVGElement,
-    coordinatesRelativeTo: SVGGraphicsElement = svg
-  ) {
-    /**
-     * Convert **from** screen coordinates.
-     */
-    const svgMatrix = coordinatesRelativeTo.getScreenCTM()!;
-    /**
-     * Convert the SVGMatrix to a DomMatrix.
-     * According to TypeScript and the MDN docs this should not be necessary.
-     * When I tried with Chrome the svgMatrix did not have a getScreenCTM() method.
-     */
-    const domMatrix = new DOMMatrix([
-      svgMatrix.a,
-      svgMatrix.b,
-      svgMatrix.c,
-      svgMatrix.d,
-      svgMatrix.e,
-      svgMatrix.f,
-    ]);
-    /**
-     * Convert **to** screen coordinates.
-     */
-    const screenToSvg = domMatrix.inverse();
-    /**
-     * The space reserved for the SVG element.
-     * This is in screen coordinates.
-     */
-    const rect = svg.getBoundingClientRect();
-    const { x, y } = screenToSvg.transformPoint(rect);
-    const { x: x1, y: y1 } = screenToSvg.transformPoint({
-      x: rect.right,
-      y: rect.bottom,
-    });
-    const height = y1 - y;
-    const width = x1 - x;
-    const result = new DOMRectReadOnly(x, y, width, height);
-    return result;
   }
 
   /**
@@ -1387,3 +1387,50 @@ document
     });
   });
 getById("font12", HTMLInputElement).click();
+
+{
+  const svg = getById("fontBackground", SVGSVGElement);
+
+  // Interesting.  This gives different results on Chrome and Safari.
+  // Chrome resizes the SVG to take up the entire width before getting
+  // here.  Safari doesn't do that first resize until later.
+  //console.log(getSizeInSvgCoordinates(svg));
+
+  const waveColors: readonly string[] = ["red", "magenta", "blue"];
+  const height = 100;
+  const waveHeight = height * 0.5;
+  const amplitude = waveHeight / 2;
+  const spaceToDivide = height - waveHeight;
+  const spaceBetween = spaceToDivide / (waveColors.length - 0.5);
+  const initialY = spaceBetween / 4 + amplitude;
+
+  const waves = waveColors.map((color, index) => {
+    const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+    svg.appendChild(path);
+    path.style.fill = "none";
+    path.style.stroke = color;
+    path.style.strokeWidth = "0.056";
+    path.setAttribute(
+      "transform",
+      `translate(0, ${initialY + index * spaceBetween}) scale(${amplitude})`
+    );
+    return path;
+  });
+  new AnimationLoop((time) => {
+    const x0 = -time / 1000;
+    const { left, right } = getSizeInSvgCoordinates(svg, waves[0]);
+    const options: SineWaveOptions = {
+      left,
+      amplitude: -1,
+      yCenter: 0,
+      right,
+      x0,
+      frequencyMultiplier: 1,
+    };
+    waves.forEach((path, index) => {
+      options.segmentsPerCycle = index + 2;
+      const d = sineWavePath(options); // TODO number of steps.
+      path.setAttribute("d", d);
+    });
+  });
+}

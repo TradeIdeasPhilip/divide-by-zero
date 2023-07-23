@@ -184,6 +184,17 @@ export type SineWaveOptions = SinOptions & {
    * The furthest left, in graph coordinates, that we should plot.
    */
   right: number;
+  /**
+   * Leave this `undefined` for the default.
+   * Normally that's what you want.
+   * I've added this for testing and artistic value.
+   * Too small and this chart will look funny.
+   * Too big and you waste memory and CPU.
+   *
+   * See different values: https://www.youtube.com/shorts/1-BKmXGkuEI
+   * "How many parabolas does it take to draw a sine wave? #some3"
+   */
+  segmentsPerCycle?: number;
 };
 
 /**
@@ -199,6 +210,7 @@ function getXs({
   left,
   right,
   frequencyMultiplier,
+  segmentsPerCycle,
 }: SineWaveOptions): number[] {
   if (right <= left) {
     // Nothing to display.
@@ -214,15 +226,20 @@ function getXs({
    * 10 seems to work well.  100 isn't noticeably different.
    *
    * I start to see problems around 5.  6 is probably usable but I want to be safe.
+   *
+   * If you really need fewer segments, try lining them up better.
+   * If you start a new segment at every 0 and every extreme, you will need few if any additional segments.
+   * I tried that at first, but it was a lot of effort, and just raising this number worked.
    */
-  const SEGMENTS_PER_CYCLE = 10;
+  const RECOMMENDED_SEGMENTS_PER_CYCLE = 10;
+  segmentsPerCycle ??= RECOMMENDED_SEGMENTS_PER_CYCLE;
   /**
    * More cycles means we need more detail and therefore more segments.
    */
   const numberOfCycles = ((right - left) / (2 * Math.PI)) * frequencyMultiplier;
   const numberOfSegments = Math.max(
     1,
-    Math.round(numberOfCycles * SEGMENTS_PER_CYCLE)
+    Math.round(numberOfCycles * segmentsPerCycle)
   );
   const result = initializedArray(
     numberOfSegments + 1,

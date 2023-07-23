@@ -190,6 +190,7 @@ ul.toc-top > ul > li {
   flex-wrap: wrap;
   justify-content: center;
   margin-bottom: 1em;
+  position: relative;
 }
 
 #fontChoices > div {
@@ -202,4 +203,11 @@ ul.toc-top > ul > li {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+#fontBackground {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
 }
