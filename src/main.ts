@@ -1277,6 +1277,9 @@ class SampleGraph {
     this.#outputText.innerHTML = "y" + formatNumber(y);
     const slope = -2 * x; // It seems like I compute y, y', and angle in multiple places.  Should be reused, not copied!
     const angleInDegrees = (Math.atan(slope) / Math.PI) * 180;
+    // TODO Replace most calls to setAttribute() and .style with this:
+    // https://css-tricks.com/the-typed-object-model/
+    // This interface is much more efficient and appropriate for updates in the animation callback.
     this.#pointer.element.setAttribute(
       "transform",
       `translate(${x}, ${y}) scale(0.075) rotate(${angleInDegrees})`
