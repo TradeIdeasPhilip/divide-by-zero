@@ -14,9 +14,9 @@ These help document the status of this project.
 - [Everything you need to know about calculus in 18 seconds #SoME3](https://www.youtube.com/shorts/CENmCTSuOb4)
 - [Responsive Design — Perfecting my #SoME3 paper](https://youtube.com/shorts/EJIehm0q5YI)
 - [#some3 submission: How to Divide by Zero and Other Spells You Will Learn in High School Calculus](https://youtu.be/4_YTVm9S-DQ)
-- [Visualizing the Fundamental Theorem of Calculus](https://www.youtube.com/shorts/1j_tSvBpaBQ) ~~Coming Soon~~
-- [Another #SoME3 Snippet — Derivatives in 60 seconds](https://youtube.com/shorts/azXsLKD6DZQ) ~~Coming Soon~~
-- Integration — Two Ways to Visualize — [Coming Soon](https://www.youtube.com/@PhilipSmolen/shorts)
+- [Visualizing the Fundamental Theorem of Calculus](https://www.youtube.com/shorts/1j_tSvBpaBQ)
+- [Another #SoME3 Snippet — Derivatives in 60 seconds](https://youtube.com/shorts/azXsLKD6DZQ)
+- [Integration — Two Ways to Visualize](https://www.youtube.com/shorts/u0K-bxDNRro)
 
 Newest ones are on the bottom.
 
@@ -96,7 +96,8 @@ I couldn't find a good reference on the subject, so here's what I discovered by 
 </path>
 </svg>
 
-[Sample SVG Graphic](./readme-images/parabola.svg)
+![Sample SVG Graphic](https://raw.githubusercontent.com/TradeIdeasPhilip/divide-by-zero/master/readme-images/parabola.svg)
+[Source Code for Sample SVG Graphic](./readme-images/parabola.svg)
 
 I have to specify a starting and ending point.
 These are shown here as orange circles.
